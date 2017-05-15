@@ -7,6 +7,7 @@ import { userSignupRequest } from '../../actions/signupActions'
 class SignupPage extends React.Component {
 
   render() {
+    console.log("SingupPage render")
     const { userSignupRequest } = this.props
     return (
       <div>

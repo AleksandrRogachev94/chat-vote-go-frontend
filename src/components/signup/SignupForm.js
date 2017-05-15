@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import classnames from 'classnames'
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -42,33 +41,49 @@ class SignupForm extends React.Component {
   }
 
   render() {
+    console.log("SignupForm render")
     const { errors } = this.state
-    console.log(errors)
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="ui form" onSubmit={this.handleSubmit}>
         <div>{errors.other && <span>{errors.other.join(", ")}</span>}</div>
 
-        <div className={classnames("form-group", { 'has-errors': errors.email })}>
-          <label>Email
-            <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
-          </label>
-          {errors.email && <span>{errors.email.join(", ")}</span>}
+        <div className="field">
+          <label className="label">Email</label>
+          <p className="control has-icons-left">
+            <input type="text" name="email" placeholder="Email" className={errors.email ? 'input is-danger' : 'input'}
+              value={this.state.email} onChange={this.handleChange} />
+            <span className="icon is-small is-left">
+              <i className="fa fa-envelope"></i>
+            </span>
+          </p>
+          {errors.email && <p className="help is-danger">{errors.email.join(", ")}</p>}
         </div>
 
-        <div>
-          <label>Password
-            <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
-          </label>
-          {errors.password && <span>{errors.password.join(", ")}</span>}
+        <div className="field">
+          <label className="label">Password</label>
+          <p className="control has-icons-left">
+            <input type="password" name="password" placeholder="Password" className={errors.password ? 'input is-danger' : 'input'}
+              value={this.state.password} onChange={this.handleChange} />
+            <span className="icon is-small is-left">
+              <i className="fa fa-lock"></i>
+            </span>
+          </p>
+          {errors.password && <p className="help is-danger">{errors.password.join(", ")}</p>}
         </div>
 
-        <div>
-          <label>Password Confirmation
-            <input type="password" name="password_confirmation" value={this.state.password_confirmation} onChange={this.handleChange} />
-          </label>
-          {errors.password_confirmation && <span>{errors.password_confirmation.join(", ")}</span>}
+        <div className="field">
+          <label className="label">Password Confirmation</label>
+          <p className="control has-icons-left">
+            <input type="password" name="password_confirmation" placeholder="Confirm Password" className={errors.password_confirmation ? 'input is-danger' : 'input'}
+              value={this.state.password_confirmation} onChange={this.handleChange} />
+            <span className="icon is-small is-left">
+              <i className="fa fa-lock"></i>
+            </span>
+          </p>
+          {errors.password_confirmation && <p className="help is-danger">{errors.password_confirmation.join(", ")}</p>}
         </div>
-        <button>Sign Up</button>
+
+        <button className="button is-primary" type="submit">Sign Up</button>
       </form>
     )
   }

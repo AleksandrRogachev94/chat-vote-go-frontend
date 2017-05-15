@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
+    "bulma": "^0.4.1",
     "classnames": "^2.2.5",
     "isomorphic-fetch": "^2.2.1",
     "react": "^15.5.4",

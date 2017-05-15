@@ -29,5 +29,5 @@ class LoginPage extends React.Component {
   }
 }
 
-LoginPage = connect(null, { login })(LoginPage)
+LoginPage =  connect(null, { login })(LoginPage)
 export default LoginPage
