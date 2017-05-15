@@ -12,10 +12,10 @@ export function userSignupRequest(userData) {
     });
 
     return fetch(request)
-      .then(response => response.json())
-      .then(json => {
-        console.log(json)
-        // localStorage.setItem('jwtToken', json.jwt)
-      })
+      .then(response => response.json()
+        .then(data =>
+          response.ok ? data : Promise.reject({status: response.status, data})
+        )
+      )
   }
 }
