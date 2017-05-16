@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import App from '../components/App'
 import Home from '../components/Home'
 import NotFound from '../components/NotFound'
-import LoginPage from '../components/LoginPage'
+import LoginPage from '../components/login/LoginPage'
 import SignupPage from '../components/signup/SignupPage'
 
 const Root = ({ store }) => (

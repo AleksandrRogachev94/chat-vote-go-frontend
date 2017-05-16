@@ -1,5 +1,4 @@
 import Validator from 'validator'
-import isEmpty from 'lodash/isEmpty';
 
 export function dataFromReject(fail) {
   if(Math.floor(fail.status / 100) === 4) {
@@ -9,30 +8,28 @@ export function dataFromReject(fail) {
   }
 }
 
-export function validateSignup(data) {
-  let errors = {}
+// Validations
 
-  if(Validator.isEmpty(data.email)) {
+export function validateEmail(email, errors) {
+  if(Validator.isEmpty(email)) {
     errors.email = ["can't be blank"]
   }
-  if(!Validator.isEmail(data.email)) {
+  if(!Validator.isEmail(email)) {
     errors.email = ["you must use valid email format"]
   }
+}
 
-  if(Validator.isEmpty(data.password)) {
+export function validatePassword(password, errors) {
+  if(Validator.isEmpty(password)) {
     errors.password = ["can't be blank"]
   }
+}
 
-  if(Validator.isEmpty(data.password_confirmation)) {
+export function validatePasswordConfirmation(password_confirmation, password, errors) {
+  if(Validator.isEmpty(password_confirmation)) {
     errors.password_confirmation = ["can't be blank"]
   }
-
-  if(!Validator.equals(data.password, data.password_confirmation)) {
+  if(!Validator.equals(password, password_confirmation)) {
     errors.password_confirmation = ["must match password field"]
-  }
-
-  return {
-    errors,
-    isValid: isEmpty(errors)
   }
 }

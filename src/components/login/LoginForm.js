@@ -1,19 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { browserHistory } from 'react-router'
+import { dataFromReject, validateEmail, validatePassword } from '../../lib/shared'
+import isEmpty from 'lodash/isEmpty';
 import InputField from '../common/InputField'
 import AuthButton from '../common/AuthButton'
-import { dataFromReject, validateEmail, validatePassword, validatePasswordConfirmation } from '../../lib/shared'
-import isEmpty from 'lodash/isEmpty';
 
-class SignupForm extends React.Component {
+class LoginForm extends React.Component {
   constructor(props) {
     super(props)
 
     this.state={
       email: '',
       password: '',
-      password_confirmation: '',
       errors: {},
       isLoading: false
     }
@@ -32,7 +31,6 @@ class SignupForm extends React.Component {
     const errors = {}
     validateEmail(this.state.email, errors)
     validatePassword(this.state.password, errors)
-    validatePasswordConfirmation(this.state.password_confirmation, this.state.password, errors)
 
     if(!isEmpty(errors)) {
       this.setState({ errors })
@@ -45,10 +43,10 @@ class SignupForm extends React.Component {
     ev.preventDefault()
     if(this.isValid()) {
       this.setState({ errors: {}, isLoading: true })
-      this.props.userSignupRequest(this.state)
+      this.props.login(this.state)
         .then(
           (response) => {
-            this.props.addFlashMessage({ type: 'success', text: 'You signed up successfully. Welcome!' })
+            this.props.addFlashMessage({ type: 'success', text: 'You logged in successfully. Welcome!' })
             browserHistory.push('/') },
           (fail) => { this.setState(dataFromReject(fail)) }
         )
@@ -56,8 +54,8 @@ class SignupForm extends React.Component {
   }
 
   render() {
-    console.log("SignupForm render")
-    const { errors, isLoading, email, password, password_confirmation } = this.state
+    console.log("LoginForm render")
+    const { errors, isLoading, email, password } = this.state
     return (
       <form onSubmit={this.handleSubmit}>
         {errors.other && <p className="help is-danger">{errors.other.join(", ")}</p>}
@@ -68,19 +66,15 @@ class SignupForm extends React.Component {
         <InputField name="password" label="Password" placeholder="Password" type="password" value={password}
           onChange={this.handleChange} iconClass="fa fa-lock" errors={errors.password && errors.password.join(", ")} />
 
-        <InputField name="password_confirmation" label="Confirm Password" placeholder="Password Confirmation"
-          type="password" value={password_confirmation} onChange={this.handleChange} iconClass="fa fa-lock"
-          errors={errors.password_confirmation && errors.password_confirmation.join(", ")} />
-
-        <AuthButton value="Sign Up" isLoading={isLoading} />
+        <AuthButton value="Log In" isLoading={isLoading} />
       </form>
     )
   }
 }
 
-SignupForm.propTypes = {
-  userSignupRequest: PropTypes.func.isRequired,
+LoginForm.propTypes = {
+  login: PropTypes.func.isRequired,
   addFlashMessage: PropTypes.func.isRequired
 }
 
-export default SignupForm
+export default LoginForm
