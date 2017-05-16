@@ -9,6 +9,13 @@ export function setCurrentUser(user) {
   }
 }
 
+export function logout() {
+  return dispatch => {
+    localStorage.removeItem('jwt')
+    dispatch(setCurrentUser({}))
+  }
+}
+
 export function login(userData) {
   return dispatch => {
     const request = new Request('/api/v1/login', {
