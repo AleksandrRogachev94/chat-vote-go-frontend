@@ -17,10 +17,11 @@ class Navbar extends React.Component {
   }
 
   render() {
-    const { isAuthenticated } = this.props.auth
+    const { isAuthenticated, user } = this.props.auth
 
     const userLinks = (
       <div>
+        <Link to={`/users/${user.id}`}>{this.props.auth.user.email}</Link> |
         <a href="#" onClick={this.logout}>Logout</a>
       </div>
     )

@@ -6,6 +6,7 @@ import Home from '../components/Home'
 import NotFound from '../components/NotFound'
 import LoginPage from '../components/login/LoginPage'
 import SignupPage from '../components/signup/SignupPage'
+import ProfilePageContainer from '../components/profile/ProfilePageContainer'
 
 const Root = ({ store }) => (
   <Provider store={store} >
@@ -14,6 +15,7 @@ const Root = ({ store }) => (
         <IndexRoute component={Home} />
         <Route path='/login' component={LoginPage} />
         <Route path='/signup' component={SignupPage} />
+        <Route path='/users/:id' component={ProfilePageContainer} />
 
         <Route path='*' component={NotFound} />
       </Route>
