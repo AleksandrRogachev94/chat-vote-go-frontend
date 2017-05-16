@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import InputField from './InputField'
-import AuthButton from './AuthButton'
+import InputField from '../common/InputField'
+import AuthButton from '../common/AuthButton'
+import { handleReject, validateSignup } from '../../lib/shared'
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -25,15 +26,27 @@ class SignupForm extends React.Component {
     })
   }
 
+  isValid() {
+    const { errors, isValid } = validateSignup(this.state)
+
+    if(!isValid) {
+      this.setState({ errors })
+    }
+
+    return isValid
+  }
+
   handleSubmit(ev) {
     ev.preventDefault()
-    this.setState({ errors: {}, isLoading: true })
-    this.props.userSignupRequest(this.state)
-      .then(
-        (response) => {  },
-        (fail) => { this.handleReject(fail) }
-      )
-      .then(() => this.setState({isLoading: false}))
+    if(this.isValid()) {
+      this.setState({ errors: {}, isLoading: true })
+      this.props.userSignupRequest(this.state)
+        .then(
+          (response) => {  },
+          (fail) => { this.handleReject(fail) }
+        )
+        .then(() => this.setState({isLoading: false}))
+    }
   }
 
   handleReject(fail) {
@@ -48,7 +61,7 @@ class SignupForm extends React.Component {
     console.log("SignupForm render")
     const { errors, isLoading } = this.state
     return (
-      <form className="ui form" onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         {errors.other && <p className="help is-danger">{errors.other.join(", ")}</p>}
 
         <InputField name="email" label="Email" placeholder="Email" type="email" value={this.state.email}

@@ -9,7 +9,7 @@ export default function InputField({ name, label, placeholder, type, value, onCh
   const inputClass = errors ? "input is-danger" : "input"
   return (
     <div className="field">
-      <label className="label">Password</label>
+      <label className="label">{label}</label>
       <p className={pClass}>
         <input type={type} name={name} placeholder={placeholder} className={inputClass}
           value={value} onChange={onChange} />
