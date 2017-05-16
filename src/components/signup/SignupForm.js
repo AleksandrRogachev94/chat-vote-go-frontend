@@ -1,8 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
+import { browserHistory } from 'react-router'
 import InputField from '../common/InputField'
 import AuthButton from '../common/AuthButton'
-import { handleReject, validateSignup } from '../../lib/shared'
+import { dataFromReject, validateSignup } from '../../lib/shared'
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -28,7 +29,6 @@ class SignupForm extends React.Component {
 
   isValid() {
     const { errors, isValid } = validateSignup(this.state)
-
     if(!isValid) {
       this.setState({ errors })
     }
@@ -42,18 +42,9 @@ class SignupForm extends React.Component {
       this.setState({ errors: {}, isLoading: true })
       this.props.userSignupRequest(this.state)
         .then(
-          (response) => {  },
-          (fail) => { this.handleReject(fail) }
+          (response) => { browserHistory.push('/') },
+          (fail) => { this.setState(dataFromReject(fail)) }
         )
-        .then(() => this.setState({isLoading: false}))
-    }
-  }
-
-  handleReject(fail) {
-    if(Math.floor(fail.status / 100) === 4) {
-      this.setState({ errors: fail.data.errors })
-    } else {
-      this.setState({ errors: { other: ["Error occured"] } })
     }
   }
 

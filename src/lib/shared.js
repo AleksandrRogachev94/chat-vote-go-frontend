@@ -1,11 +1,11 @@
 import Validator from 'validator'
 import isEmpty from 'lodash/isEmpty';
 
-export function handleReject(fail) {
+export function dataFromReject(fail) {
   if(Math.floor(fail.status / 100) === 4) {
-    return { errors: fail.data.errors }
+    return { errors: fail.data.errors, isLoading: false }
   } else {
-    return { errors: { other: "Error occured" } }
+    return { errors: { other: "Error occured" }, isLoading: false }
   }
 }
 
@@ -15,8 +15,7 @@ export function validateSignup(data) {
   if(Validator.isEmpty(data.email)) {
     errors.email = ["can't be blank"]
   }
-
-  if(Validator.isEmail(data.email)) {
+  if(!Validator.isEmail(data.email)) {
     errors.email = ["you must use valid email format"]
   }
 
