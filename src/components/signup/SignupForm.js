@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
+import InputField from './InputField'
+import AuthButton from './AuthButton'
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -9,7 +11,8 @@ class SignupForm extends React.Component {
       email: '',
       password: '',
       password_confirmation: '',
-      errors: {}
+      errors: {},
+      isLoading: false
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -24,12 +27,13 @@ class SignupForm extends React.Component {
 
   handleSubmit(ev) {
     ev.preventDefault()
-    this.setState({ errors: {} })
+    this.setState({ errors: {}, isLoading: true })
     this.props.userSignupRequest(this.state)
       .then(
         (response) => {  },
         (fail) => { this.handleReject(fail) }
       )
+      .then(() => this.setState({isLoading: false}))
   }
 
   handleReject(fail) {
@@ -42,48 +46,22 @@ class SignupForm extends React.Component {
 
   render() {
     console.log("SignupForm render")
-    const { errors } = this.state
+    const { errors, isLoading } = this.state
     return (
       <form className="ui form" onSubmit={this.handleSubmit}>
-        <div>{errors.other && <span>{errors.other.join(", ")}</span>}</div>
+        {errors.other && <p className="help is-danger">{errors.other.join(", ")}</p>}
 
-        <div className="field">
-          <label className="label">Email</label>
-          <p className="control has-icons-left">
-            <input type="text" name="email" placeholder="Email" className={errors.email ? 'input is-danger' : 'input'}
-              value={this.state.email} onChange={this.handleChange} />
-            <span className="icon is-small is-left">
-              <i className="fa fa-envelope"></i>
-            </span>
-          </p>
-          {errors.email && <p className="help is-danger">{errors.email.join(", ")}</p>}
-        </div>
+        <InputField name="email" label="Email" placeholder="Email" type="email" value={this.state.email}
+          onChange={this.handleChange} iconClass="fa fa-envelope" errors={errors.email && errors.email.join(", ")} />
 
-        <div className="field">
-          <label className="label">Password</label>
-          <p className="control has-icons-left">
-            <input type="password" name="password" placeholder="Password" className={errors.password ? 'input is-danger' : 'input'}
-              value={this.state.password} onChange={this.handleChange} />
-            <span className="icon is-small is-left">
-              <i className="fa fa-lock"></i>
-            </span>
-          </p>
-          {errors.password && <p className="help is-danger">{errors.password.join(", ")}</p>}
-        </div>
+        <InputField name="password" label="Password" placeholder="Password" type="password" value={this.state.password}
+          onChange={this.handleChange} iconClass="fa fa-lock" errors={errors.password && errors.password.join(", ")} />
 
-        <div className="field">
-          <label className="label">Password Confirmation</label>
-          <p className="control has-icons-left">
-            <input type="password" name="password_confirmation" placeholder="Confirm Password" className={errors.password_confirmation ? 'input is-danger' : 'input'}
-              value={this.state.password_confirmation} onChange={this.handleChange} />
-            <span className="icon is-small is-left">
-              <i className="fa fa-lock"></i>
-            </span>
-          </p>
-          {errors.password_confirmation && <p className="help is-danger">{errors.password_confirmation.join(", ")}</p>}
-        </div>
+        <InputField name="password_confirmation" label="Confirm Password" placeholder="Password Confirmation"
+          type="password" value={this.state.password_confirmation} onChange={this.handleChange} iconClass="fa fa-lock"
+          errors={errors.password_confirmation && errors.password_confirmation.join(", ")} />
 
-        <button className="button is-primary" type="submit">Sign Up</button>
+        <AuthButton value="Sign Up" isLoading={isLoading} />
       </form>
     )
   }
