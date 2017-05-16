@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { login } from '../../actions/login'
-import LoginForm from './LoginForm'
+import { login } from '../../actions/authActions'
 import { addFlashMessage } from '../../actions/flashMessages'
+import LoginForm from './LoginForm'
 
 const LoginPage = ({ login, addFlashMessage }) => {
-
   return (
     <div>
       <h1 className="title">Login Page</h1>
