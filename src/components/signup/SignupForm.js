@@ -5,6 +5,7 @@ import InputField from '../common/InputField'
 import AuthButton from '../common/AuthButton'
 import { dataFromReject, validateEmail, validatePassword, validatePasswordConfirmation } from '../../lib/shared'
 import isEmpty from 'lodash/isEmpty';
+import Error from '../common/Error'
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -60,7 +61,7 @@ class SignupForm extends React.Component {
     const { errors, isLoading, email, password, password_confirmation } = this.state
     return (
       <form onSubmit={this.handleSubmit}>
-        {errors.other && <p className="help is-danger">{errors.other.join(", ")}</p>}
+        {errors.other &&  <Error msg={errors.other.join(", ")} />}
 
         <InputField name="email" label="Email" placeholder="Email" type="email" value={email}
           onChange={this.handleChange} iconClass="fa fa-envelope" errors={errors.email && errors.email.join(", ")} />

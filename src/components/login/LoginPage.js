@@ -9,7 +9,7 @@ const LoginPage = ({ login, addFlashMessage }) => {
 
   return (
     <div>
-      <h1>Login Page</h1>
+      <h1 className="title">Login Page</h1>
       <LoginForm login={login} addFlashMessage={addFlashMessage} />
     </div>
   )

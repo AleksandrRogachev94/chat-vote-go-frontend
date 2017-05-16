@@ -9,7 +9,7 @@ const SignupPage = ({ userSignupRequest, addFlashMessage }) => {
   console.log("SingupPage render")
   return (
     <div>
-      <h1>Signup Page</h1>
+      <h1 className="title">Signup Page</h1>
       <SignupForm userSignupRequest={userSignupRequest} addFlashMessage={addFlashMessage} />
     </div>
   )
