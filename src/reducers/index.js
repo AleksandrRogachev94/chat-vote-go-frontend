@@ -24,3 +24,7 @@ export const getCurrentUser = (state) => (
 export const getProfileByUserId = (state, id) => (
   fromProfilesByUserId.getProfileByUserId(state.profilesByUserId, id)
 )
+
+export const getIsLoadingByUserId = (state, id) => (
+  fromProfilesByUserId.getIsLoadingByUserId(state.profilesByUserId, id)
+)

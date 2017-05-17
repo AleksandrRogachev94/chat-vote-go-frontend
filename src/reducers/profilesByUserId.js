@@ -37,6 +37,10 @@ export default profilesByUserId
 
 // Selectors
 
-export const getProfileByUserId = (state, id) => (
-  state[id]
+export const getProfileByUserId = (state, id) => {
+  return state[id] && state[id].profile
+}
+
+export const getIsLoadingByUserId = (state, id) => (
+  state[id] && state[id].isFetching
 )
