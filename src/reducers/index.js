@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import auth from './auth'
 import flashMessages from './flashMessages'
-import profiles from './profiles'
+import profilesByUserId from './profilesByUserId'
 
 const rootReducer = combineReducers({
   auth,

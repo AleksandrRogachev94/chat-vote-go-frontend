@@ -4,7 +4,7 @@ const profile = (state = {
   isFetching: false,
   didInvalidate: false,
   profile: {}
-}, action) {
+}, action) => {
 
   switch(action.type) {
 

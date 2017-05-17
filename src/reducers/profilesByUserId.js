@@ -5,11 +5,10 @@ const profilesByUserId = (state = {}, action) => {
   switch(action.type) {
 
     case FETCH_PROFILE_REQUEST:
-    case FETCH_PROFILE_SUCCESS:
     case FETCH_PROFILE_FAILURE:
     case INVALIDATE_PROFILE:
       return Object.assign({}, state, {
-        [action.profile.id]: profile(state[action.profile.id], action)
+        [action.id]: profile(state[action.id], action)
       })
       // let isNew = true
       //   const newState = state.map(profile => {
@@ -23,6 +22,11 @@ const profilesByUserId = (state = {}, action) => {
       //
       // if(isNew) newState.push(action.profile)
       // return newState
+
+    case FETCH_PROFILE_SUCCESS:
+      return Object.assign({}, state, {
+        [action.profile.id]: profile(state[action.profile.id], action)
+      })
 
     default:
       return state
