@@ -1,11 +1,25 @@
 import Validator from 'validator'
+import 'isomorphic-fetch'
 
-export function dataFromReject(fail) {
+export const fetchWrapper = (request) =>
+  fetch(request)
+    .then(response => response.json()
+      .then(
+        data => (response.ok ? data : Promise.reject({status: response.status, data})),
+        err => Promise.reject(response)
+      )
+  )
+
+export function dataFromReject(fail, isUsingLoading) {
+  let result = {}
   if(Math.floor(fail.status / 100) === 4) {
-    return { errors: fail.data.errors, isLoading: false }
+    result.errors = fail.data.errors
   } else {
-    return { errors: { other: ["Error occured. Try again later"] }, isLoading: false }
+    result.errors = { other: [`Error occured. Try again later (status code ${fail.status})`] }
   }
+
+  if(isUsingLoading) result.isLoading = false
+  return result
 }
 
 // Validations

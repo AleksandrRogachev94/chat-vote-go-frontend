@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 export default function PrimaryButton({ isLoading, value, onClick }) {
 
-  console.log("PrimaryButton render")
-
   return (
     <div className="has-text-centered">
       <button className={isLoading ? "button is-primary is-loading" : "button is-primary"}

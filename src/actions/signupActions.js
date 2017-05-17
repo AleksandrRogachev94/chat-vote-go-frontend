@@ -1,4 +1,5 @@
 import 'isomorphic-fetch'
+import { fetchWrapper } from '../lib/shared'
 
 export const userSignupRequest = (userData) => (dispatch) => {
   const request = new Request('/api/v1/signup', {
@@ -10,10 +11,5 @@ export const userSignupRequest = (userData) => (dispatch) => {
     body: JSON.stringify({user: userData})
   });
 
-  return fetch(request)
-    .then(response => response.json()
-      .then(data =>
-        response.ok ? data : Promise.reject({status: response.status, data})
-      )
-    )
+  return fetchWrapper(request)
 }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { browserHistory } from 'react-router'
 import { addFlashMessage } from '../../actions/flashMessages'
+import { getIsAuthenticated } from '../../reducers/index'
 
 export default function(ComposedComponent) {
   class Authenticate extends React.Component {
@@ -40,7 +41,7 @@ export default function(ComposedComponent) {
   }
 
   const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: getIsAuthenticated(state)
   })
 
   return connect(mapStateToProps, { addFlashMessage })(Authenticate)

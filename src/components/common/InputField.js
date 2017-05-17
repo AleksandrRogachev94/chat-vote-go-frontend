@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 export default function InputField({ name, label, placeholder, type, value, onChange, iconClass, errors }) {
 
-  console.log("InputField render")
-
   const pClass = iconClass ? "control has-icons-left" : "control"
   const inputClass = errors ? "input is-danger" : "input"
   return (

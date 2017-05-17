@@ -26,22 +26,22 @@ class ProfilePageContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(!this.state.profile) {
+    // if(!this.state.profile) {
     // if(!this.props.profile || !prevProps.profile || (this.props.profile.profile.id !== prevProps.profile.profile.id)) {
-      this.fetchProfileIfNeeded()
-    }
+      // this.fetchProfileIfNeeded()
+    // }
   }
 
   fetchProfileIfNeeded() {
     this.props.fetchProfileIfNeeded(this.props.id)
       .then(() => { if(!isEmpty(this.state.errors)) this.setState({ errors: {} }) })
-      .catch((fail) => this.setState(dataFromReject(fail)))
+      .catch((fail) => { console.log("Setting state for errors........."); this.setState(dataFromReject(fail)) })
   }
 
   handleRefreshClick() {
-    const { fetchProfileIfNeeded, invalidateProfile, id } = this.props
-    invalidateProfile(this.props.id)
-    fetchProfileIfNeeded(id)
+    const { invalidateProfile, id } = this.props
+    invalidateProfile(id)
+    this.fetchProfileIfNeeded(id)
   }
 
   render() {

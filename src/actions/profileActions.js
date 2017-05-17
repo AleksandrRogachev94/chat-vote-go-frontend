@@ -1,4 +1,5 @@
 import 'isomorphic-fetch'
+import { fetchWrapper } from '../lib/shared'
 import { FETCH_PROFILE_REQUEST, FETCH_PROFILE_SUCCESS, FETCH_PROFILE_FAILURE, INVALIDATE_PROFILE } from './actionTypes'
 
 export const fetchProfileRequest = (id) => ({
@@ -32,16 +33,11 @@ export const fetchProfile = (id) => (dispatch) => {
     }),
   });
 
-  return fetch(request)
-    .then(response => response.json()
-      .then(data =>
-        response.ok ? data : Promise.reject({status: response.status, data})
-      )
-    )
+  return fetchWrapper(request)
     // All OK.
     .then(data => dispatch(fetchProfileSuccess(data.user)))
     // Error. Rethrow promise for further handling in component.
-    .catch((err) => { dispatch(fetchProfileFailure(id)); throw err })
+    .catch((err) => { console.log("RETHRIOWING ERROR!s"); console.log(err); dispatch(fetchProfileFailure(id)); throw err })
 }
 
 function shouldFetchProfile(state, id) {
@@ -58,6 +54,7 @@ function shouldFetchProfile(state, id) {
 export const fetchProfileIfNeeded = (id) => (dispatch, getState) => {
   if (shouldFetchProfile(getState(), id)) {
     return dispatch(fetchProfile(id))
+    // .catch(() => console.log("AAAAAAAAAAAAAAAAAa"))
   } else {
     return Promise.resolve()
   }

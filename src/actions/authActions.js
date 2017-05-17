@@ -1,5 +1,6 @@
 import 'isomorphic-fetch'
 import jwtDecode from 'jwt-decode'
+import { fetchWrapper } from '../lib/shared'
 import { SET_CURRENT_USER } from './actionTypes'
 
 export const setCurrentUser = (user) => ({
@@ -22,12 +23,7 @@ export const login = (userData) => (dispatch) => {
     body: JSON.stringify({user: userData})
   });
 
-  return fetch(request)
-    .then(response => response.json()
-      .then(data =>
-        response.ok ? data : Promise.reject({status: response.status, data})
-      )
-    )
+  return fetchWrapper(request)
     .then(data => {
       localStorage.setItem('jwt', data.jwt)
       dispatch(setCurrentUser(jwtDecode(data.jwt)))

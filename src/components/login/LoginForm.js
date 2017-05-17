@@ -55,8 +55,9 @@ class LoginForm extends React.Component {
         .then(
           (response) => {
             this.props.addFlashMessage({ type: 'success', text: 'You logged in successfully. Welcome!' })
-            browserHistory.push('/') },
-          (fail) => { this.setState(dataFromReject(fail)) }
+            browserHistory.push('/')
+          },
+          (fail) => this.setState(dataFromReject(fail, true))
         )
     }
   }
