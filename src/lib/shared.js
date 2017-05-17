@@ -4,7 +4,7 @@ export function dataFromReject(fail) {
   if(Math.floor(fail.status / 100) === 4) {
     return { errors: fail.data.errors, isLoading: false }
   } else {
-    return { errors: { other: "Error occured" }, isLoading: false }
+    return { errors: { other: ["Error occured. Try again later"] }, isLoading: false }
   }
 }
 
