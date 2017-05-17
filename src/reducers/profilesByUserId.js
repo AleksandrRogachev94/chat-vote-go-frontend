@@ -34,3 +34,9 @@ const profilesByUserId = (state = {}, action) => {
 }
 
 export default profilesByUserId
+
+// Selectors
+
+export const getProfileByUserId = (state, id) => (
+  state[id]
+)

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import isEmpty from 'lodash/isEmpty';
 import { fetchProfileIfNeeded, invalidateProfile } from '../../actions/profileActions'
+import { getProfileByUserId } from '../../reducers/index'
 import { dataFromReject } from '../../lib/shared'
 import ProfilePage from './ProfilePage'
 
@@ -54,9 +55,9 @@ class ProfilePageContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  profile: state.profilesByUserId[ownProps.params.id],
-  id: ownProps.params.id
+const mapStateToProps = (state, { params }) => ({
+  profile: getProfileByUserId(state, params.id),
+  id: params.id
 })
 
 export default withRouter(connect(mapStateToProps, { fetchProfileIfNeeded, invalidateProfile })(ProfilePageContainer))
