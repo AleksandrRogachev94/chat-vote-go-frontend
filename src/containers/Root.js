@@ -1,12 +1,15 @@
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { Provider } from 'react-redux'
+
 import App from '../components/App'
 import Home from '../components/Home'
 import NotFound from '../components/NotFound'
 import LoginPage from '../components/login/LoginPage'
 import SignupPage from '../components/signup/SignupPage'
 import ProfilePageContainer from '../components/profile/ProfilePageContainer'
+
+import requireAuth from '../components/common/requireAuth'
 
 const Root = ({ store }) => (
   <Provider store={store} >
@@ -15,7 +18,7 @@ const Root = ({ store }) => (
         <IndexRoute component={Home} />
         <Route path='/login' component={LoginPage} />
         <Route path='/signup' component={SignupPage} />
-        <Route path='/users/:id' component={ProfilePageContainer} />
+        <Route path='/users/:id' component={requireAuth(ProfilePageContainer)} />
 
         <Route path='*' component={NotFound} />
       </Route>
