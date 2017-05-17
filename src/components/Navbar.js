@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { logout } from '../actions/authActions'
+import { addFlashMessage } from '../actions/flashMessages'
 
 class Navbar extends React.Component {
 
@@ -14,6 +15,8 @@ class Navbar extends React.Component {
   logout(ev) {
     ev.preventDefault()
     this.props.logout()
+    this.props.addFlashMessage({ type: 'success', text: 'You logged out successfully.' })
+    browserHistory.push('/')
   }
 
   render() {
@@ -44,11 +47,12 @@ class Navbar extends React.Component {
 
 Navbar.propTypes = {
   auth: PropTypes.object.isRequired,
-  logout: PropTypes.func.isRequired
+  logout: PropTypes.func.isRequired,
+  addFlashMessage: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
   auth: state.auth
 })
 
-export default connect(mapStateToProps, { logout })(Navbar)
+export default connect(mapStateToProps, { logout, addFlashMessage })(Navbar)

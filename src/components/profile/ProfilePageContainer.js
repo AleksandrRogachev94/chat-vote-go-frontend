@@ -15,11 +15,17 @@ class ProfilePageContainer extends React.Component {
       errors: {},
     }
 
-    this.fetchProfileIfNeeded = this.fetchProfileIfNeeded.bind(this)
+    this.handleRefreshClick = this.handleRefreshClick.bind(this)
   }
 
   componentDidMount() {
     this.fetchProfileIfNeeded()
+  }
+
+  componentDidUpdate(prevProps) {
+    if(!this.props.profile || !prevProps.profile || (this.props.profile.profile.id !== prevProps.profile.profile.id)) {
+      this.fetchProfileIfNeeded()
+    }
   }
 
   fetchProfileIfNeeded() {
@@ -28,12 +34,20 @@ class ProfilePageContainer extends React.Component {
       .catch((fail) => this.setState(dataFromReject(fail)))
   }
 
+  handleRefreshClick() {
+    const { fetchProfileIfNeeded, invalidateProfile, id } = this.props
+    invalidateProfile(this.props.id)
+    fetchProfileIfNeeded(id)
+  }
+
   render() {
     console.log("ProfilePageContainer render")
-
     return (
       <div>
-        <ProfilePage profile={this.props.profile && this.props.profile.profile} errors={this.state.errors} onRefresh={() => console.log("Refresh!!!")} />
+        <ProfilePage profile={this.props.profile && this.props.profile.profile}
+                              errors={this.state.errors}
+                              onRefresh={this.handleRefreshClick}
+                              isLoading={this.props.profile && this.props.profile.isFetching} />
       </div>
     )
   }

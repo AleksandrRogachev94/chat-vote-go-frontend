@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import ProfileInfo from './ProfileInfo'
 import Error from '../common/Error'
+import PrimaryButton from '../common/PrimaryButton'
 
 const ProfilePage = (props) => {
   console.log("ProfilePage render")
@@ -14,7 +15,8 @@ const ProfilePage = (props) => {
       <h1 className="title">Profile Page</h1>
       {props.errors.other &&  <Error msg={props.errors.other.join(", ")} />}
       {props.errors.auth &&  <Error msg={props.errors.auth.join(", ")} />}
-      <button className="button" onClick={props.onRefresh}>Refresh</button>
+
+      <PrimaryButton value="Refresh" onClick={props.onRefresh} isLoading={props.isLoading} />
       <ProfileInfo email={email} created_at={created_at} />
     </div>
   )
@@ -23,6 +25,7 @@ const ProfilePage = (props) => {
 ProfilePage.propTypes = {
   profile: PropTypes.object,
   errors: PropTypes.object,
+  isLoading: PropTypes.bool,
   onRefresh: PropTypes.func.isRequired
 }
 
