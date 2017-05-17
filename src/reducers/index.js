@@ -16,7 +16,6 @@ export default rootReducer
 export const getIsAuthenticated = (state) => (
   fromAuth.getIsAuthenticated(state.auth)
 )
-
 export const getCurrentUser = (state) => (
   fromAuth.getCurrentUser(state.auth)
 )
@@ -24,7 +23,9 @@ export const getCurrentUser = (state) => (
 export const getProfile = (state, id) => (
   fromProfilesByUserId.getProfile(state.profilesByUserId, id)
 )
-
 export const getIsFetchingProfile = (state, id) => (
   fromProfilesByUserId.getIsFetchingProfile(state.profilesByUserId, id)
+)
+export const getProfileErrors = (state, id) => (
+  fromProfilesByUserId.getProfileErrors(state.profilesByUserId, id)
 )

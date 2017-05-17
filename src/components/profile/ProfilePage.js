@@ -13,8 +13,8 @@ const ProfilePage = (props) => {
   return (
     <div>
       <h1 className="title has-text-centered">Profile Page</h1>
-      {props.errors.other &&  <Error msg={props.errors.other.join(", ")} />}
-      {props.errors.auth &&  <Error msg={props.errors.auth.join(", ")} />}
+      {props.errors.other && <Error msg={props.errors.other.join(", ")} />}
+      {props.errors.auth && <Error msg={props.errors.auth.join(", ")} />}
 
       <ProfileInfo email={email} created_at={created_at} />
       <PrimaryButton value="Refresh" onClick={props.onRefresh} isLoading={props.isFetching} />

@@ -3,6 +3,7 @@ import { FETCH_PROFILE_REQUEST, FETCH_PROFILE_SUCCESS, FETCH_PROFILE_FAILURE, IN
 const profile = (state = {
   isFetching: false,
   didInvalidate: false,
+  errors: {},
   profile: {}
 }, action) => {
 
@@ -11,20 +12,23 @@ const profile = (state = {
     case FETCH_PROFILE_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
-        didInvalidate: false
+        didInvalidate: false,
+        errors: {}
       })
 
     case FETCH_PROFILE_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
-        profile: action.profile
+        profile: action.profile,
+        errors: {}
       })
 
     case FETCH_PROFILE_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        didInvalidate: false
+        didInvalidate: false,
+        errors: action.errors
       })
 
     case INVALIDATE_PROFILE:
@@ -45,6 +49,10 @@ export const getProfile = (state) => (
   state.profile
 )
 
-export const getIsFetching = (state) => (
+export const getIsFetchingProfile = (state) => (
   state.isFetching
+)
+
+export const getProfileErrors = (state) => (
+  state.errors
 )
