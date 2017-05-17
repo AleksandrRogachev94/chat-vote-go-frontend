@@ -1,57 +1,47 @@
 import 'isomorphic-fetch'
 import { FETCH_PROFILE_REQUEST, FETCH_PROFILE_SUCCESS, FETCH_PROFILE_FAILURE, INVALIDATE_PROFILE } from './actionTypes'
 
-export function fetchProfileRequest(id) {
-  return {
-    type: FETCH_PROFILE_REQUEST,
-    id
-  }
-}
+export const fetchProfileRequest = (id) => ({
+  type: FETCH_PROFILE_REQUEST,
+  id
+})
 
-export function fetchProfileFailure(id) {
-  return {
-    type: FETCH_PROFILE_FAILURE,
-    id
-  }
-}
+export const fetchProfileFailure = (id) => ({
+  type: FETCH_PROFILE_FAILURE,
+  id
+})
 
-export function invalidateProfile(id) {
-  return {
-    type: INVALIDATE_PROFILE,
-    id
-  }
-}
+export const invalidateProfile = (id) => ({
+  type: INVALIDATE_PROFILE,
+  id
+})
 
-export function fetchProfileSuccess(profile) {
-  return {
-    type: FETCH_PROFILE_SUCCESS,
-    profile
-  }
-}
+export const fetchProfileSuccess = (profile) => ({
+  type: FETCH_PROFILE_SUCCESS,
+  profile
+})
 
-export function fetchProfile(id) {
-  return dispatch => {
-    dispatch(fetchProfileRequest(id))
+export const fetchProfile = (id) => (dispatch) => {
+  dispatch(fetchProfileRequest(id))
 
-    const request = new Request(`/api/v1/users/${id}`, {
-      method: 'GET',
-      headers: new Headers({
-        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-        'Accepts': 'application/json'
-      }),
-    });
+  const request = new Request(`/api/v1/users/${id}`, {
+    method: 'GET',
+    headers: new Headers({
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+      'Accepts': 'application/json'
+    }),
+  });
 
-    return fetch(request)
-      .then(response => response.json()
-        .then(data =>
-          response.ok ? data : Promise.reject({status: response.status, data})
-        )
+  return fetch(request)
+    .then(response => response.json()
+      .then(data =>
+        response.ok ? data : Promise.reject({status: response.status, data})
       )
-      // All OK.
-      .then(data => dispatch(fetchProfileSuccess(data.user)))
-      // Error. Rethrow promise for further handling in component.
-      .catch((err) => { dispatch(fetchProfileFailure(id)); throw err })
-  }
+    )
+    // All OK.
+    .then(data => dispatch(fetchProfileSuccess(data.user)))
+    // Error. Rethrow promise for further handling in component.
+    .catch((err) => { dispatch(fetchProfileFailure(id)); throw err })
 }
 
 function shouldFetchProfile(state, id) {
@@ -65,12 +55,10 @@ function shouldFetchProfile(state, id) {
   }
 }
 
-export function fetchProfileIfNeeded(id) {
-  return (dispatch, getState) => {
-    if (shouldFetchProfile(getState(), id)) {
-      return dispatch(fetchProfile(id))
-    } else {
-      return Promise.resolve()
-    }
+export const fetchProfileIfNeeded = (id) => (dispatch, getState) => {
+  if (shouldFetchProfile(getState(), id)) {
+    return dispatch(fetchProfile(id))
+  } else {
+    return Promise.resolve()
   }
 }

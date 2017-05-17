@@ -2,14 +2,14 @@ import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { Provider } from 'react-redux'
 
-import App from '../components/App'
-import Home from '../components/Home'
-import NotFound from '../components/NotFound'
-import LoginPage from '../components/login/LoginPage'
-import SignupPage from '../components/signup/SignupPage'
-import ProfilePageContainer from '../components/profile/ProfilePageContainer'
+import App from './App'
+import Home from './Home'
+import NotFound from './NotFound'
+import LoginPage from './login/LoginPage'
+import SignupPage from './signup/SignupPage'
+import ProfilePageContainer from './profile/ProfilePageContainer'
 
-import requireAuth from '../components/common/requireAuth'
+import requireAuth from './common/requireAuth'
 
 const Root = ({ store }) => (
   <Provider store={store} >

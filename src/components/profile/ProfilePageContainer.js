@@ -23,7 +23,8 @@ class ProfilePageContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(!this.props.profile || !prevProps.profile || (this.props.profile.profile.id !== prevProps.profile.profile.id)) {
+    if(!this.state.profile) {
+    // if(!this.props.profile || !prevProps.profile || (this.props.profile.profile.id !== prevProps.profile.profile.id)) {
       this.fetchProfileIfNeeded()
     }
   }
