@@ -11,7 +11,7 @@ class ProfilePageContainer extends React.Component {
     super(props)
 
     this.state = {
-      errors: {}
+      errors: {},
     }
 
     this.fetchProfile = this.fetchProfile.bind(this)
@@ -33,8 +33,7 @@ class ProfilePageContainer extends React.Component {
 
     return (
       <div>
-        <button className="button" onClick={this.fetchProfile}>Refresh</button>
-        <ProfilePage profile={profile} errors={this.state.errors} />
+        <ProfilePage profile={profile} errors={this.state.errors} onRefresh={this.fetchProfile} />
       </div>
     )
   }

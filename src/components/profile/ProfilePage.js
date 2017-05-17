@@ -14,6 +14,7 @@ const ProfilePage = (props) => {
       <h1 className="title">Profile Page</h1>
       {props.errors.other &&  <Error msg={props.errors.other.join(", ")} />}
       {props.errors.auth &&  <Error msg={props.errors.auth.join(", ")} />}
+      <button className="button" onClick={props.onRefresh}>Refresh</button>
       <ProfileInfo email={email} created_at={created_at} />
     </div>
   )
@@ -21,7 +22,8 @@ const ProfilePage = (props) => {
 
 ProfilePage.propTypes = {
   profile: PropTypes.object,
-  errors: PropTypes.object
+  errors: PropTypes.object,
+  onRefresh: PropTypes.func.isRequired
 }
 
 export default ProfilePage

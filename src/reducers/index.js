@@ -5,7 +5,7 @@ import profiles from './profiles'
 
 const rootReducer = combineReducers({
   auth,
-  profiles,
+  profilesByUserId,
   flashMessages
 })
 
