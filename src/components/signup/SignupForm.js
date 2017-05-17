@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { browserHistory } from 'react-router'
 import InputField from '../common/InputField'
-import AuthButton from '../common/AuthButton'
+import PrimaryButton from '../common/PrimaryButton'
 import { dataFromReject, validateEmail, validatePassword, validatePasswordConfirmation } from '../../lib/shared'
 import isEmpty from 'lodash/isEmpty';
 import Error from '../common/Error'
@@ -24,9 +24,16 @@ class SignupForm extends React.Component {
   }
 
   handleChange(ev) {
-    this.setState({
-      [ev.target.name]: ev.target.value
-    })
+    if(this.state.errors[ev.target.name]) {
+      let errors = Object.assign({}, this.state.errors)
+      delete errors[ev.target.name]
+      this.setState({
+        [ev.target.name]: ev.target.value,
+        errors
+      })
+    } else {
+      this.setState({ [ev.target.name]: ev.target.value })
+    }
   }
 
   isValid() {
@@ -73,7 +80,7 @@ class SignupForm extends React.Component {
           type="password" value={password_confirmation} onChange={this.handleChange} iconClass="fa fa-lock"
           errors={errors.password_confirmation && errors.password_confirmation.join(", ")} />
 
-        <AuthButton value="Sign Up" isLoading={isLoading} />
+        <PrimaryButton value="Sign Up" isLoading={isLoading} />
       </form>
     )
   }

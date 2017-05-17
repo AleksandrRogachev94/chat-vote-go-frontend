@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router'
 import { dataFromReject, validateEmail, validatePassword } from '../../lib/shared'
 import isEmpty from 'lodash/isEmpty';
 import InputField from '../common/InputField'
-import AuthButton from '../common/AuthButton'
+import PrimaryButton from '../common/PrimaryButton'
 import Error from '../common/Error'
 
 class LoginForm extends React.Component {
@@ -23,9 +23,16 @@ class LoginForm extends React.Component {
   }
 
   handleChange(ev) {
-    this.setState({
-      [ev.target.name]: ev.target.value
-    })
+    if(this.state.errors[ev.target.name]) {
+      let errors = Object.assign({}, this.state.errors)
+      delete errors[ev.target.name]
+      this.setState({
+        [ev.target.name]: ev.target.value,
+        errors
+      })
+    } else {
+      this.setState({ [ev.target.name]: ev.target.value })
+    }
   }
 
   isValid() {
@@ -68,7 +75,7 @@ class LoginForm extends React.Component {
         <InputField name="password" label="Password" placeholder="Password" type="password" value={password}
           onChange={this.handleChange} iconClass="fa fa-lock" errors={errors.password && errors.password.join(", ")} />
 
-        <AuthButton value="Log In" isLoading={isLoading} />
+        <PrimaryButton value="Log In" isLoading={isLoading} />
       </form>
     )
   }
