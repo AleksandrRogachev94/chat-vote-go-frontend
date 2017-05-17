@@ -38,3 +38,13 @@ const profile = (state = {
 }
 
 export default profile
+
+// Selectors
+
+export const getProfile = (state) => (
+  state.profile
+)
+
+export const getIsFetching = (state) => (
+  state.isFetching
+)

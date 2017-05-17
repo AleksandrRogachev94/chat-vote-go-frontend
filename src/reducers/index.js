@@ -21,10 +21,10 @@ export const getCurrentUser = (state) => (
   fromAuth.getCurrentUser(state.auth)
 )
 
-export const getProfileByUserId = (state, id) => (
-  fromProfilesByUserId.getProfileByUserId(state.profilesByUserId, id)
+export const getProfile = (state, id) => (
+  fromProfilesByUserId.getProfile(state.profilesByUserId, id)
 )
 
-export const getIsLoadingByUserId = (state, id) => (
-  fromProfilesByUserId.getIsLoadingByUserId(state.profilesByUserId, id)
+export const getIsFetchingProfile = (state, id) => (
+  fromProfilesByUserId.getIsFetchingProfile(state.profilesByUserId, id)
 )

@@ -1,5 +1,5 @@
 import { FETCH_PROFILE_REQUEST, FETCH_PROFILE_SUCCESS, FETCH_PROFILE_FAILURE, INVALIDATE_PROFILE } from '../actions/actionTypes'
-import profile from './profile'
+import profile, * as fromProfile from './profile'
 
 const profilesByUserId = (state = {}, action) => {
   switch(action.type) {
@@ -10,18 +10,6 @@ const profilesByUserId = (state = {}, action) => {
       return Object.assign({}, state, {
         [action.id]: profile(state[action.id], action)
       })
-      // let isNew = true
-      //   const newState = state.map(profile => {
-      //     if(profile.id === action.profile.id) {
-      //       isNew = false
-      //       return action.profile
-      //     } else {
-      //       return profile
-      //     }
-      //   })
-      //
-      // if(isNew) newState.push(action.profile)
-      // return newState
 
     case FETCH_PROFILE_SUCCESS:
       return Object.assign({}, state, {
@@ -37,10 +25,10 @@ export default profilesByUserId
 
 // Selectors
 
-export const getProfileByUserId = (state, id) => {
-  return state[id] && state[id].profile
-}
+export const getProfile = (state, id) => (
+  state[id] && fromProfile.getProfile(state[id])
+)
 
-export const getIsLoadingByUserId = (state, id) => (
-  state[id] && state[id].isFetching
+export const getIsFetchingProfile = (state, id) => (
+  state[id] && fromProfile.getIsFetching(state[id])
 )

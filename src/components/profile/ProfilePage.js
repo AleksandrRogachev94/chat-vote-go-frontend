@@ -17,7 +17,7 @@ const ProfilePage = (props) => {
       {props.errors.auth &&  <Error msg={props.errors.auth.join(", ")} />}
 
       <ProfileInfo email={email} created_at={created_at} />
-      <PrimaryButton value="Refresh" onClick={props.onRefresh} isLoading={props.isLoading} />
+      <PrimaryButton value="Refresh" onClick={props.onRefresh} isLoading={props.isFetching} />
     </div>
   )
 }
@@ -25,7 +25,7 @@ const ProfilePage = (props) => {
 ProfilePage.propTypes = {
   profile: PropTypes.object,
   errors: PropTypes.object,
-  isLoading: PropTypes.bool,
+  isFetching: PropTypes.bool,
   onRefresh: PropTypes.func.isRequired
 }
 

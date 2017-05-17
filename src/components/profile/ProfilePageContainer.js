@@ -4,7 +4,7 @@ import { withRouter } from 'react-router'
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import { fetchProfileIfNeeded, invalidateProfile } from '../../actions/profileActions'
-import { getProfileByUserId, getIsLoadingByUserId } from '../../reducers/index'
+import { getProfile, getIsFetchingProfile } from '../../reducers/index'
 import { dataFromReject } from '../../lib/shared'
 import ProfilePage from './ProfilePage'
 
@@ -52,7 +52,7 @@ class ProfilePageContainer extends React.Component {
         <ProfilePage profile={this.props.profile}
                               errors={this.state.errors}
                               onRefresh={this.handleRefreshClick}
-                              isLoading={this.props.isLoading} />
+                              isFetching={this.props.isFetching} />
       </div>
     )
   }
@@ -60,13 +60,13 @@ class ProfilePageContainer extends React.Component {
 
 ProfilePageContainer.propTypes = {
   profile: PropTypes.object,
-  isLoading: PropTypes.bool,
+  isFetching: PropTypes.bool,
   id: PropTypes.string.isRequired
 }
 
 const mapStateToProps = (state, { params }) => ({
-  profile: getProfileByUserId(state, params.id),
-  isLoading: getIsLoadingByUserId(state, params.id),
+  profile: getProfile(state, params.id),
+  isFetching: getIsFetchingProfile(state, params.id),
   id: params.id
 })
 
