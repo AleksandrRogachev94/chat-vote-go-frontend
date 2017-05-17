@@ -16,3 +16,13 @@ const auth = (state = { isAuthenticated: false, user: {} }, action) => {
 }
 
 export default auth
+
+// Selectors
+
+export const getIsAuthenticated = (state) => (
+  state.isAuthenticated
+)
+
+export const getCurrentUser = (state) => (
+  state.user
+)

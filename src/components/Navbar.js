@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { logout } from '../actions/authActions'
 import { addFlashMessage } from '../actions/flashMessages'
+import { getIsAuthenticated, getCurrentUser } from '../reducers/index'
 
 class Navbar extends React.Component {
 
@@ -20,14 +21,14 @@ class Navbar extends React.Component {
   }
 
   render() {
-    const { isAuthenticated, user } = this.props.auth
+    const { isAuthenticated, currentUser } = this.props
 
     const userLinks = (
       <div className="nav-right nav-menu">
-        <Link to={`/users/${user.id}`}
+        <Link to={`/users/${currentUser.id}`}
               className="nav-item is-tab"
               activeClassName="is-active">
-          {this.props.auth.user.email}
+          {currentUser.email}
         </Link>
         <a href="#" className="nav-item is-tab" onClick={this.logout}>Logout</a>
       </div>
@@ -52,13 +53,15 @@ class Navbar extends React.Component {
 }
 
 Navbar.propTypes = {
-  auth: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  currentUser: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
   addFlashMessage: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  isAuthenticated: getIsAuthenticated(state),
+  currentUser: getCurrentUser(state)
 })
 
 export default connect(mapStateToProps, { logout, addFlashMessage })(Navbar)
