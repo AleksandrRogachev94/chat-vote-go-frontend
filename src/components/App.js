@@ -7,9 +7,17 @@ class App extends Component {
     console.log("App Render")
     return (
       <div className="App">
+
         <Navbar />
-        <FlashMessagesList />
-        {this.props.children}
+
+        <div className="content">
+          <FlashMessagesList />
+          {this.props.children}
+        </div>
+
+        <div className="footer">
+          2017 Aleksandr Rogachev
+        </div>
       </div>
     );
   }

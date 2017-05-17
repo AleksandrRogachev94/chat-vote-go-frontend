@@ -5,6 +5,7 @@ import configureStore from './configureStore'
 import jwtDecode from 'jwt-decode'
 import { setCurrentUser } from './actions/authActions'
 
+import './App.css'
 import 'bulma/css/bulma.css'
 
 const store = configureStore()

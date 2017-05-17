@@ -12,12 +12,12 @@ const ProfilePage = (props) => {
 
   return (
     <div>
-      <h1 className="title">Profile Page</h1>
+      <h1 className="title has-text-centered">Profile Page</h1>
       {props.errors.other &&  <Error msg={props.errors.other.join(", ")} />}
       {props.errors.auth &&  <Error msg={props.errors.auth.join(", ")} />}
 
-      <PrimaryButton value="Refresh" onClick={props.onRefresh} isLoading={props.isLoading} />
       <ProfileInfo email={email} created_at={created_at} />
+      <PrimaryButton value="Refresh" onClick={props.onRefresh} isLoading={props.isLoading} />
     </div>
   )
 }

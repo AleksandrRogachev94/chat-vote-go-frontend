@@ -23,24 +23,30 @@ class Navbar extends React.Component {
     const { isAuthenticated, user } = this.props.auth
 
     const userLinks = (
-      <div>
-        <Link to={`/users/${user.id}`}>{this.props.auth.user.email}</Link> |
-        <a href="#" onClick={this.logout}>Logout</a>
+      <div className="nav-right nav-menu">
+        <Link to={`/users/${user.id}`}
+              className="nav-item is-tab"
+              activeClassName="is-active">
+          {this.props.auth.user.email}
+        </Link>
+        <a href="#" className="nav-item is-tab" onClick={this.logout}>Logout</a>
       </div>
     )
 
     const guestLinks = (
-      <div>
-        <Link to='/login'>Login</Link> |
-        <Link to='/signup'>Signup</Link>
+      <div className="nav-right nav-menu">
+        <Link to='/login' className="nav-item is-tab" activeClassName="is-active">Login</Link>
+        <Link to='/signup' className="nav-item is-tab" activeClassName="is-active">Signup</Link>
       </div>
     )
 
     return (
-      <div>
-        <Link to='/'>Home</Link> |
+      <nav className="nav has-shadow">
+        <div className="nav-left">
+          <Link to='/' className="nav-item is-tab" onlyActiveOnIndex activeClassName="is-active">Home</Link>
+        </div>
         {isAuthenticated ? userLinks : guestLinks}
-      </div>
+      </nav>
     )
   }
 }

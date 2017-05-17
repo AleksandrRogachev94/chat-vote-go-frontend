@@ -8,8 +8,13 @@ import LoginForm from './LoginForm'
 const LoginPage = ({ login, addFlashMessage }) => {
   return (
     <div>
-      <h1 className="title">Login Page</h1>
-      <LoginForm login={login} addFlashMessage={addFlashMessage} />
+      <h1 className="title has-text-centered">Login Page</h1>
+
+      <div className="columns">
+        <div className="column is-half is-offset-one-quarter">
+          <LoginForm login={login} addFlashMessage={addFlashMessage} />
+        </div>
+      </div>
     </div>
   )
 }
