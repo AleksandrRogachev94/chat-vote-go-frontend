@@ -1,23 +1,29 @@
 import 'isomorphic-fetch'
 import { fetchWrapper, dataFromReject } from '../lib/shared'
+import { getIsFetchingUsers } from '../reducers/index'
 import { FETCH_USERS_REQUEST, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE } from './actionTypes'
 
-const fetchUsersRequest = () => ({
+const fetchUsersRequest = (title) => ({
   type: FETCH_USERS_REQUEST,
+  title
 })
 
-const fetchUsersFailure = (errors) => ({
+const fetchUsersFailure = (title, errors) => ({
   type: FETCH_USERS_FAILURE,
+  title,
   errors
 })
 
-const fetchUsersSuccess = (users) => ({
+const fetchUsersSuccess = (title, users) => ({
   type: FETCH_USERS_SUCCESS,
+  title,
   users
 })
 
-export const fetchUsers = () => (dispatch) => {
-  dispatch(fetchUsersRequest())
+export const fetchUsers = (title) => (dispatch, getState) => {
+  if (getIsFetchingUsers(getState(), title)) return Promise.resolve()
+
+  dispatch(fetchUsersRequest(title))
 
   const request = new Request(`/api/v1/users`, {
     method: 'GET',
@@ -29,27 +35,7 @@ export const fetchUsers = () => (dispatch) => {
 
   return fetchWrapper(request)
     // All OK.
-    .then(data => dispatch(fetchUsersSuccess(data.users)))
+    .then(data => { console.log('------------>', data); dispatch(fetchUsersSuccess(title, data.users));  })
     // Error.
-    .catch((err) => dispatch(fetchUsersFailure(dataFromReject(err).errors)));
+    .catch((err) => { console.log('------------>', err); dispatch(fetchUsersFailure(title, dataFromReject(err).errors));  });
 }
-
-// function shouldFetchProfile(state, id) {
-//   const profile = state.profilesByUserId[id]
-//   if (!profile) {
-//     return true
-//   } else if (profile.isFetching) {
-//     return false
-//   } else {
-//     return profile.didInvalidate
-//   }
-// }
-//
-// export const fetchProfileIfNeeded = (id) => (dispatch, getState) => {
-//   if (shouldFetchProfile(getState(), id)) {
-//     return dispatch(fetchProfile(id))
-//     // .catch(() => console.log("AAAAAAAAAAAAAAAAAa"))
-//   } else {
-//     return Promise.resolve()
-//   }
-// }
