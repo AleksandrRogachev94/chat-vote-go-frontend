@@ -7,7 +7,8 @@ import Home from './Home'
 import NotFound from './NotFound'
 import LoginPage from './login/LoginPage'
 import SignupPage from './signup/SignupPage'
-import ProfilePageContainer from './profile/ProfilePageContainer'
+import ProfilePageContainer from './users/ProfilePageContainer'
+import UsersPageContainer from './users/UsersPageContainer'
 
 import requireAuth from './common/requireAuth'
 
@@ -18,6 +19,7 @@ const Root = ({ store }) => (
         <IndexRoute component={Home} />
         <Route path='/login' component={LoginPage} />
         <Route path='/signup' component={SignupPage} />
+        <Route path='/users' component={requireAuth(UsersPageContainer)} />
         <Route path='/users/:id' component={requireAuth(ProfilePageContainer)} />
 
         <Route path='*' component={NotFound} />

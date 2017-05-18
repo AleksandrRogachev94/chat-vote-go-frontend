@@ -39,10 +39,6 @@ export const fetchProfile = (id) => (dispatch) => {
     .then(data => dispatch(fetchProfileSuccess(data.user)))
     // Error.
     .catch((err) => dispatch(fetchProfileFailure(id, dataFromReject(err).errors)));
-
-    // .then(() => { if(!isEmpty(this.state.errors)) this.setState({ errors: {} }) })
-    // .catch((fail) => this.setState(dataFromReject(fail)))
-
 }
 
 function shouldFetchProfile(state, id) {
