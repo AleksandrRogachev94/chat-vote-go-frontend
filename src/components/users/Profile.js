@@ -7,18 +7,18 @@ import PrimaryButton from '../common/PrimaryButton'
 const Profile = (props) => {
   console.log("Profile render")
 
-  let email, created_at
-  if(props.profile) ({ email, created_at } = props.profile)
+  let email, avatar_url, nickname, first_name, last_name, created_at
+  if(props.profile) ({ email, avatar_url, nickname, first_name, last_name, created_at } = props.profile)
 
   if(props.id) {
     return (
       <div>
         <h1 className="title has-text-centered">Profile Page</h1>
-          {props.errors.other && <Error msg={props.errors.other.join(", ")} />}
-          {props.errors.auth && <Error msg={props.errors.auth.join(", ")} />}
+        {props.errors.other && <Error msg={props.errors.other.join(", ")} />}
+        {props.errors.auth && <Error msg={props.errors.auth.join(", ")} />}
 
-          <ProfileInfo email={email} created_at={created_at} />
-          <PrimaryButton value="Refresh" onClick={props.onRefresh} isLoading={props.isFetching} />
+        <ProfileInfo email={email} avatar_url={avatar_url} nickname={nickname} created_at={created_at} first_name={first_name} last_name={last_name} />
+        <PrimaryButton value="Refresh" onClick={props.onRefresh} isLoading={props.isFetching} />
       </div>
     )
   } else {

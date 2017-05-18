@@ -6,6 +6,8 @@ import { addFlashMessage } from '../../actions/flashMessages'
 import LoginForm from './LoginForm'
 
 const LoginPage = ({ login, addFlashMessage }) => {
+  console.log("LoginPage render")
+
   return (
     <div>
       <h1 className="title has-text-centered">Login Page</h1>

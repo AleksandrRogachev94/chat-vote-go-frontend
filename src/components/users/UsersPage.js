@@ -8,7 +8,7 @@ const UsersPage = (props) => {
   return (
     <div>
       <h1 className="title has-text-centered">Users Page</h1>
-      <div className="columns">
+      <div className="columns is-mobile">
         <div className="column is-one-third" id="users-list">
           <UsersListContainer />
         </div>

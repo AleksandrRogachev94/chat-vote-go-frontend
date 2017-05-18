@@ -22,3 +22,17 @@ ul {
 footer {
   height: 5px;
 }
+
+img#avatar {
+  width: 25vw;
+  height: 25vw;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+img#avatar-thumb {
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+}

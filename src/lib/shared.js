@@ -33,6 +33,12 @@ export function validateEmail(email, errors) {
   }
 }
 
+export function validateNickname(nickname, errors) {
+  if(Validator.isEmpty(nickname)) {
+    errors.nickname = ["can't be blank"]
+  }
+}
+
 export function validatePassword(password, errors) {
   if(Validator.isEmpty(password)) {
     errors.password = ["can't be blank"]
@@ -46,4 +52,13 @@ export function validatePasswordConfirmation(password_confirmation, password, er
   if(!Validator.equals(password, password_confirmation)) {
     errors.password_confirmation = ["must match password field"]
   }
+}
+
+// Formatting.
+
+// Date in milliseconds.
+export const formatDate = (date) => {
+  const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  const formatted = new Date(date)
+  return `${month[formatted.getMonth()]} ${formatted.getDate()}, ${formatted.getFullYear()}`
 }
