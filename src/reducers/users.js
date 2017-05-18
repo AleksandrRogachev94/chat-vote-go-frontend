@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import usersById, * as fromById from './usersById'
 import createUsersList, * as fromList from './createUsersList'
+import profilesByUserId, * as fromProfilesByUserId from './profilesByUserId'
 
 const listByTitle = combineReducers({
   all: createUsersList('all'),
@@ -9,7 +10,8 @@ const listByTitle = combineReducers({
 
 const users = combineReducers({
   usersById,
-  listByTitle
+  listByTitle,
+  profilesByUserId
 })
 
 export default users
@@ -23,4 +25,17 @@ export const getIsFetchingUsers = (state, title) => (
 )
 export const getUsersErrors = (state, title) => (
   fromList.getUsersErrors(state.listByTitle[title])
+)
+
+export const getProfile = (state, id) => (
+  fromProfilesByUserId.getProfile(state.profilesByUserId, id)
+)
+export const getIsFetchingProfile = (state, id) => (
+  fromProfilesByUserId.getIsFetchingProfile(state.profilesByUserId, id)
+)
+export const getDidInvalidateProfile = (state, id) => (
+  fromProfilesByUserId.getDidInvalidateProfile(state.profilesByUserId, id)
+)
+export const getProfileErrors = (state, id) => (
+  fromProfilesByUserId.getProfileErrors(state.profilesByUserId, id)
 )

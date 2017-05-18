@@ -53,6 +53,10 @@ export const getIsFetchingProfile = (state) => (
   state.isFetching
 )
 
+export const getDidInvalidateProfile = (state) => (
+  state.didInvalidate
+)
+
 export const getProfileErrors = (state) => (
   state.errors
 )

@@ -1,5 +1,6 @@
 import 'isomorphic-fetch'
 import { fetchWrapper, dataFromReject } from '../lib/shared'
+import { getProfile, getIsFetchingProfile, getDidInvalidateProfile } from '../reducers/profilesByUserId'
 import { FETCH_PROFILE_REQUEST, FETCH_PROFILE_SUCCESS, FETCH_PROFILE_FAILURE, INVALIDATE_PROFILE } from './actionTypes'
 
 const fetchProfileRequest = (id) => ({
@@ -42,20 +43,19 @@ export const fetchProfile = (id) => (dispatch) => {
 }
 
 function shouldFetchProfile(state, id) {
-  const profile = state.profilesByUserId[id]
+  const profile = getProfile(state, id)
   if (!profile) {
     return true
-  } else if (profile.isFetching) {
+  } else if (getIsFetchingProfile(state, id)) {
     return false
   } else {
-    return profile.didInvalidate
+    return profile.getDidInvalidateProfile(state, id)
   }
 }
 
 export const fetchProfileIfNeeded = (id) => (dispatch, getState) => {
   if (shouldFetchProfile(getState(), id)) {
     return dispatch(fetchProfile(id))
-    // .catch(() => console.log("AAAAAAAAAAAAAAAAAa"))
   } else {
     return Promise.resolve()
   }

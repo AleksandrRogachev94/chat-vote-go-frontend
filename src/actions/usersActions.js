@@ -35,7 +35,7 @@ export const fetchUsers = (title) => (dispatch, getState) => {
 
   return fetchWrapper(request)
     // All OK.
-    .then(data => { console.log('------------>', data); dispatch(fetchUsersSuccess(title, data.users));  })
+    .then(data => dispatch(fetchUsersSuccess(title, data.users)))
     // Error.
-    .catch((err) => { console.log('------------>', err); dispatch(fetchUsersFailure(title, dataFromReject(err).errors));  });
+    .catch((err) => dispatch(fetchUsersFailure(title, dataFromReject(err).errors)));
 }

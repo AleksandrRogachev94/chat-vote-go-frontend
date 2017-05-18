@@ -2,11 +2,9 @@ import { combineReducers } from 'redux'
 import auth, * as fromAuth from './auth'
 import users, * as fromUsers from './users'
 import flashMessages from './flashMessages'
-import profilesByUserId, * as fromProfilesByUserId from './profilesByUserId'
 
 const rootReducer = combineReducers({
   auth,
-  profilesByUserId,
   users,
   flashMessages
 })
@@ -23,13 +21,16 @@ export const getCurrentUser = (state) => (
 )
 
 export const getProfile = (state, id) => (
-  fromProfilesByUserId.getProfile(state.profilesByUserId, id)
+  fromUsers.getProfile(state.users, id)
 )
 export const getIsFetchingProfile = (state, id) => (
-  fromProfilesByUserId.getIsFetchingProfile(state.profilesByUserId, id)
+  fromUsers.getIsFetchingProfile(state.users, id)
+)
+export const getDidInvalidateProfile = (state, id) => (
+  fromUsers.getDidInvalidateProfile(state.users, id)
 )
 export const getProfileErrors = (state, id) => (
-  fromProfilesByUserId.getProfileErrors(state.profilesByUserId, id)
+  fromUsers.getProfileErrors(state.users, id)
 )
 
 export const getUsersByTitle = (state, title) => (
