@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux'
 import auth, * as fromAuth from './auth'
 import users, * as fromUsers from './users'
+import chatrooms, * as fromChatrooms from './chatrooms'
 import flashMessages from './flashMessages'
 
 const rootReducer = combineReducers({
   auth,
   users,
+  chatrooms,
   flashMessages
 })
 
@@ -41,4 +43,14 @@ export const getIsFetchingUsers = (state, title) => (
 )
 export const getUsersErrors = (state, title) => (
   fromUsers.getUsersErrors(state.users, title)
+)
+
+export const getChatroomsByTitle = (state, title) => (
+  fromChatrooms.getChatroomsByTitle(state.chatrooms, title)
+)
+export const getIsFetchingChatrooms = (state, title) => (
+  fromChatrooms.getIsFetchingChatrooms(state.chatrooms, title)
+)
+export const getChatroomsErrors = (state, title) => (
+  fromChatrooms.getChatroomsErrors(state.chatrooms, title)
 )
