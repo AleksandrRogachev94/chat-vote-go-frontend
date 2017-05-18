@@ -3,30 +3,26 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { fetchUsers } from '../../actions/usersActions'
 import { getUsersByTitle, getIsFetchingUsers, getUsersErrors } from '../../reducers/index'
-import UsersPage from './UsersPage'
+import UsersList from './UsersList'
 
-class UsersPageContainer extends React.Component {
-
-  constructor(props) {
-    super(props)
-  }
+class UsersListContainer extends React.Component {
 
   componentDidMount() {
     this.props.fetchUsers('all').then((res) => console.log(res))
   }
 
   render() {
-    console.log("UsersPageContainer render")
+    console.log("UsersListContainer render")
 
-    const { users, isFetching } = this.props
+    const { users, isFetching, errors } = this.props
 
     return (
-      <p></p>
+      <UsersList users={users} isFetching={isFetching} errors={errors} />
     )
   }
 }
 
-UsersPageContainer.propTypes = {
+UsersListContainer.propTypes = {
   fetchUsers: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
@@ -39,4 +35,4 @@ const mapStateToProps = (state) => ({
   errors: getUsersErrors(state, 'all')
 })
 
-export default connect(mapStateToProps, { fetchUsers })(UsersPageContainer)
+export default connect(mapStateToProps, { fetchUsers })(UsersListContainer)

@@ -5,3 +5,20 @@ nav {
 .notification {
   margin: 1em auto;
 }
+
+ul {
+  list-style-type: none
+}
+
+#users-list {
+  height: 70vh;
+  /*height: 100%;*/
+  /*position: absolute;
+  top: 0;
+  bottom: 0;*/
+  overflow: scroll;
+}
+
+footer {
+  height: 5px;
+}

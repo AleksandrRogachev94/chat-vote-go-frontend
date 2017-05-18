@@ -10,7 +10,7 @@ class App extends Component {
 
         <Navbar />
 
-        <div className="content">
+        <div className="container">
           <FlashMessagesList />
           {this.props.children}
         </div>

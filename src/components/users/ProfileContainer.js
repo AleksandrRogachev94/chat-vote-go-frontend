@@ -4,9 +4,9 @@ import { withRouter } from 'react-router'
 import PropTypes from 'prop-types';
 import { fetchProfileIfNeeded, invalidateProfile } from '../../actions/profileActions'
 import { getProfile, getIsFetchingProfile, getProfileErrors } from '../../reducers/index'
-import ProfilePage from './ProfilePage'
+import Profile from './Profile'
 
-class ProfilePageContainer extends React.Component {
+class ProfileContainer extends React.Component {
 
   constructor(props) {
     super(props)
@@ -15,14 +15,14 @@ class ProfilePageContainer extends React.Component {
 
   componentDidMount() {
     const { profile, fetchProfileIfNeeded, id } = this.props
-    if(!profile) {
+    if(!profile && id) {
       fetchProfileIfNeeded(id)
     }
   }
 
   componentDidUpdate(prevProps) {
     const { profile, fetchProfileIfNeeded, id } = this.props
-    if(!profile) {
+    if(!profile && id) {
     // if(!this.props.profile || !prevProps.profile || (this.props.profile.profile.id !== prevProps.profile.profile.id)) {
       fetchProfileIfNeeded(id)
     }
@@ -35,25 +35,25 @@ class ProfilePageContainer extends React.Component {
   }
 
   render() {
-    console.log("ProfilePageContainer render")
+    console.log("ProfileContainer render")
 
-    const { profile, errors, isFetching } = this.props
+    const { profile, errors, isFetching, id } = this.props
     return (
       <div>
-        <ProfilePage profile={profile} errors={errors} onRefresh={this.handleRefreshClick} isFetching={isFetching} />
+        <Profile profile={profile} id={id} errors={errors} onRefresh={this.handleRefreshClick} isFetching={isFetching} />
       </div>
     )
   }
 }
 
-ProfilePageContainer.propTypes = {
+ProfileContainer.propTypes = {
   profile: PropTypes.object,
   isFetching: PropTypes.bool,
   errors: PropTypes.object,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string
 }
 
-ProfilePageContainer.defaultProps = {
+ProfileContainer.defaultProps = {
   errors: {}
 }
 
@@ -64,4 +64,4 @@ const mapStateToProps = (state, { params }) => ({
   id: params.id
 })
 
-export default withRouter(connect(mapStateToProps, { fetchProfileIfNeeded, invalidateProfile })(ProfilePageContainer))
+export default withRouter(connect(mapStateToProps, { fetchProfileIfNeeded, invalidateProfile })(ProfileContainer))

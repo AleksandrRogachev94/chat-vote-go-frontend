@@ -1,21 +1,23 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import UsersListContainer from './UsersListContainer'
+import ProfileContainer from './ProfileContainer'
 
 const UsersPage = (props) => {
   console.log("UsersPage render")
 
-  const { isFetching } = props
-  if(isFetching) {
-    return <p>Loading...</p>
-  } else {
-    return (
-      <h1 className="title">Users Page</h1>
-    )
-  }
-}
-
-UsersPage.propTypes = {
-  isFetching: PropTypes.bool.isRequired
+  return (
+    <div>
+      <h1 className="title has-text-centered">Users Page</h1>
+      <div className="columns">
+        <div className="column is-one-third" id="users-list">
+          <UsersListContainer />
+        </div>
+        <div className="column">
+          <ProfileContainer />
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default UsersPage
