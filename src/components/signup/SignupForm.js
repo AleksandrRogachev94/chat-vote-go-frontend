@@ -90,11 +90,11 @@ class SignupForm extends React.Component {
 
   render() {
     console.log("SignupForm render")
-    const { errors, isLoading, email, nickname, avatar, avatarPreviewUrl, first_name, last_name, password, password_confirmation } = this.state
+    const { errors, isLoading, email, nickname, avatarPreviewUrl, first_name, last_name, password, password_confirmation } = this.state
 
     let avatarPreview
     if (avatarPreviewUrl) {
-      avatarPreview = (<img id="avatar" src={avatarPreviewUrl} />);
+      avatarPreview = (<img id="avatar" src={avatarPreviewUrl} alt="avatar" />);
     } else {
       avatarPreview = (<div className="previewText">Please select an Image for Preview</div>);
     }

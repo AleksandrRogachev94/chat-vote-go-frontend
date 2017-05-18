@@ -28,6 +28,7 @@ class Navbar extends React.Component {
         <Link to={`/users/${currentUser.id}`} className="nav-item is-tab" activeClassName="is-active">
           {currentUser.nickname}
         </Link>
+        <Link to='/chatrooms' className="nav-item is-tab" activeClassName="is-active">Chatrooms</Link>
         <Link to='/users' className="nav-item is-tab" activeClassName="is-active">Users</Link>
         <a href="#" className="nav-item is-tab" onClick={this.logout}>Logout</a>
       </div>

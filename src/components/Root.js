@@ -8,6 +8,7 @@ import NotFound from './NotFound'
 import LoginPage from './login/LoginPage'
 import SignupPage from './signup/SignupPage'
 import UsersPage from './users/UsersPage'
+import ChatroomsPage from './chatrooms/ChatroomsPage'
 
 import requireAuth from './common/requireAuth'
 
@@ -19,6 +20,7 @@ const Root = ({ store }) => (
         <Route path='/login' component={LoginPage} />
         <Route path='/signup' component={SignupPage} />
         <Route path='/users(/:id)' component={requireAuth(UsersPage)} />
+        <Route path='/chatrooms' component={requireAuth(ChatroomsPage)} />
 
         <Route path='*' component={NotFound} />
       </Route>
