@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { fetchAllChatrooms } from '../../actions/chatroomsActions'
 import { getChatroomsByTitle, getIsFetchingChatrooms, getChatroomsErrors } from '../../reducers/index'
-// import UsersList from './UsersList'
+import ChatroomsList from './ChatroomsList'
 
 class ChatroomsListContainer extends React.Component {
 
@@ -14,10 +14,12 @@ class ChatroomsListContainer extends React.Component {
   render() {
     console.log("ChatroomsListContainer render")
 
+    const { own_chatrooms, guest_chatrooms, isFetching, errors } = this.props
+
     return (
-      <p>ChatroomsListContainer</p>
+      <ChatroomsList own_chatrooms={own_chatrooms} guest_chatrooms={guest_chatrooms} isFetching={isFetching} errors={errors}  />
     )
-  }s
+  }
 }
 
 ChatroomsListContainer.propTypes = {

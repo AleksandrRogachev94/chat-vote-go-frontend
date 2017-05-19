@@ -6,7 +6,7 @@ import Error from '../common/Error'
 const UsersList = ({ users, errors, isFetching }) => {
   console.log("UsersList render")
 
-  const usersUl = users.map(user => <User key={user.id} nickname={user.nickname} id={user.id} avatar_url={user.avatar_url} />)
+  const usersJSX = users.map(user => <User key={user.id} nickname={user.nickname} id={user.id} avatar_url={user.avatar_url} />)
 
   return (
     <div>
@@ -14,7 +14,7 @@ const UsersList = ({ users, errors, isFetching }) => {
     {errors.auth && <Error msg={errors.auth.join(", ")} />}
       <aside className="menu">
         <p className="menu-label">Users</p>
-        <ul className="menu-list">{usersUl}</ul>
+        <ul className="menu-list">{usersJSX}</ul>
       </aside>
       {isFetching && (<p>Loading...</p>)}
     </div>

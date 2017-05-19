@@ -2,12 +2,14 @@ import { combineReducers } from 'redux'
 import auth, * as fromAuth from './auth'
 import users, * as fromUsers from './users'
 import chatrooms, * as fromChatrooms from './chatrooms'
+import messages, * as fromMessages from './messages'
 import flashMessages from './flashMessages'
 
 const rootReducer = combineReducers({
   auth,
   users,
   chatrooms,
+  messages,
   flashMessages
 })
 
