@@ -50,7 +50,9 @@ ProfileContainer.propTypes = {
   profile: PropTypes.object,
   isFetching: PropTypes.bool,
   errors: PropTypes.object,
-  id: PropTypes.string
+  id: PropTypes.string,
+  fetchProfileIfNeeded: PropTypes.func.isRequired,
+  invalidateProfile: PropTypes.func.isRequired
 }
 
 ProfileContainer.defaultProps = {
