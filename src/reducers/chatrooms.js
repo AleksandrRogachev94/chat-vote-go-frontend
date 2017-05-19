@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
-import chatroomsById, * as fromById from './usersById'
-import createChatroomsList, * as fromList from './createUsersList'
+import chatroomsById, * as fromById from './chatroomsById'
+import createChatroomsList, * as fromList from './createChatroomsList'
 
 const listByTitle = combineReducers({
-  guestChats: createChatroomsList('guest'),
-  ownChats: createChatroomsList('own')
+  guest: createChatroomsList('guest'),
+  own: createChatroomsList('own')
 })
 
 const chatrooms = combineReducers({

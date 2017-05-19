@@ -16,4 +16,4 @@ export default chatroomsById
 
 // Selectors
 
-export const getChatroom = (state, id) => chatroom[id]
+export const getChatroom = (state, id) => state[id]

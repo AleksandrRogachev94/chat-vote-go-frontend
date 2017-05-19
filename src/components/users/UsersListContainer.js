@@ -8,7 +8,7 @@ import UsersList from './UsersList'
 class UsersListContainer extends React.Component {
 
   componentDidMount() {
-    this.props.fetchUsers('all').then((res) => console.log(res))
+    this.props.fetchUsers('all')
   }
 
   render() {

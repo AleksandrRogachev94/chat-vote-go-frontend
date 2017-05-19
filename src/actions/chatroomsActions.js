@@ -1,31 +1,31 @@
 import 'isomorphic-fetch'
 import { fetchWrapper, dataFromReject } from '../lib/shared'
-// import { getIsFetchingUsers } from '../reducers/index'
+import { getIsFetchingChatrooms } from '../reducers/index'
 import { FETCH_CHATROOMS_REQUEST, FETCH_CHATROOMS_SUCCESS, FETCH_CHATROOMS_FAILURE } from './actionTypes'
 
-const fetchChatroomsRequest = () => ({
-  type: FETCH_CHATRROMS_REQUEST,
+const fetchChatroomsRequest = (title) => ({
+  type: FETCH_CHATROOMS_REQUEST,
   title
 })
 
-const fetchChatroomsFailure = (errors) => ({
+const fetchChatroomsFailure = (title, errors) => ({
   type: FETCH_CHATROOMS_FAILURE,
   title,
   errors
 })
 
-const fetchChatroomsSuccess = (chatrooms) => ({
+const fetchChatroomsSuccess = (title, chatrooms) => ({
   type: FETCH_CHATROOMS_SUCCESS,
   title,
-  users
+  chatrooms
 })
 
-export const fetchChatrooms = () => (dispatch, getState) => {
-  if (getIsFetchingChatrooms(getState())) return Promise.resolve()
+export const fetchChatrooms = (title) => (dispatch, getState) => {
+  if (getIsFetchingChatrooms(getState(), title)) return Promise.resolve()
 
-  dispatch(fetchChatroomsRequest())
+  dispatch(fetchChatroomsRequest(title))
 
-  const request = new Request(`/api/v1/chatrooms`, {
+  const request = new Request(`/api/v1/chatrooms?type=${title}`, {
     method: 'GET',
     headers: new Headers({
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
@@ -34,8 +34,14 @@ export const fetchChatrooms = () => (dispatch, getState) => {
   })
 
   return fetchWrapper(request)
+    // .then(res => { debugger })
     // All OK.
-    .then(data => dispatch(fetchChatroomsSuccess(title, data.users)))
+    .then((data) => dispatch(fetchChatroomsSuccess(title, data.chatrooms)))
     // Error.
-    .catch((err) => dispatch(fetchChatroomsFailure(title, dataFromReject(err).errors)));
+    .catch((err) => dispatch(fetchChatroomsFailure(title, dataFromReject(err).errors)))
+}
+
+export const fetchAllChatrooms = () => (dispatch) => {
+  dispatch(fetchChatrooms('own'))
+  dispatch(fetchChatrooms('guest'))
 }
