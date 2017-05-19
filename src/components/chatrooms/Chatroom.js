@@ -18,7 +18,7 @@ const Chatroom = (props) => {
   } else if(props.id) {
     return (
       <div>
-        <h1 className="title">Chatroom: {title}</h1>
+        <h1 className="title has-text-centered">{title}</h1>
         {props.errors.other && <Error msg={props.errors.other.join(", ")} />}
         {props.errors.auth && <Error msg={props.errors.auth.join(", ")} />}
         <ChatroomBoard messages={messages} />

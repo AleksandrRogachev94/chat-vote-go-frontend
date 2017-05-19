@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 
 const Message = ({ content, owner }) => {
   return (
-    <div className="message">{content} FROM {owner}</div>
+    <article className="message">
+      <div className="message-header">{owner}</div>
+      <div className="message-body">{content}</div>
+    </article>
   )
 }
 
