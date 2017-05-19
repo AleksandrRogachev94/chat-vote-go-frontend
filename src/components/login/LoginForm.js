@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { browserHistory } from 'react-router'
 import { dataFromReject, validateEmail, validatePassword } from '../../lib/shared'
-import isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/isEmpty'
 import InputField from '../common/InputField'
 import PrimaryButton from '../common/PrimaryButton'
 import Error from '../common/Error'

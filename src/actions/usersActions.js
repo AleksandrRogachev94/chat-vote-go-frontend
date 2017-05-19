@@ -1,11 +1,17 @@
 import 'isomorphic-fetch'
 import { fetchWrapper, dataFromReject } from '../lib/shared'
 import { getIsFetchingUsers } from '../reducers/index'
-import { FETCH_USERS_REQUEST, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE } from './actionTypes'
+import { FETCH_USERS_REQUEST, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE, ADD_USERS } from './actionTypes'
 
 const fetchUsersRequest = (title) => ({
   type: FETCH_USERS_REQUEST,
   title
+})
+
+export const addUsers = (title, users) => ({
+  type: ADD_USERS,
+  title,
+  users
 })
 
 const fetchUsersFailure = (title, errors) => ({

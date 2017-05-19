@@ -1,4 +1,5 @@
-import { FETCH_USERS_REQUEST, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE } from '../actions/actionTypes'
+import { FETCH_USERS_REQUEST, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE, ADD_USERS } from '../actions/actionTypes'
+import union from 'lodash/union'
 
 const createUsersList = (title) => {
   return (state = {
@@ -17,6 +18,10 @@ const createUsersList = (title) => {
           isFetching: false,
           ids: action.users.map(user => user.id),
           errors: {}
+        })
+      case ADD_USERS:
+        return Object.assign({}, state, {
+          ids: union(state.ids, action.users.map(user => user.id)),
         })
       case FETCH_USERS_FAILURE:
         return Object.assign({}, state, {

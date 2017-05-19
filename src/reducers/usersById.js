@@ -1,10 +1,11 @@
-import { FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE, INVALIDATE_USER, FETCH_USERS_SUCCESS } from '../actions/actionTypes'
+import { FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE, INVALIDATE_USER, FETCH_USERS_SUCCESS, ADD_USERS } from '../actions/actionTypes'
 import { fetchUserSuccess } from '../actions/userActions'
 import user, * as fromUser from './user'
 
 const usersById = (state = {}, action) => {
   switch(action.type) {
     case FETCH_USERS_SUCCESS:
+    case ADD_USERS:
       const nextState = Object.assign({}, state)
       action.users.forEach(userObj => {
         nextState[userObj.id] = user(userObj.id, fetchUserSuccess(userObj))

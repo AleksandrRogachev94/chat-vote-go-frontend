@@ -16,9 +16,9 @@ class ChatroomContainer extends React.Component {
   componentDidUpdate(prevProps) {
     const { fetchChatroom, id } = this.props
     // if !chatroom or prevProps.chatroom.id !== this.props.chatroom.id
-    if(id) {
+    // if(id) {
       fetchChatroom(id)
-    }
+    // }
   }
 
   render() {
