@@ -24,17 +24,17 @@ export const getCurrentUser = (state) => (
   fromAuth.getCurrentUser(state.auth)
 )
 
-export const getProfile = (state, id) => (
-  fromUsers.getProfile(state.users, id)
+export const getUser = (state, id) => (
+  fromUsers.getUser(state.users, id)
 )
-export const getIsFetchingProfile = (state, id) => (
-  fromUsers.getIsFetchingProfile(state.users, id)
+export const getIsFetchingUser = (state, id) => (
+  fromUsers.getIsFetchingUser(state.users, id)
 )
-export const getDidInvalidateProfile = (state, id) => (
-  fromUsers.getDidInvalidateProfile(state.users, id)
+export const getDidInvalidateUser = (state, id) => (
+  fromUsers.getDidInvalidateUser(state.users, id)
 )
-export const getProfileErrors = (state, id) => (
-  fromUsers.getProfileErrors(state.users, id)
+export const getUserErrors = (state, id) => (
+  fromUsers.getUserErrors(state.users, id)
 )
 
 export const getUsersByTitle = (state, title) => (

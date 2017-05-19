@@ -1,37 +1,37 @@
-import { FETCH_PROFILE_REQUEST, FETCH_PROFILE_SUCCESS, FETCH_PROFILE_FAILURE, INVALIDATE_PROFILE } from '../actions/actionTypes'
+import { FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE, INVALIDATE_USER } from '../actions/actionTypes'
 
-const profile = (state = {
+const user = (state = {
   isFetching: false,
   didInvalidate: false,
   errors: {},
-  profile: {}
+  user: {}
 }, action) => {
 
   switch(action.type) {
 
-    case FETCH_PROFILE_REQUEST:
+    case FETCH_USER_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
         didInvalidate: false,
         errors: {}
       })
 
-    case FETCH_PROFILE_SUCCESS:
+    case FETCH_USER_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
-        profile: action.profile,
+        user: action.user,
         errors: {}
       })
 
-    case FETCH_PROFILE_FAILURE:
+    case FETCH_USER_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
         errors: action.errors
       })
 
-    case INVALIDATE_PROFILE:
+    case INVALIDATE_USER:
       return Object.assign({}, state, {
         didInvalidate: true
       })
@@ -41,22 +41,22 @@ const profile = (state = {
   }
 }
 
-export default profile
+export default user
 
 // Selectors
 
-export const getProfile = (state) => (
-  state.profile
+export const getUser = (state) => (
+  state.user
 )
 
-export const getIsFetchingProfile = (state) => (
+export const getIsFetchingUser = (state) => (
   state.isFetching
 )
 
-export const getDidInvalidateProfile = (state) => (
+export const getDidInvalidateUser = (state) => (
   state.didInvalidate
 )
 
-export const getProfileErrors = (state) => (
+export const getUserErrors = (state) => (
   state.errors
 )

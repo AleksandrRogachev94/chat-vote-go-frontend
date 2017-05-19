@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import { RECEIVE_MESSAGES } from '../actions/actionTypes'
 
 const messages = (state = {
