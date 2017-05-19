@@ -1,5 +1,17 @@
 import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE } from '../actions/actionTypes'
 
+const parseResponseChatroom = (response) => {
+  let result = {
+    id: response.id,
+    title: response.title
+  } // Basic info for list.
+  if(response.owner) result.ownerId = response.owner.id
+  if(response.guests) result.guestsIds = response.guests.map(guest => guest.id)
+  if(response.messages) result.messagesIds = response.messages.map(message => message.id)
+
+  return result
+}
+
 const chatroom = (state = {
   isFetching: false,
   errors: {},
@@ -33,18 +45,6 @@ const chatroom = (state = {
 }
 
 export default chatroom
-
-const parseResponseChatroom = (response) => {
-  let result = {
-    id: response.id,
-    title: response.title
-  } // Basic info for list.
-  if(response.owner) result.ownerId = response.owner.id
-  if(response.guests) result.guestsIds = response.guests.map(guest => guest.id)
-  if(response.messages) result.messagesIds = response.messages.map(message => message.id)
-
-  return result
-}
 
 // Selectors
 

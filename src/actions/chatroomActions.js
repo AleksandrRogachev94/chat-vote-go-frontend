@@ -1,7 +1,7 @@
 import 'isomorphic-fetch'
 import { fetchWrapper, dataFromReject } from '../lib/shared'
 // import { getProfile, getIsFetchingProfile, getDidInvalidateProfile } from '../reducers/profilesByUserId'
-// import { getIsFetchingChatroom } from '../reducers/index'
+import { getIsFetchingChatroom } from '../reducers/index'
 import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE } from './actionTypes'
 import { receiveMessages } from './messagesActions'
 import { addUsers } from './usersActions'
@@ -23,8 +23,8 @@ export const fetchChatroomSuccess = (chatroom) => ({
 })
 
 export const fetchChatroom = (id) => (dispatch, getState) => {
-  // if (getIsFetchingChatroom(getState(), title)) return Promise.resolve()
-  // debugger
+  if (getIsFetchingChatroom(getState(), id)) return Promise.resolve()
+
   dispatch(fetchChatroomRequest(id))
 
   const request = new Request(`/api/v1/chatrooms/${id}`, {

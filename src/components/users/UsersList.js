@@ -6,7 +6,7 @@ import Error from '../common/Error'
 const UsersList = ({ users, errors, isFetching }) => {
   console.log("UsersList render")
 
-  const usersJSX = users.map(user => <User key={user.id} nickname={user.nickname} id={user.id} avatar_url={user.avatar_url} />)
+  const usersJSX = users.map(user => <User key={user.id} nickname={user.nickname} id={user.id} avatar_url={user.avatar_original_url} />)
 
   return (
     <div>

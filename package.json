@@ -5,6 +5,7 @@
   "proxy": "http://localhost:3001/",
   "dependencies": {
     "bulma": "^0.4.1",
+    "deep-equal": "^1.0.1",
     "isomorphic-fetch": "^2.2.1",
     "jwt-decode": "^2.2.0",
     "lodash.isempty": "^4.4.0",

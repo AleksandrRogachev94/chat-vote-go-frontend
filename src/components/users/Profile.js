@@ -7,8 +7,8 @@ import PrimaryButton from '../common/PrimaryButton'
 const Profile = (props) => {
   console.log("Profile render")
 
-  let email, avatar_url, nickname, first_name, last_name, created_at
-  if(props.profile) ({ email, avatar_url, nickname, first_name, last_name, created_at } = props.profile)
+  let email, avatar_original_url, nickname, first_name, last_name, created_at
+  if(props.profile) ({ email, avatar_original_url, nickname, first_name, last_name, created_at } = props.profile)
 
   if(props.id) {
     return (
@@ -17,7 +17,7 @@ const Profile = (props) => {
         {props.errors.other && <Error msg={props.errors.other.join(", ")} />}
         {props.errors.auth && <Error msg={props.errors.auth.join(", ")} />}
 
-        <ProfileInfo email={email} avatar_url={avatar_url} nickname={nickname} created_at={created_at} first_name={first_name} last_name={last_name} />
+        <ProfileInfo email={email} avatar_url={avatar_original_url} nickname={nickname} created_at={created_at} first_name={first_name} last_name={last_name} />
         <PrimaryButton value="Refresh" onClick={props.onRefresh} isLoading={props.isFetching} />
       </div>
     )

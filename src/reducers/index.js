@@ -75,11 +75,12 @@ export const getChatroomErrors = (state, id) => (
 )
 
 export const getMessage = (state, id) => (
-  fromMessages.getMessage(state.messages,id)
+  fromMessages.getMessage(state.messages, id)
 )
 
 export const getMessageWithOwner = (state, id) => {
-  const result = getMessage(state, id)
+  let result
+  if(getMessage(state, id)) result = Object.assign({}, getMessage(state, id))
   if(result) {
     result.owner = getUser(state, result.user_id)
     delete result.user_id
@@ -88,8 +89,22 @@ export const getMessageWithOwner = (state, id) => {
 }
 
 export const getChatroomMessages = (state, id) => {
-  const ids = getChatroom(state, id).messagesIds
+  let ids
+  if(getChatroom(state, id)) ids = getChatroom(state, id).messagesIds
   if(ids) {
-    return ids.map(id => fromMessages.getMessageWithOwner(state.messages, id))
+    return ids.map(id => getMessageWithOwner(state, id))
+  }
+}
+
+export const getFullChatroom = (state, id) => {
+  let result = Object.assign({}, getChatroom(state, id))
+  if(result) {
+    if(getChatroomMessages(state, id))result.messages = getChatroomMessages(state, id)
+    if(result.ownerId) result.owner = getUser(state, result.ownerId)
+    if(result.guestsIds) result.guests = result.guestsIds.map(id => getUser(state, id))
+    delete result.messagesIds
+    delete result.ownerId
+    delete result.guestsIds
+    return result
   }
 }
