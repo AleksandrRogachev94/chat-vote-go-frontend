@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Message from './Message'
+import MessageForm from './MessageForm'
 
 const ChatroomBoard = (props) => {
 
@@ -11,13 +12,19 @@ const ChatroomBoard = (props) => {
 
   return (
     <div id="chatroom-board">
-      {messages}
+      <div>
+        {messages}
+      </div>
+      <div>
+        <MessageForm chatroom_id={props.chatroom_id} />
+      </div>
     </div>
   )
 }
 
 ChatroomBoard.propTypes = {
-  messages: PropTypes.array
+  messages: PropTypes.array,
+  chatroom_id: PropTypes.string.isRequired
 }
 
 export default ChatroomBoard

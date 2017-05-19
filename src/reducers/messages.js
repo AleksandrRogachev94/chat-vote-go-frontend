@@ -1,4 +1,4 @@
-import { RECEIVE_MESSAGES } from '../actions/actionTypes'
+import { RECEIVE_MESSAGES, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE } from '../actions/actionTypes'
 
 const messages = (state = {
   messagesById: {}
@@ -8,6 +8,14 @@ const messages = (state = {
       const nextState = Object.assign({}, state)
       action.messages.forEach(message => { nextState.messagesById[message.id] = message })
       return nextState
+
+    case ADD_MESSAGE_SUCCESS:
+      return Object.assign({}, state, {
+        messagesById: Object.assign({}, state.messagesById, {
+          [action.message.id]: action.message
+        })
+      })
+
     default:
       return state
   }

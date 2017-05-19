@@ -21,7 +21,7 @@ const Chatroom = (props) => {
         <h1 className="title has-text-centered">{title}</h1>
         {props.errors.other && <Error msg={props.errors.other.join(", ")} />}
         {props.errors.auth && <Error msg={props.errors.auth.join(", ")} />}
-        <ChatroomBoard messages={messages} />
+        <ChatroomBoard messages={messages} chatroom_id={props.id} />
         <ChatroomUsers owner={owner} guests={guests} />
       </div>
     )
