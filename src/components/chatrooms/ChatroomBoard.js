@@ -7,7 +7,7 @@ const ChatroomBoard = (props) => {
 
   let messages
   if(props.messages) messages = props.messages.map(msg => (
-    <Message key={msg.id} content={msg.content} owner={msg.owner.nickname} />
+    <Message key={msg.id} content={msg.content} owner={msg.owner.nickname} created_at={msg.created_at} />
   ))
 
   return (

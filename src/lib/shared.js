@@ -55,10 +55,19 @@ export function validatePasswordConfirmation(password_confirmation, password, er
 }
 
 // Formatting.
-
 // Date in milliseconds.
+
 export const formatDate = (date) => {
   const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
   const formatted = new Date(date)
   return `${month[formatted.getMonth()]} ${formatted.getDate()}, ${formatted.getFullYear()}`
+}
+
+export const formatDateMessage = (date) => {
+  var options = {
+    weekday: "long", year: "numeric", month: "short",
+    day: "numeric", hour: "2-digit", minute: "2-digit"
+  };
+  const formatted = new Date(date)
+  return formatted.toLocaleTimeString("en-us", options)
 }
