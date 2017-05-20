@@ -38,7 +38,7 @@ class ChatroomForm extends React.Component {
             <input className="input" type="text" placeholder="Title" value={this.state.title} onChange={this.handleChange} />
           </p>
         </div>
-        <PrimaryButton value="Create" isLoading={false} disabled={!this.state.title} />
+        <PrimaryButton value="Create" disabled={!this.state.title} />
       </form>
     )
   }

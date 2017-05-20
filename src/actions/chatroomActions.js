@@ -47,9 +47,9 @@ export const fetchChatroom = (id) => (dispatch, getState) => {
 }
 
 
-export const addChatroomSuccess = (message) => ({
+export const addChatroomSuccess = (chatroom) => ({
   type: ADD_CHATROOM_SUCCESS,
-  message
+  chatroom
 })
 
 export const addChatroomFailure = () => ({

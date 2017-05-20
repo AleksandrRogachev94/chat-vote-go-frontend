@@ -11,10 +11,10 @@ const Chatroom = (props) => {
 
   if(!props.id) {
     return (<h1 className="title has-text-centered">Choose Chatroom</h1>)
-  } else if(!props.chatroom || props.isFetching) {
-    return (
-      <p>Loading...</p>
-    )
+  // } else if(!props.chatroom || props.isFetching) {
+  //   return (
+  //     <p>Loading...</p>
+  //   )
   } else if(props.id) {
     return (
       <div>

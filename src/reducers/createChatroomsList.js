@@ -1,4 +1,4 @@
-import { FETCH_CHATROOMS_REQUEST, FETCH_CHATROOMS_SUCCESS, FETCH_CHATROOMS_FAILURE } from '../actions/actionTypes'
+import { FETCH_CHATROOMS_REQUEST, FETCH_CHATROOMS_SUCCESS, FETCH_CHATROOMS_FAILURE, ADD_CHATROOM_SUCCESS } from '../actions/actionTypes'
 
 const createChatroomsList = (title) => {
   return (state = {
@@ -6,6 +6,12 @@ const createChatroomsList = (title) => {
     isFetching: false,
     errors: {}
   }, action) => {
+
+    if(action.type === ADD_CHATROOM_SUCCESS && title === 'own') {
+      return Object.assign({}, state, {
+        ids: [...state.ids, action.chatroom.id]
+      })
+    }
 
     if(action.title !== title) {
       return state

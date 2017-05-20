@@ -38,7 +38,7 @@ class MessageForm extends React.Component {
             <textarea className="textarea" placeholder="Add Message" value={this.state.content} onChange={this.handleChange} />
           </p>
         </div>
-        <PrimaryButton value="Create" isLoading={false} disabled={!this.state.content} />
+        <PrimaryButton value="Create" disabled={!this.state.content} />
       </form>
     )
   }

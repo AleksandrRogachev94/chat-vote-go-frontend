@@ -1,4 +1,4 @@
-import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, ADD_MESSAGE_SUCCESS } from '../actions/actionTypes'
+import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, ADD_CHATROOM_SUCCESS, ADD_MESSAGE_SUCCESS } from '../actions/actionTypes'
 
 const parseResponseChatroom = (response) => {
   let result = {
@@ -26,6 +26,7 @@ const chatroom = (state = {
         errors: {}
       })
 
+    case ADD_CHATROOM_SUCCESS:
     case FETCH_CHATROOM_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,

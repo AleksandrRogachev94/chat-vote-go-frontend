@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { fetchChatroom } from '../../actions/chatroomActions'
 import { getFullChatroom, getIsFetchingChatroom, getChatroomErrors } from '../../reducers/index'
 import Chatroom from './Chatroom'
+import deepEqual from 'deep-equal'
 
 class ChatroomContainer extends React.Component {
 
@@ -16,12 +17,21 @@ class ChatroomContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    // debugger
     const { fetchChatroom, id } = this.props
     if(id && prevProps.id !== id) {
       fetchChatroom(id)
     }
-    // if(id && (!user || !user.email))
-    // if(!this.props.profile || !prevProps.profile || (this.props.profile.profile.id !== prevProps.profile.profile.id)) {
+  }
+
+  // Selectors make some calculations with chatroom. Same objects are not the same here
+  shouldComponentUpdate(nextProps) {
+    return (
+      (this.props.isFetching !== nextProps.isFetching) ||
+      (this.props.id !== nextProps.id) ||
+      !deepEqual(this.props.errors, nextProps.errors) ||
+      !deepEqual(this.props.chatroom, nextProps.chatroom)
+    )
   }
 
   render() {
