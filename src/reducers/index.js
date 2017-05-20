@@ -57,6 +57,9 @@ export const getUsersErrors = (state, title) => (
 export const getChatroomsByTitle = (state, title) => (
   fromChatrooms.getChatroomsByTitle(state.chatrooms, title)
 )
+export const getAllChatrooms = (state) => (
+  fromChatrooms.getAllChatrooms(state.chatrooms)
+)
 export const getIsFetchingChatrooms = (state, title) => (
   fromChatrooms.getIsFetchingChatrooms(state.chatrooms, title)
 )

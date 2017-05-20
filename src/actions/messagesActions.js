@@ -1,6 +1,6 @@
 import 'isomorphic-fetch'
 import { fetchWrapper, dataFromReject } from '../lib/shared'
-import { RECEIVE_MESSAGES, ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE } from './actionTypes'
+import { RECEIVE_MESSAGES, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE } from './actionTypes'
 
 export const receiveMessages = (messages) => ({
   type: RECEIVE_MESSAGES,

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types';
 import { fetchUserProfileIfNeeded, invalidateUser } from '../../actions/userActions'
-import { getUser, getIsFetchingUser, getUserErrors } from '../../reducers/index'
+import { getUser, getIsFetchingUser, getUserErrors, getAllChatrooms } from '../../reducers/index'
 import Profile from './Profile'
 
 class ProfileContainer extends React.Component {
@@ -38,10 +38,10 @@ class ProfileContainer extends React.Component {
   render() {
     console.log("ProfileContainer render")
 
-    const { profile, errors, isFetching, id } = this.props
+    const { profile, allChatrooms, errors, isFetching, id } = this.props
     return (
       <div>
-        <Profile profile={profile} id={id} errors={errors} onRefresh={this.handleRefreshClick} isFetching={isFetching} />
+        <Profile profile={profile} id={id} errors={errors} onRefresh={this.handleRefreshClick} isFetching={isFetching} allChatrooms={allChatrooms} />
       </div>
     )
   }
@@ -49,6 +49,7 @@ class ProfileContainer extends React.Component {
 
 ProfileContainer.propTypes = {
   profile: PropTypes.object,
+  allChatrooms: PropTypes.array.isRequired,
   isFetching: PropTypes.bool,
   errors: PropTypes.object,
   id: PropTypes.string,
@@ -62,6 +63,7 @@ ProfileContainer.defaultProps = {
 
 const mapStateToProps = (state, { params }) => ({
   profile: getUser(state, params.id),
+  allChatrooms: getAllChatrooms(state),
   isFetching: getIsFetchingUser(state, params.id),
   errors: getUserErrors(state, params.id),
   id: params.id

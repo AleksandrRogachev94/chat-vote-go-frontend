@@ -1,4 +1,4 @@
-import { RECEIVE_MESSAGES, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE } from '../actions/actionTypes'
+import { RECEIVE_MESSAGES, ADD_MESSAGE_SUCCESS } from '../actions/actionTypes'
 
 const messages = (state = {
   messagesById: {}
