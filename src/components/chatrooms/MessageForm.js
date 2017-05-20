@@ -31,15 +31,17 @@ class MessageForm extends React.Component {
   render() {
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="field">
-          <label className="label has-text-centered">Message</label>
-          <p className="control">
-            <textarea className="textarea" placeholder="Add Message" value={this.state.content} onChange={this.handleChange} />
-          </p>
-        </div>
-        <PrimaryButton value="Create" disabled={!this.state.content} />
-      </form>
+      <div className="content">
+        <form onSubmit={this.handleSubmit}>
+          <div className="field">
+            <label className="label has-text-centered">Message</label>
+            <p className="control">
+              <textarea className="textarea" placeholder="Add Message" value={this.state.content} onChange={this.handleChange} />
+            </p>
+          </div>
+          <PrimaryButton value="Send" disabled={!this.state.content} />
+        </form>
+      </div>
     )
   }
 }

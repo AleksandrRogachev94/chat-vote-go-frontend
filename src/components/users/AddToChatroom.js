@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import { getAllChatrooms } from '../../reducers/index'
+import { addGuestToChatroom } from '../../actions/userChatroomsActions'
 
 class AddToChatroom extends React.Component {
   constructor(props) {
@@ -20,8 +23,9 @@ class AddToChatroom extends React.Component {
 
   handleSubmit(ev) {
     ev.preventDefault()
-    alert(this.state.chatroom_id)
     this.setState({ chatroom_id: '' })
+    // alert(this.props.user_id)
+    this.props.addGuestToChatroom(this.props.user_id, this.state.chatroom_id)
   }
 
   render() {
@@ -54,7 +58,14 @@ class AddToChatroom extends React.Component {
 }
 
 AddToChatroom.propTypes = {
-  allChatrooms: PropTypes.array.isRequired
+  user_id: PropTypes.string.isRequired,
+  allChatrooms: PropTypes.array.isRequired,
+  addGuestToChatroom: PropTypes.func.isRequired
 }
 
-export default AddToChatroom
+const mapStateToProps = (state, { params }) => ({
+  user_id: params.id,
+  allChatrooms: getAllChatrooms(state)
+})
+
+export default withRouter(connect(mapStateToProps, { addGuestToChatroom })(AddToChatroom))

@@ -19,7 +19,7 @@ const Profile = (props) => {
         {props.errors.auth && <Error msg={props.errors.auth.join(", ")} />}
 
         <ProfileInfo email={email} avatar_url={avatar_original_url} nickname={nickname} created_at={created_at} first_name={first_name} last_name={last_name} />
-        <AddToChatroom allChatrooms={props.allChatrooms} />
+        <AddToChatroom />
         <PrimaryButton value="Refresh" onClick={props.onRefresh} isLoading={props.isFetching} />
       </div>
     )
@@ -30,7 +30,6 @@ const Profile = (props) => {
 
 Profile.propTypes = {
   profile: PropTypes.object,
-  allChatrooms: PropTypes.array.isRequired,
   id: PropTypes.string,
   errors: PropTypes.object,
   isFetching: PropTypes.bool,
