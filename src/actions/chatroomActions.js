@@ -2,7 +2,7 @@ import 'isomorphic-fetch'
 import { fetchWrapper, dataFromReject } from '../lib/shared'
 // import { getProfile, getIsFetchingProfile, getDidInvalidateProfile } from '../reducers/profilesByUserId'
 import { getIsFetchingChatroom } from '../reducers/index'
-import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE } from './actionTypes'
+import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, ADD_CHATROOM, ADD_CHATROOM_SUCCESS, ADD_CHATROOM_FAILURE } from './actionTypes'
 import { receiveMessages } from './messagesActions'
 import { addUsers } from './usersActions'
 
@@ -46,21 +46,32 @@ export const fetchChatroom = (id) => (dispatch, getState) => {
     .catch((err) => dispatch(fetchChatroomFailure(id, dataFromReject(err).errors)))
 }
 
-// function shouldFetchProfile(state, id) {
-//   const profile = getProfile(state, id)
-//   if (!profile) {
-//     return true
-//   } else if (getIsFetchingProfile(state, id)) {
-//     return false
-//   } else {
-//     return profile.getDidInvalidateProfile(state, id)
-//   }
-// }
-//
-// export const fetchProfileIfNeeded = (id) => (dispatch, getState) => {
-//   if (shouldFetchProfile(getState(), id)) {
-//     return dispatch(fetchProfile(id))
-//   } else {
-//     return Promise.resolve()
-//   }
-// }
+
+export const addChatroomSuccess = (message) => ({
+  type: ADD_CHATROOM_SUCCESS,
+  message
+})
+
+export const addChatroomFailure = () => ({
+  type: ADD_CHATROOM_FAILURE,
+})
+
+export const addChatroom = (chatroomData) => (dispatch) => {
+  // dispatch(fetchUserRequest(id))
+
+  const request = new Request(`/api/v1/chatrooms`, {
+    method: 'POST',
+    headers: new Headers({
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+      'Content-Type': 'application/json',
+      'Accepts': 'application/json'
+    }),
+    body: JSON.stringify({chatroom: chatroomData})
+  })
+
+  return fetchWrapper(request)
+    // All OK.
+    .then(data => dispatch(addChatroomSuccess(data.chatroom)))
+    // Error.
+    .catch((err) => dispatch(addChatroomFailure(dataFromReject(err).errors)));
+}

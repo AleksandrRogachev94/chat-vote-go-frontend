@@ -24,10 +24,8 @@ class MessageForm extends React.Component {
 
   handleSubmit(ev) {
     ev.preventDefault()
-    this.set
-    this.props.addMessage(this.props.chatroom_id, this.state).then(() =>
-      this.setState({ content: '' })
-    )
+    this.setState({ content: '' })
+    this.props.addMessage(this.props.chatroom_id, this.state)
   }
 
   render() {

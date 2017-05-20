@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ChatroomLi from './ChatroomLi'
 import Error from '../common/Error'
+import ChatroomForm from './ChatroomForm'
 
 const ChatroomsList = ({ own_chatrooms, guest_chatrooms, isFetching, errors }) => {
   console.log("ChatroomsList render")
@@ -10,7 +11,7 @@ const ChatroomsList = ({ own_chatrooms, guest_chatrooms, isFetching, errors }) =
     <ChatroomLi key={chatroom.id} title={chatroom.title} id={chatroom.id} />)
   const guestJSX = guest_chatrooms.map(chatroom =>
     <ChatroomLi key={chatroom.id} title={chatroom.title} id={chatroom.id} />)
-    
+
   return (
     <div>
     {errors.other && <Error msg={errors.other.join(", ")} />}
@@ -22,6 +23,7 @@ const ChatroomsList = ({ own_chatrooms, guest_chatrooms, isFetching, errors }) =
         <ul className="menu-list">{guestJSX}</ul>
       </aside>
       {isFetching && (<p>Loading...</p>)}
+      <ChatroomForm />
     </div>
   )
 }
