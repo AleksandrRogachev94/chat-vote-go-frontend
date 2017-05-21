@@ -32,7 +32,8 @@ export const addMessage = (chatroom_id, messageData) => (dispatch) => {
 
   return fetchWrapper(request)
     // All OK.
-    .then(data => dispatch(addMessageSuccess(data.message)))
+    // .then(data => dispatch(addMessageSuccess(data.message)))
+    .then(() => console.log("DONE FETCHING"))
     // Error.
     .catch((err) => dispatch(addMessageFailure(chatroom_id, dataFromReject(err).errors)));
 }

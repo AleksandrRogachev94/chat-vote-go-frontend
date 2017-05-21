@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types';
+import ActionCable from 'actioncable'
 import { fetchChatroom } from '../../actions/chatroomActions'
 import { getFullChatroom, getIsFetchingChatroom, getChatroomErrors } from '../../reducers/index'
 import Chatroom from './Chatroom'
@@ -13,6 +14,8 @@ class ChatroomContainer extends React.Component {
     const { fetchChatroom, id } = this.props
     if(id) {
       fetchChatroom(id)
+
+      // subscribeToMessagesChannel(cable)
     }
   }
 
@@ -21,7 +24,25 @@ class ChatroomContainer extends React.Component {
     const { fetchChatroom, id } = this.props
     if(id && prevProps.id !== id) {
       fetchChatroom(id)
+      // subscribeToMessagesChannel(cable)
     }
+  }
+
+  subscribeToMessagesChannel = (cable) => {
+    cable.subscriptions.create('MessagesChannel', {
+      received: function(data) {
+        console.log("ACTIONCABLE GET DATA")
+        console.log(data)
+      },
+
+      connected: function(data) {
+        console.log('ACTIONCABLE SUBSCRIBED')
+      },
+
+      disconnected: function(data) {
+        console.log('ACTIONCABLE UNSUBSCRIBED')
+      }
+    });
   }
 
   // Selectors make some calculations with chatroom. Same objects are not the same here

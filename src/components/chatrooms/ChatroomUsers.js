@@ -14,10 +14,19 @@ const ChatroomUsers = (props) => {
   return (
     <div>
       <h3 className="title is-3">Chatroom Users</h3>
-      <div>Owner: {owner}</div>
-      <div>Guests:
-        <ul>{guests}</ul>
-      </div>
+
+      <table className="table">
+        <tbody>
+            <tr>
+              <th>Owner</th>
+              <th>{owner}</th>
+            </tr>
+            <tr>
+              <th>Guests</th>
+              <th>{guests}</th>
+            </tr>
+        </tbody>
+      </table>
     </div>
   )
 }

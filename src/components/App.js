@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Navbar from './Navbar'
 import FlashMessagesList from './flash/FlashMessagesList'
 
-class App extends Component {
+class App extends React.Component {
+
   render() {
     console.log("App Render")
     return (

@@ -1,19 +1,26 @@
 import 'isomorphic-fetch'
+import ActionCable from 'actioncable'
 import jwtDecode from 'jwt-decode'
+import isEmpty from 'lodash/isEmpty'
+import { getCable } from '../reducers/index'
 import { fetchWrapper } from '../lib/shared'
-import { SET_CURRENT_USER } from './actionTypes'
+import { SET_CURRENT_USER, LOGOUT } from './actionTypes'
 
-export const setCurrentUser = (user) => ({
+export const setCurrentUser = (user, cable) => ({
   type: SET_CURRENT_USER,
-  user
+  user,
+  cable
 })
 
-export const logout = () => (dispatch) => {
+export const logout = () => (dispatch, getState) => {
   localStorage.removeItem('jwt')
-  dispatch(setCurrentUser({}))
+  getCable(getState()).disconnect() // Disconnect AcionCable Connection
+  dispatch({
+    type: LOGOUT
+  })
 }
 
-export const login = (userData) => (dispatch) => {
+export const login = (userData) => (dispatch, getState) => {
   const request = new Request('/api/v1/login', {
     method: 'POST',
     headers: new Headers({
@@ -26,6 +33,10 @@ export const login = (userData) => (dispatch) => {
   return fetchWrapper(request)
     .then(data => {
       localStorage.setItem('jwt', data.jwt)
-      dispatch(setCurrentUser(jwtDecode(data.jwt)))
+
+      if(!isEmpty(getCable(getState()))) getCable(getState()).disconnect()
+      const cable = ActionCable.createConsumer(`/cable?jwt=${data.jwt}`) // Connect to ActionCable
+      const user = jwtDecode(data.jwt)
+      dispatch(setCurrentUser(user, cable))
     })
 }

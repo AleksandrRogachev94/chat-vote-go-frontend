@@ -26,6 +26,9 @@ export const getIsAuthenticated = (state) => (
 export const getCurrentUser = (state) => (
   fromAuth.getCurrentUser(state.auth)
 )
+export const getCable = (state) => (
+  fromAuth.getCable(state.auth)
+)
 
 // Users
 
