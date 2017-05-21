@@ -6,7 +6,7 @@ import { fetchAllChatrooms } from '../../actions/chatroomsActions'
 import { getChatroomsByTitle, getIsFetchingChatrooms, getChatroomsErrors } from '../../reducers/index'
 import ChatroomsList from './ChatroomsList'
 
-class ChatroomsListContainer extends React.PureComponent {
+class ChatroomsListContainer extends React.Component {
 
   componentDidMount() {
     this.props.fetchAllChatrooms()

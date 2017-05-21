@@ -1,6 +1,7 @@
 import React from 'react'
 import ChatroomsListContainer from './ChatroomsListContainer'
 import ChatroomContainer from './ChatroomContainer'
+import SuggestionsContainer from './SuggestionsContainer'
 
 const ChatroomsPage = (props) => {
   console.log("ChatroomsPage render")
@@ -14,6 +15,9 @@ const ChatroomsPage = (props) => {
         </div>
         <div className="column">
           <ChatroomContainer />
+        </div>
+        <div className="column">
+          <SuggestionsContainer />
         </div>
       </div>
     </div>
