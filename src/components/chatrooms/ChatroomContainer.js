@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types';
-import ActionCable from 'actioncable'
 import { fetchChatroom } from '../../actions/chatroomActions'
+import { subscribeToChatroom, unsubscribeFromChatroom } from '../../actions/actioncableActions'
 import { getFullChatroom, getIsFetchingChatroom, getChatroomErrors } from '../../reducers/index'
 import Chatroom from './Chatroom'
 import deepEqual from 'deep-equal'
@@ -11,38 +11,24 @@ import deepEqual from 'deep-equal'
 class ChatroomContainer extends React.Component {
 
   componentDidMount() {
-    const { fetchChatroom, id } = this.props
+    const { subscribeToChatroom, fetchChatroom, id } = this.props
     if(id) {
       fetchChatroom(id)
-
-      // subscribeToMessagesChannel(cable)
+      subscribeToChatroom(id)
     }
   }
 
   componentDidUpdate(prevProps) {
     // debugger
-    const { fetchChatroom, id } = this.props
+    const { subscribeToChatroom, fetchChatroom, id } = this.props
     if(id && prevProps.id !== id) {
       fetchChatroom(id)
-      // subscribeToMessagesChannel(cable)
+      subscribeToChatroom(id)
     }
   }
 
-  subscribeToMessagesChannel = (cable) => {
-    cable.subscriptions.create('MessagesChannel', {
-      received: function(data) {
-        console.log("ACTIONCABLE GET DATA")
-        console.log(data)
-      },
-
-      connected: function(data) {
-        console.log('ACTIONCABLE SUBSCRIBED')
-      },
-
-      disconnected: function(data) {
-        console.log('ACTIONCABLE UNSUBSCRIBED')
-      }
-    });
+  componentWillUnmount() {
+    this.props.unsubscribeFromChatroom()
   }
 
   // Selectors make some calculations with chatroom. Same objects are not the same here
@@ -87,4 +73,6 @@ const mapStateToProps = (state, { params }) => ({
   errors: getChatroomErrors(state, params.id)
 })
 
-export default withRouter(connect(mapStateToProps, { fetchChatroom })(ChatroomContainer))
+export default withRouter(
+  connect(mapStateToProps, { fetchChatroom, subscribeToChatroom, unsubscribeFromChatroom })(ChatroomContainer)
+)

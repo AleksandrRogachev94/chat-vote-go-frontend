@@ -2,10 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ChatroomBoard from './ChatroomBoard'
 import ChatroomUsers from './ChatroomUsers'
+import Error from '../common/Error'
 
 const Chatroom = (props) => {
   console.log("Chatroom render")
-
+  
   let title, messages, owner, guests
   if(props.chatroom) ({ title, messages, owner, guests } = props.chatroom)
 
@@ -15,7 +16,7 @@ const Chatroom = (props) => {
   //   return (
   //     <p>Loading...</p>
   //   )
-  } else if(props.id) {
+  } else {
     return (
       <div>
         <h1 className="title has-text-centered">{title}</h1>
