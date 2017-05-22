@@ -3,6 +3,7 @@ import auth, * as fromAuth from './auth'
 import users, * as fromUsers from './users'
 import chatrooms, * as fromChatrooms from './chatrooms'
 import messages, * as fromMessages from './messages'
+import suggestions, * as fromSuggestions from './suggestions'
 import flashMessages from './flashMessages'
 
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   users,
   chatrooms,
   messages,
+  suggestions,
   flashMessages
 })
 
@@ -86,7 +88,6 @@ export const getChatroomErrors = (state, id) => (
 export const getMessage = (state, id) => (
   fromMessages.getMessage(state.messages, id)
 )
-
 export const getMessageWithOwner = (state, id) => {
   let result
   if(getMessage(state, id)) result = Object.assign({}, getMessage(state, id))
@@ -96,7 +97,6 @@ export const getMessageWithOwner = (state, id) => {
     return result
   }
 }
-
 export const getChatroomMessages = (state, id) => {
   let ids
   if(getChatroom(state, id)) ids = getChatroom(state, id).messagesIds
@@ -115,5 +115,25 @@ export const getFullChatroom = (state, id) => {
     delete result.ownerId
     delete result.guestsIds
     return result
+  }
+}
+
+export const getSuggestion = (state, id) => (
+  fromSuggestions.getSuggestion(state.suggestions, id)
+)
+export const getSuggestionWithOwner = (state, id) => {
+  let result
+  if(getSuggestion(state, id)) result = Object.assign({}, getSuggestion(state, id))
+  if(result) {
+    result.owner = getUser(state, result.user_id)
+    delete result.user_id
+    return result
+  }
+}
+export const getSuggestionsFromChatroom = (state, id) => {
+  let ids
+  if(getChatroom(state, id)) ids = getChatroom(state, id).suggestionsIds
+  if(ids) {
+    return ids.map(id => getSuggestionWithOwner(state, id))
   }
 }

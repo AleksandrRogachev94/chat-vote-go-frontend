@@ -1,15 +1,29 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
-// import deepEqual from 'deep-equal'
-// import { fetchAllChatrooms } from '../../actions/chatroomsActions'
-// import { getChatroomsByTitle, getIsFetchingChatrooms, getChatroomsErrors } from '../../reducers/index'
-import Suggestions from './Suggestions'
+import { getSuggestionsFromChatroom, getIsFetchingChatroom } from '../../reducers/index'
+import SuggestionsToggleMode from './SuggestionsToggleMode'
+import SuggestionsReview from './SuggestionsReview'
+import SuggestionForm from './SuggestionForm'
 
 class SuggestionsContainer extends React.Component {
 
-  componentDidMount() {
-    // this.props.fetchAllChatrooms()
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      viewMode: 'review'
+    }
+
+    this.handleChangeMode = this.handleChangeMode.bind(this)
+  }
+
+  handleChangeMode(ev) {
+    ev.preventDefault()
+    this.setState({
+      viewMode: ev.target.dataset.mode
+    })
   }
 
   // Fetching Chatroom (its full info) leads to unnecessary re-rendering.
@@ -39,29 +53,49 @@ class SuggestionsContainer extends React.Component {
   // }
 
   render() {
-    console.log("SuggestionsContainer render")
+    const { chatroom_id, suggestions } = this.props
+    const viewMode = this.state.viewMode
 
-    // const { own_chatrooms, guest_chatrooms, isFetching, errors } = this.props
+    if(!chatroom_id) {
+      return (<h1 className="title has-text-centered">Choose Chatroom</h1>)
+    } else {
+      let choosed = null
+      switch(viewMode) {
+        case 'review':
+          choosed = (<SuggestionsReview suggestions={suggestions} />)
+          break
+        case 'stats':
+          choosed = null
+          break
+        case 'form':
+          choosed = <SuggestionForm chatroom_id={chatroom_id} />
+          break
+        default:
+          choosed = (<SuggestionsReview suggestions={suggestions} />)
+      }
 
-    return (
-      <Suggestions />
-    )
+      return (
+        <div>
+          <SuggestionsToggleMode viewMode={viewMode} handleChangeMode={this.handleChangeMode} />
+          {choosed}
+        </div>
+      )
+    }
   }
 }
 
-// ChatroomsListContainer.propTypes = {
-//   fetchAllChatrooms: PropTypes.func.isRequired,
-//   guest_chatrooms: PropTypes.array.isRequired,
-//   own_chatrooms: PropTypes.array.isRequired,
-//   isFetching: PropTypes.bool.isRequired,
-//   errors: PropTypes.object.isRequired
-// }
-//
-const mapStateToProps = (state) => ({
-//   own_chatrooms: getChatroomsByTitle(state, 'own'),
-//   guest_chatrooms: getChatroomsByTitle(state, 'guest'),
-//   isFetching: getIsFetchingChatrooms(state, 'own') || getIsFetchingChatrooms(state, 'guest'),
-//   errors: Object.assign({}, getChatroomsErrors(state, 'own'), getChatroomsErrors(state, 'guest'))
+SuggestionsContainer.propTypes = {
+  chatroom_id: PropTypes.string,
+  suggestions: PropTypes.array,
+  isFetching: PropTypes.bool
+}
+
+const mapStateToProps = (state, { params }) => ({
+  chatroom_id: params.id,
+  suggestions: getSuggestionsFromChatroom(state, params.id),
+  isFetching: getIsFetchingChatroom(state, params.id)
 })
-//
-export default connect(mapStateToProps, {})(SuggestionsContainer)
+
+export default withRouter(
+  connect(mapStateToProps, {})(SuggestionsContainer)
+)

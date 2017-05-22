@@ -1,4 +1,3 @@
-import ActionCable from 'actioncable'
 import { SUBSCRIBE_TO_CHATROOM, UNSUBSCRIBE_FROM_CHATROOM } from './actionTypes'
 import { getSubscription, getCable } from '../reducers/index'
 import { addMessageSuccess } from './messagesActions'

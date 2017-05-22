@@ -4,6 +4,7 @@ import { fetchWrapper, dataFromReject } from '../lib/shared'
 import { getIsFetchingChatroom } from '../reducers/index'
 import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, ADD_CHATROOM_SUCCESS, ADD_CHATROOM_FAILURE } from './actionTypes'
 import { receiveMessages } from './messagesActions'
+import { receiveSuggestions } from './suggestionsActions'
 import { addUsers } from './usersActions'
 
 const fetchChatroomRequest = (id) => ({
@@ -39,6 +40,7 @@ export const fetchChatroom = (id) => (dispatch, getState) => {
     // All OK.
     .then(data => {
       dispatch(receiveMessages(data.chatroom.messages))
+      dispatch(receiveSuggestions(data.chatroom.suggestions))
       dispatch(addUsers('all', [data.chatroom.owner, ...data.chatroom.guests]))
       dispatch(fetchChatroomSuccess(data.chatroom))
     })

@@ -8,6 +8,7 @@ const parseResponseChatroom = (response) => {
   if(response.owner) result.ownerId = response.owner.id
   if(response.guests) result.guestsIds = response.guests.map(guest => guest.id)
   if(response.messages) result.messagesIds = response.messages.map(message => message.id)
+  if(response.suggestions) result.suggestionsIds = response.suggestions.map(sug => sug.id)
 
   return result
 }
