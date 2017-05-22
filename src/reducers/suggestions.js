@@ -1,4 +1,4 @@
-import { RECEIVE_SUGGESTIONS } from '../actions/actionTypes'
+import { RECEIVE_SUGGESTIONS, ADD_SUGGESTION_SUCCESS } from '../actions/actionTypes'
 
 const suggestions = (state = {
   suggestionsById: {}
@@ -9,12 +9,12 @@ const suggestions = (state = {
       action.suggestions.forEach(sug => { nextState.suggestionsById[sug.id] = sug })
       return nextState
 
-    // case ADD_MESSAGE_SUCCESS:
-    //   return Object.assign({}, state, {
-    //     messagesById: Object.assign({}, state.messagesById, {
-    //       [action.message.id]: action.message
-    //     })
-    //   })
+    case ADD_SUGGESTION_SUCCESS:
+      return Object.assign({}, state, {
+        suggestionsById: Object.assign({}, state.suggestionsById, {
+          [action.suggestion.id]: action.suggestion
+        })
+      })
 
     default:
       return state

@@ -22,5 +22,7 @@ PrimaryButton.propTypes = {
 }
 
 PrimaryButton.defaultProps = {
-  isLoading: false
+  isLoading: false,
+  disabled: false,
+  onClick: () => alert("You clicked the button!")
 }

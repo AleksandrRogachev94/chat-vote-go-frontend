@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-// import { addMessage } from '../../actions/messagesActions'
+import { addSuggestion } from '../../actions/suggestionsActions'
 import SuggestionFormType from './SuggestionFormType'
 import PrimaryButton from '../common/PrimaryButton'
 import InputField from '../common/InputField'
@@ -35,11 +35,19 @@ class SuggestionForm extends React.Component {
 
   handleSubmit(ev) {
     ev.preventDefault()
+    const { isCustom, title, description } = this.state
+
+    if(isCustom) {
+      this.props.addSuggestion({
+        title,
+        description
+      })
+    }
+
     this.setState({
       title: '',
       description: ''
     })
-    // this.props.addMessage(this.state)
   }
 
   render() {
@@ -78,11 +86,11 @@ class SuggestionForm extends React.Component {
 
 SuggestionForm.propTypes = {
   chatroom_id: PropTypes.string.isRequired,
-  // addMessage: PropTypes.func.isRequired
+  addSuggestion: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (_, ownProps) => ({
   chatroom_id: ownProps.chatroom_id
 })
 
-export default connect(mapStateToProps, { })(SuggestionForm)
+export default connect(mapStateToProps, { addSuggestion })(SuggestionForm)

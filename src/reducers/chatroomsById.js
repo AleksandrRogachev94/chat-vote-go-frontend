@@ -1,4 +1,5 @@
-import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, FETCH_CHATROOMS_SUCCESS, ADD_MESSAGE_SUCCESS, ADD_CHATROOM_SUCCESS } from '../actions/actionTypes'
+import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, FETCH_CHATROOMS_SUCCESS,
+ADD_MESSAGE_SUCCESS, ADD_CHATROOM_SUCCESS, ADD_SUGGESTION_SUCCESS } from '../actions/actionTypes'
 import { fetchChatroomSuccess } from '../actions/chatroomActions'
 import chatroom, * as fromChatroom from './chatroom'
 
@@ -26,6 +27,11 @@ const chatroomsById = (state = {}, action) => {
     case ADD_MESSAGE_SUCCESS:
       return Object.assign({}, state, {
         [action.message.chatroom_id]: chatroom(state[action.message.chatroom_id], action)
+      })
+
+    case ADD_SUGGESTION_SUCCESS:
+      return Object.assign({}, state, {
+        [action.suggestion.chatroom_id]: chatroom(state[action.suggestion.chatroom_id], action)
       })
 
     default:

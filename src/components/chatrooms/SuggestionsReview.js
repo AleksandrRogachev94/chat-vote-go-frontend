@@ -5,8 +5,7 @@ import Suggestion from './Suggestion'
 const SuggestionsReview = (props) => {
   let suggestions
   if(props.suggestions) suggestions = props.suggestions.map(sug => (
-    <Suggestion key={sug.id} title={sug.title} owner={sug.owner}
-                description={sug.description} api_link={sug.api_link} />
+    <Suggestion key={sug.id} suggestion={sug} isSelected={true} />
   ))
 
   return (

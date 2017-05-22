@@ -1,4 +1,5 @@
-import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, ADD_CHATROOM_SUCCESS, ADD_MESSAGE_SUCCESS } from '../actions/actionTypes'
+import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE,
+ADD_CHATROOM_SUCCESS, ADD_MESSAGE_SUCCESS, ADD_SUGGESTION_SUCCESS } from '../actions/actionTypes'
 
 const parseResponseChatroom = (response) => {
   let result = {
@@ -46,6 +47,14 @@ const chatroom = (state = {
       return Object.assign({}, state, {
         chatroom: Object.assign({}, state.chatroom, {
           messagesIds: [...state.chatroom.messagesIds, action.message.id]
+        })
+      })
+
+    case ADD_SUGGESTION_SUCCESS:
+      if(action.suggestion.chatroom_id !== state.chatroom.id) return state
+      return Object.assign({}, state, {
+        chatroom: Object.assign({}, state.chatroom, {
+          suggestionsIds: [...state.chatroom.suggestionsIds, action.suggestion.id]
         })
       })
 
