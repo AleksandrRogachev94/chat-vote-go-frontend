@@ -1,7 +1,14 @@
 import isEmpty from 'lodash/isEmpty';
-import { SET_CURRENT_USER, LOGOUT, SUBSCRIBE_TO_CHATROOM, UNSUBSCRIBE_FROM_CHATROOM } from '../actions/actionTypes'
+import { SET_CURRENT_USER, LOGOUT, SUBSCRIBE_TO_CHATROOM_MESSAGES, UNSUBSCRIBE_FROM_CHATROOM_MESSAGES,
+SUBSCRIBE_TO_CHATROOM_SUGGESTIONS, UNSUBSCRIBE_FROM_CHATROOM_SUGGESTIONS } from '../actions/actionTypes'
 
-const auth = (state = { isAuthenticated: false, user: {}, cable: {}, subscription: {} }, action) => {
+const auth = (state = {
+  isAuthenticated: false,
+  user: {},
+  cable: {},
+  subscriptionMessages: {},
+  subscriptionSuggestions: {}
+}, action) => {
   switch(action.type) {
 
     case SET_CURRENT_USER:
@@ -9,7 +16,8 @@ const auth = (state = { isAuthenticated: false, user: {}, cable: {}, subscriptio
         isAuthenticated: !isEmpty(action.user),
         user: action.user,
         cable: action.cable,
-        subscription: {}
+        subscriptionMessages: {},
+        subscriptionSuggestions: {}
       }
 
     case LOGOUT:
@@ -17,17 +25,28 @@ const auth = (state = { isAuthenticated: false, user: {}, cable: {}, subscriptio
         isAuthenticated: false,
         user: {},
         cable: {},
-        subscription: {}
+        subscriptionMessages: {},
+        subscriptionSuggestions: {}
       }
 
-    case SUBSCRIBE_TO_CHATROOM:
+    case SUBSCRIBE_TO_CHATROOM_MESSAGES:
       return Object.assign({}, state, {
-        subscription: action.subscription
+        subscriptionMessages: action.subscriptionMessages
       })
 
-    case UNSUBSCRIBE_FROM_CHATROOM:
+    case UNSUBSCRIBE_FROM_CHATROOM_MESSAGES:
       return Object.assign({}, state, {
-        subscription: {}
+        subscriptionMessages: {}
+      })
+
+    case SUBSCRIBE_TO_CHATROOM_SUGGESTIONS:
+      return Object.assign({}, state, {
+        subscriptionSuggestions: action.subscriptionSuggestions
+      })
+
+    case UNSUBSCRIBE_FROM_CHATROOM_SUGGESTIONS:
+      return Object.assign({}, state, {
+        subscriptionSuggestions: {}
       })
 
     default:
@@ -51,6 +70,10 @@ export const getCable = (state) => (
   state.cable
 )
 
-export const getSubscription = (state) => (
-  state.subscription
+export const getSubscriptionMessages = (state) => (
+  state.subscriptionMessages
+)
+
+export const getSubscriptionSuggestions = (state) => (
+  state.subscriptionSuggestions
 )

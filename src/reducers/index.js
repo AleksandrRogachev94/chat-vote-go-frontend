@@ -31,8 +31,11 @@ export const getCurrentUser = (state) => (
 export const getCable = (state) => (
   fromAuth.getCable(state.auth)
 )
-export const getSubscription = (state) => (
-  fromAuth.getSubscription(state.auth)
+export const getSubscriptionMessages = (state) => (
+  fromAuth.getSubscriptionMessages(state.auth)
+)
+export const getSubscriptionSuggestions = (state) => (
+  fromAuth.getSubscriptionSuggestions(state.auth)
 )
 
 // Users

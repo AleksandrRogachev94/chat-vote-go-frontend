@@ -1,7 +1,7 @@
 import 'isomorphic-fetch'
 import { fetchWrapper, dataFromReject } from '../lib/shared'
 import { RECEIVE_MESSAGES, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE } from './actionTypes'
-import { getSubscription } from '../reducers/index'
+import { getSubscriptionMessages } from '../reducers/index'
 
 export const receiveMessages = (messages) => ({
   type: RECEIVE_MESSAGES,
@@ -19,8 +19,8 @@ export const addMessageFailure = (chatroom_id) => ({
 })
 
 export const addMessage = (messageData) => (dispatch, getState) => {
-  const subscription = getSubscription(getState())
-  subscription.send({ message: messageData })
+  const subscriptionMessages = getSubscriptionMessages(getState())
+  subscriptionMessages.send({ message: messageData })
 }
 
 // export const addMessage = (chatroom_id, messageData) => (dispatch) => {
