@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import deepEqual from 'deep-equal'
 import { vote } from '../../actions/suggestionsActions'
 import { getCurrentUser } from '../../reducers/index'
 import SuggestionInfoModal from './SuggestionInfoModal'
@@ -21,6 +22,13 @@ class Suggestion extends React.Component {
     this.handleVote = this.handleVote.bind(this)
   }
 
+  // Suggestion is calculated. Need to check deep equality.
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.current_user_id !== this.props.current_user_id ||
+      !deepEqual(nextProps.suggestion, this.props.suggestion) ||
+      nextState.isSelected !== this.state.isSelected
+  }
+
   handleChoose(ev) {
     ev.preventDefault()
     this.setState({ isSelected: true })
@@ -35,9 +43,9 @@ class Suggestion extends React.Component {
     this.props.vote(this.props.suggestion.id)
   }
 
-
-
   render() {
+    console.log("Suggestion render")
+    console.log(this.props)
     const { suggestion, current_user_id } = this.props
 
     return(

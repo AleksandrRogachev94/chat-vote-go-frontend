@@ -21,8 +21,9 @@ const SuggestionInfoModal = ({ suggestion, isOpen, onClose }) => {
         <section className="modal-card-body">
           <h4 className="title is-4">Voters</h4>
           {suggestion.voters.map((voter) => (
-            <a key={voter.id} href={`/users/${voter.id}`}>
-              <img src={voter.avatar_thumb_url} className="avatar-thumb" />
+            <a key={voter.id} href={`/users/${voter.id}`} className="inline-user" >
+              <div><img src={voter.avatar_thumb_url} className="avatar-thumb" /></div>
+              <div>{voter.nickname}</div>
             </a>
           ))}
         </section>

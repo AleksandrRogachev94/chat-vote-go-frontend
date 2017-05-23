@@ -36,3 +36,8 @@ img.avatar-thumb {
   height: 2em;
   border-radius: 50%;
 }
+
+a.inline-user {
+  display: inline-block;
+  margin: 0.5em;
+}
