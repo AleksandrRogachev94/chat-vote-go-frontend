@@ -31,7 +31,7 @@ img#avatar {
   margin: 0 auto;
 }
 
-img#avatar-thumb {
+img.avatar-thumb {
   width: 2em;
   height: 2em;
   border-radius: 50%;

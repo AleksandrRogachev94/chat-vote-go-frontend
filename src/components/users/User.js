@@ -8,7 +8,7 @@ const User = ({ nickname, id, avatar_url }) => {
       <Link to={`/users/${id}`} activeClassName='is-active'>
         <div className="columns is-mobile">
           <div className="column is-one-third">
-            <img src={avatar_url} alt="avatar" id="avatar-thumb" />
+            <img src={avatar_url} alt="avatar" className="avatar-thumb" />
           </div>
           <div className="column">
             <div style={{display: 'inline-block'}}>{nickname}</div>

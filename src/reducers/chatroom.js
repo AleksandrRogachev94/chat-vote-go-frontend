@@ -51,7 +51,9 @@ const chatroom = (state = {
       })
 
     case ADD_SUGGESTION_SUCCESS:
-      if(action.suggestion.chatroom_id !== state.chatroom.id) return state
+      if(action.suggestion.chatroom_id !== state.chatroom.id ||
+        state.chatroom.suggestionsIds.includes(action.suggestion.id))
+        return state
       return Object.assign({}, state, {
         chatroom: Object.assign({}, state.chatroom, {
           suggestionsIds: [...state.chatroom.suggestionsIds, action.suggestion.id]

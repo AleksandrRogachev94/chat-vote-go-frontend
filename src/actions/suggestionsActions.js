@@ -1,5 +1,4 @@
 import 'isomorphic-fetch'
-import { fetchWrapper, dataFromReject } from '../lib/shared'
 import { RECEIVE_SUGGESTIONS, ADD_SUGGESTION_SUCCESS } from './actionTypes'
 import { getSubscriptionSuggestions } from '../reducers/index'
 
@@ -16,4 +15,9 @@ export const addSuggestionSuccess = (suggestion) => ({
 export const addSuggestion = (suggestionData) => (dispatch, getState) => {
   const subscriptionSuggestions = getSubscriptionSuggestions(getState())
   subscriptionSuggestions.send({ suggestion: suggestionData })
+}
+
+export const vote = (suggestion_id) => (dispatch, getState) => {
+  const subscriptionSuggestions = getSubscriptionSuggestions(getState())
+  subscriptionSuggestions.send({ suggestion_id })
 }

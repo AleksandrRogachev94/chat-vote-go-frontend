@@ -124,12 +124,13 @@ export const getFullChatroom = (state, id) => {
 export const getSuggestion = (state, id) => (
   fromSuggestions.getSuggestion(state.suggestions, id)
 )
-export const getSuggestionWithOwner = (state, id) => {
+export const getSuggestionWithOwnerAndVoters = (state, id) => {
   let result
   if(getSuggestion(state, id)) result = Object.assign({}, getSuggestion(state, id))
   if(result) {
     result.owner = getUser(state, result.user_id)
     delete result.user_id
+    result.voters = result.voters.map(id => getUser(state, id))
     return result
   }
 }
@@ -137,6 +138,6 @@ export const getSuggestionsFromChatroom = (state, id) => {
   let ids
   if(getChatroom(state, id)) ids = getChatroom(state, id).suggestionsIds
   if(ids) {
-    return ids.map(id => getSuggestionWithOwner(state, id))
+    return ids.map(id => getSuggestionWithOwnerAndVoters(state, id))
   }
 }
