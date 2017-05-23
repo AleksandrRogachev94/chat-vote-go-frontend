@@ -10,7 +10,7 @@ const ChatroomsPage = (props) => {
     <div>
       <h1 className="title has-text-centered">Chatrooms Page</h1>
       <div className="columns is-mobile">
-        <div className="column is-one-third" id="users-list">
+        <div className="column is-one-quarter" id="users-list">
           <ChatroomsListContainer />
         </div>
         <div className="column">

@@ -6,6 +6,7 @@ import { getSuggestionsFromChatroom, getIsFetchingChatroom } from '../../reducer
 import SuggestionsToggleMode from './SuggestionsToggleMode'
 import SuggestionsReview from './SuggestionsReview'
 import SuggestionForm from './SuggestionForm'
+import SuggestionsStats from './SuggestionsStats'
 
 class SuggestionsContainer extends React.Component {
 
@@ -13,7 +14,7 @@ class SuggestionsContainer extends React.Component {
     super(props)
 
     this.state = {
-      viewMode: 'review'
+      viewMode: 'stats'
     }
 
     this.handleChangeMode = this.handleChangeMode.bind(this)
@@ -39,10 +40,10 @@ class SuggestionsContainer extends React.Component {
           choosed = (<SuggestionsReview suggestions={suggestions} />)
           break
         case 'stats':
-          choosed = null
+          choosed = (<SuggestionsStats suggestions={suggestions} />)
           break
         case 'form':
-          choosed = <SuggestionForm chatroom_id={chatroom_id} />
+          choosed = (<SuggestionForm chatroom_id={chatroom_id} />)
           break
         default:
           choosed = (<SuggestionsReview suggestions={suggestions} />)

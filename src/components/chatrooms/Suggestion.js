@@ -45,7 +45,6 @@ class Suggestion extends React.Component {
 
   render() {
     console.log("Suggestion render")
-    console.log(this.props)
     const { suggestion, current_user_id } = this.props
 
     return(
