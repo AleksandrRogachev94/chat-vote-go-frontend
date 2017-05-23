@@ -9,7 +9,7 @@ const SuggestionsReview = (props) => {
   ))
 
   return (
-    <nav className="panel">
+    <nav className="panel" id="suggestions">
       <p className="panel-heading">
         Suggestions
       </p>

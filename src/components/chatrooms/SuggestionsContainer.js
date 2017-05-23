@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { getSuggestionsFromChatroom, getIsFetchingChatroom } from '../../reducers/index'
 import SuggestionsToggleMode from './SuggestionsToggleMode'
 import SuggestionsReview from './SuggestionsReview'
-import SuggestionForm from './SuggestionForm'
+import SuggestionFormContainer from './SuggestionFormContainer'
 import SuggestionsStats from './SuggestionsStats'
 
 class SuggestionsContainer extends React.Component {
@@ -14,7 +14,7 @@ class SuggestionsContainer extends React.Component {
     super(props)
 
     this.state = {
-      viewMode: 'stats'
+      viewMode: 'review'
     }
 
     this.handleChangeMode = this.handleChangeMode.bind(this)
@@ -43,7 +43,7 @@ class SuggestionsContainer extends React.Component {
           choosed = (<SuggestionsStats suggestions={suggestions} />)
           break
         case 'form':
-          choosed = (<SuggestionForm chatroom_id={chatroom_id} />)
+          choosed = (<SuggestionFormContainer chatroom_id={chatroom_id} />)
           break
         default:
           choosed = (<SuggestionsReview suggestions={suggestions} />)

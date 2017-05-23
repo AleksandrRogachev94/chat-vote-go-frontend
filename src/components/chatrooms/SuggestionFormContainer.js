@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { addSuggestion } from '../../actions/suggestionsActions'
 import SuggestionFormType from './SuggestionFormType'
-import PrimaryButton from '../common/PrimaryButton'
-import InputField from '../common/InputField'
+import SuggestionCustomForm from './SuggestionCustomForm'
+import SuggestionGoogleForm from './SuggestionGoogleForm'
 
 class SuggestionForm extends React.Component {
   constructor(props) {
@@ -52,33 +52,17 @@ class SuggestionForm extends React.Component {
 
   render() {
     const { title, description, isCustom } = this.state
-    let inputs = null
-    if(isCustom) {
-      inputs = (
-        <div>
-          <InputField name="title" label="Title" placeholder="Title" type="text" value={title}
-            onChange={this.handleChange} />
-
-          <div className="field">
-            <label className="label">Description</label>
-            <p className="control">
-              <textarea className="textarea" name="description" placeholder="Add Description" value={description} onChange={this.handleChange} />
-            </p>
-          </div>
-        </div>
-      )
-    }
 
     return (
       <div className="content">
         <h4 className="title is-4">Create New Suggestion</h4>
         <SuggestionFormType isCustom={isCustom} handleChangeType={this.handleChangeFormType} />
 
-        <form onSubmit={this.handleSubmit}>
-          {inputs}
-
-          <PrimaryButton value="Create Suggestion" disabled={!title} />
-        </form>
+        {isCustom ? (
+          <SuggestionCustomForm title={title} description={description} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+        ) : (
+          <SuggestionGoogleForm />
+        )}
       </div>
     )
   }
