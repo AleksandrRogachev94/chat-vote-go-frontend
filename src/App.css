@@ -11,16 +11,32 @@ ul {
 }
 
 #users-list {
-  height: 70vh;
-  /*height: 100%;*/
-  /*position: absolute;
-  top: 0;
-  bottom: 0;*/
   overflow: scroll;
+  height: 65vh;
 }
 
-footer {
-  height: 5px;
+#messages {
+  overflow: scroll;
+  height: 50vh;
+}
+
+#suggestions {
+  overflow: scroll;
+  height: 50vh;
+}
+
+.page-column {
+  height: 88vh;
+}
+
+textarea.textarea {
+  min-height: 3em;
+}
+
+footer#footer {
+  min-height: 5vh;
+  height: 5vh;
+  border: 1px solid black;
 }
 
 img#avatar {

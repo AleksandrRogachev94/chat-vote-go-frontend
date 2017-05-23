@@ -8,15 +8,14 @@ const ChatroomsPage = (props) => {
 
   return (
     <div>
-      <h1 className="title has-text-centered">Chatrooms Page</h1>
       <div className="columns is-mobile">
-        <div className="column is-one-quarter" id="users-list">
+        <div className="column is-3 page-column">
           <ChatroomsListContainer />
         </div>
-        <div className="column">
+        <div className="column page-column is-5">
           <ChatroomContainer />
         </div>
-        <div className="column">
+        <div className="column page-column is-4">
           <SuggestionsContainer />
         </div>
       </div>

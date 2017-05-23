@@ -16,9 +16,9 @@ class App extends React.Component {
           {this.props.children}
         </div>
 
-        <div className="footer">
+        <footer id="footer">
           2017 Aleksandr Rogachev
-        </div>
+        </footer>
       </div>
     );
   }

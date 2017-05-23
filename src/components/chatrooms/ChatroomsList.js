@@ -17,7 +17,7 @@ const ChatroomsList = ({ own_chatrooms, guest_chatrooms, isFetching, errors }) =
       {errors.other && <Error msg={errors.other.join(", ")} />}
       {errors.auth && <Error msg={errors.auth.join(", ")} />}
       <ChatroomForm />
-      <aside className="menu">
+      <aside className="menu" id="users-list">
         <p className="menu-label">Your Own Chatrooms</p>
         <ul className="menu-list">{ownJSX}</ul>
         <p className="menu-label">Your Guest Chatrooms</p>

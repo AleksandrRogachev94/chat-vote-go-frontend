@@ -22,7 +22,7 @@ const SuggestionInfoModal = ({ suggestion, isOpen, onClose }) => {
           <h4 className="title is-4">Voters</h4>
           {suggestion.voters.map((voter) => (
             <a key={voter.id} href={`/users/${voter.id}`} className="inline-user" >
-              <div><img src={voter.avatar_thumb_url} className="avatar-thumb" /></div>
+              <div><img src={voter.avatar_thumb_url} alt="avatar" className="avatar-thumb" /></div>
               <div>{voter.nickname}</div>
             </a>
           ))}

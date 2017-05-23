@@ -32,14 +32,16 @@ class ChatroomForm extends React.Component {
 
     return (
       <div className="content">
+        <h4 className="title is-4">Create New Chatroom</h4>
         <form onSubmit={this.handleSubmit}>
-          <div className="field">
-            <label className="label has-text-centered">Create New Chat Room</label>
+          <div className="field has-addons">
             <p className="control">
               <input className="input" type="text" placeholder="Title" value={this.state.title} onChange={this.handleChange} />
             </p>
+            <div className="control">
+              <PrimaryButton value="Create" disabled={!this.state.title} />
+            </div>
           </div>
-          <PrimaryButton value="Create" disabled={!this.state.title} />
         </form>
       </div>
     )

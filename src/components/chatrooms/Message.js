@@ -5,7 +5,9 @@ import { formatDateMessage } from '../../lib/shared'
 const Message = ({ content, owner, created_at }) => {
   return (
     <article className="message">
-      <div className="message-header">{owner} <em>{formatDateMessage(created_at)}</em></div>
+      <div className="message-header">
+        <small><b>{owner}</b>&nbsp;&nbsp;&nbsp;&nbsp;<em>{formatDateMessage(created_at)}</em></small>
+      </div>
       <div className="message-body">{content}</div>
     </article>
   )

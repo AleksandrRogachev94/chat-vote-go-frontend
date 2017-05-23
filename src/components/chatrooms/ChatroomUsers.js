@@ -8,13 +8,11 @@ const ChatroomUsers = (props) => {
 
   if(props.owner) owner = <Link to={`/users/${props.owner.id}`}>{props.owner.nickname}</Link>
   if(props.guests) guests = props.guests.map((guest) =>(
-    <li key={guest.id}><Link to={`/users/${guest.id}`}>{guest.nickname}</Link></li>
+    <Link key={guest.id} to={`/users/${guest.id}`}>{guest.nickname} </Link>
   ))
 
   return (
     <div>
-      <h3 className="title is-3">Chatroom Users</h3>
-
       <table className="table">
         <tbody>
             <tr>

@@ -11,8 +11,8 @@ const ChatroomBoard = (props) => {
   ))
 
   return (
-    <div id="chatroom-board">
-      <div>
+    <div>
+      <div id="messages">
         {messages}
       </div>
       <div>
