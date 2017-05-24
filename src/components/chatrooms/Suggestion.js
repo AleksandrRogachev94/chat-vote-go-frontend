@@ -3,50 +3,19 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import deepEqual from 'deep-equal'
-import { vote } from '../../actions/suggestionsActions'
-import { getCurrentUser } from '../../reducers/index'
-import SuggestionInfoModal from './SuggestionInfoModal'
 import PrimaryButton from '../common/PrimaryButton'
 
 class Suggestion extends React.Component {
 
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      isSelected: false
-    }
-
-    this.handleChoose = this.handleChoose.bind(this)
-    this.handleUnchoose = this.handleUnchoose.bind(this)
-    this.handleVote = this.handleVote.bind(this)
-  }
-
   // Suggestion is calculated. Need to check deep equality.
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     return nextProps.current_user_id !== this.props.current_user_id ||
-      !deepEqual(nextProps.suggestion, this.props.suggestion) ||
-      nextState.isSelected !== this.state.isSelected
-  }
-
-  handleChoose(ev) {
-    ev.preventDefault()
-    this.setState({ isSelected: true })
-  }
-
-  handleUnchoose(ev) {
-    this.setState({ isSelected: false })
-  }
-
-  handleVote(ev) {
-    ev.preventDefault()
-    this.props.vote(this.props.suggestion.id)
+      !deepEqual(nextProps.suggestion, this.props.suggestion)
   }
 
   render() {
     console.log("Suggestion render")
-    const { suggestion, current_user_id } = this.props
-
+    const { suggestion, current_user_id, handleVote, handleChoose } = this.props
     return(
       <div>
         <div className="panel-block">
@@ -56,18 +25,19 @@ class Suggestion extends React.Component {
             </Link>
           </div>
           <div className="column is-half">
-            <a href="#" onClick={this.handleChoose}>
+            <a href="#" onClick={handleChoose} data-id={suggestion.id}>
               <p>{suggestion.title}</p>
               <p>votes: {suggestion.voters.length}</p>
             </a>
           </div>
           <div className="column is-one-quarter">
-            <PrimaryButton value="vote" onClick={this.handleVote}
+            <button className={"button is-primary"}
               disabled={!!suggestion.voters.find(voter => voter.id === current_user_id)}
-            />
+              value="vote" data-id={suggestion.id} onClick={handleVote} type="submit">
+              vote
+            </button>
           </div>
         </div>
-        <SuggestionInfoModal suggestion={suggestion} isOpen={this.state.isSelected} onClose={this.handleUnchoose} />
       </div>
     )
   }
@@ -76,11 +46,8 @@ class Suggestion extends React.Component {
 Suggestion.propTypes = {
   suggestion: PropTypes.object.isRequired,
   current_user_id: PropTypes.number.isRequired,
-  vote: PropTypes.func.isRequired
+  handleChoose: PropTypes.func.isRequired,
+  handleVote: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => ({
-  current_user_id: getCurrentUser(state).id
-})
-
-export default connect(mapStateToProps, { vote })(Suggestion)
+export default Suggestion

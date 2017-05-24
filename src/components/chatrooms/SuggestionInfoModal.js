@@ -1,10 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const SuggestionInfoModal = ({ suggestion, isOpen, onClose }) => {
-  return (
-    <div className={isOpen ? "modal is-active" : 'modal'}>
-      <div className="modal-background"></div>
+const SuggestionInfoModal = ({ suggestion, fromGoogle, isOpen, onClose }) => {
+
+  let content = null
+  if(fromGoogle) {
+    content = <p></p>
+  } else {
+    content = (
       <div className="modal-card">
         <header className="modal-card-head">
           <p className="modal-card-title">{suggestion.title}</p>
@@ -28,13 +31,21 @@ const SuggestionInfoModal = ({ suggestion, isOpen, onClose }) => {
           ))}
         </section>
       </div>
+    )
+  }
+
+  return (
+    <div className={isOpen ? "modal is-active" : 'modal'}>
+      <div className="modal-background"></div>
+      {content}
     </div>
   )
 }
 
 SuggestionInfoModal.propTypes = {
   isOpen: PropTypes.bool,
-  suggestion: PropTypes.object.isRequired,
+  suggestion: PropTypes.object,
+  fromGoogle: PropTypes.object,
   onClose: PropTypes.func.isRequired
 }
 

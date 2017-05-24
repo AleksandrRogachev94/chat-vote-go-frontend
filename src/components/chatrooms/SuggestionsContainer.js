@@ -2,10 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
-import { getSuggestionsFromChatroom, getIsFetchingChatroom } from '../../reducers/index'
+import { getSuggestionsFromChatroom, getIsFetchingChatroom, getCurrentUser } from '../../reducers/index'
+import { addSuggestion, vote } from '../../actions/suggestionsActions'
 import SuggestionsToggleMode from './SuggestionsToggleMode'
 import SuggestionsReview from './SuggestionsReview'
-import SuggestionFormContainer from './SuggestionFormContainer'
+import SuggestionForm from './SuggestionForm'
 import SuggestionsStats from './SuggestionsStats'
 
 class SuggestionsContainer extends React.Component {
@@ -14,7 +15,7 @@ class SuggestionsContainer extends React.Component {
     super(props)
 
     this.state = {
-      viewMode: 'review'
+      viewMode: 'form'
     }
 
     this.handleChangeMode = this.handleChangeMode.bind(this)
@@ -28,7 +29,7 @@ class SuggestionsContainer extends React.Component {
   }
 
   render() {
-    const { chatroom_id, suggestions } = this.props
+    const { chatroom_id, suggestions, addSuggestion, vote, current_user_id } = this.props
     const viewMode = this.state.viewMode
 
     if(!chatroom_id) {
@@ -37,16 +38,16 @@ class SuggestionsContainer extends React.Component {
       let choosed = null
       switch(viewMode) {
         case 'review':
-          choosed = (<SuggestionsReview suggestions={suggestions} />)
+          choosed = (<SuggestionsReview suggestions={suggestions} current_user_id={current_user_id} vote={vote} />)
           break
         case 'stats':
           choosed = (<SuggestionsStats suggestions={suggestions} />)
           break
         case 'form':
-          choosed = (<SuggestionFormContainer chatroom_id={chatroom_id} />)
+          choosed = (<SuggestionForm chatroom_id={chatroom_id} addSuggestion={addSuggestion} />)
           break
         default:
-          choosed = (<SuggestionsReview suggestions={suggestions} />)
+          choosed = (<SuggestionsReview suggestions={suggestions} current_user_id={current_user_id} vote={vote} />)
       }
 
       return (
@@ -62,15 +63,19 @@ class SuggestionsContainer extends React.Component {
 SuggestionsContainer.propTypes = {
   chatroom_id: PropTypes.string,
   suggestions: PropTypes.array,
-  isFetching: PropTypes.bool
+  isFetching: PropTypes.bool,
+  current_user_id: PropTypes.number.isRequired,
+  addSuggestion: PropTypes.func.isRequired,
+  vote: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, { params }) => ({
   chatroom_id: params.id,
   suggestions: getSuggestionsFromChatroom(state, params.id),
-  isFetching: getIsFetchingChatroom(state, params.id)
+  isFetching: getIsFetchingChatroom(state, params.id),
+  current_user_id: getCurrentUser(state).id
 })
 
 export default withRouter(
-  connect(mapStateToProps, {})(SuggestionsContainer)
+  connect(mapStateToProps, { addSuggestion, vote })(SuggestionsContainer)
 )

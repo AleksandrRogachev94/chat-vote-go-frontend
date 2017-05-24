@@ -1,7 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { addSuggestion } from '../../actions/suggestionsActions'
 import SuggestionFormType from './SuggestionFormType'
 import SuggestionCustomForm from './SuggestionCustomForm'
 import SuggestionGoogleForm from './SuggestionGoogleForm'
@@ -73,8 +71,4 @@ SuggestionForm.propTypes = {
   addSuggestion: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (_, ownProps) => ({
-  chatroom_id: ownProps.chatroom_id
-})
-
-export default connect(mapStateToProps, { addSuggestion })(SuggestionForm)
+export default SuggestionForm
