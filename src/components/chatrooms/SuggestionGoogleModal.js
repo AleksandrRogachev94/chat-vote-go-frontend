@@ -12,7 +12,7 @@ const SuggestionGoogleModal = ({ suggestion, isOpen, onClose, onSubmit }) => {
         </header>
         <section className="modal-card-body">
           <div>
-            <img src={suggestion.photos[0].getUrl({'maxWidth': 400, 'maxHeight': 400})} alt="place" />
+            { suggestion.photos && <img src={suggestion.photos[0].getUrl({'maxWidth': 400, 'maxHeight': 400})} alt="place" />}
           </div>
           <p>{suggestion.formatted_address}</p>
           { suggestion.rating && (<p>Rating: {suggestion.rating}</p>) }

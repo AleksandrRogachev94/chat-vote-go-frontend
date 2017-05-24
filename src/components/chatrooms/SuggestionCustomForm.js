@@ -7,7 +7,7 @@ const SuggestionCustomForm = ({ handleChange, handleSubmit, title, description }
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputField name="title" label="Title" placeholder="Title" type="text" value={title}
+      <InputField name="title" label="Title*" placeholder="Title" type="text" value={title}
         onChange={handleChange} />
 
       <div className="field">

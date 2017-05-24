@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Suggestion from './Suggestion'
 import SuggestionInfoModal from './SuggestionInfoModal'
+import SuggestionGoogleModal from './SuggestionGoogleModal'
+import { fetchWrapper } from '../../lib/shared'
 
 class SuggestionsReview extends React.Component {
 
@@ -19,7 +21,12 @@ class SuggestionsReview extends React.Component {
 
   handleChoose(ev) {
     ev.preventDefault()
-    this.setState({ selectedSug: ev.currentTarget.dataset.id })
+    const id = ev.currentTarget.dataset.id
+    this.setState({ selectedSug: id })
+    const suggestion = this.props.suggestions.find(sug => sug.id === parseInt(id, 10))
+    if(suggestion.place_id_google) {
+      fetchWrapper()
+    }
   }
 
   handleUnchoose(ev) {
@@ -34,12 +41,29 @@ class SuggestionsReview extends React.Component {
   render() {
     console.log("SuggestionsReview render")
     const { suggestions, current_user_id } = this.props
+    const { selectedSug } = this.state
 
     let suggestionsJSX
     if(suggestions) suggestionsJSX = suggestions.map(sug => (
       <Suggestion key={sug.id} current_user_id={current_user_id} handleVote={this.handleVote}
         handleChoose={this.handleChoose} suggestion={sug} />
     ))
+
+    let suggestionModal = null
+    if(selectedSug > -1) {
+      const suggestion = suggestions.find(sug => sug.id === parseInt(this.state.selectedSug,10))
+      if(suggestion.place_id_google) {
+        suggestionModal = (
+          <SuggestionGoogleModal suggestion={suggestion} isOpen={selectedSug > -1}
+            onClose={this.handleUnchoose} />
+        )
+      } else {
+        suggestionModal = (
+          <SuggestionInfoModal suggestion={suggestion}
+            isOpen={selectedSug > -1} onClose={this.handleUnchoose} />
+        )
+      }
+    }
 
     return (
       <div>
@@ -49,10 +73,7 @@ class SuggestionsReview extends React.Component {
           </p>
           {suggestionsJSX}
         </nav>
-        {this.state.selectedSug > 0 && (
-          <SuggestionInfoModal suggestion={suggestions.find(sug => sug.id === parseInt(this.state.selectedSug,10))}
-            isOpen={this.state.selectedSug > 0} onClose={this.handleUnchoose} />
-        )}
+        {suggestionModal}
       </div>
     )
   }
