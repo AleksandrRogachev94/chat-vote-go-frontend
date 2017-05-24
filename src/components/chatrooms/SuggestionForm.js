@@ -11,11 +11,13 @@ class SuggestionForm extends React.Component {
     this.state = {
       isCustom: true,
       title: '',
-      description: ''
+      description: '',
+      place_id_google: ''
     }
 
     this.handleChangeFormType = this.handleChangeFormType.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmitGoogle = this.handleSubmitGoogle.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -31,20 +33,26 @@ class SuggestionForm extends React.Component {
     })
   }
 
+  handleSubmitGoogle(place_id_google, title, ev) {
+    this.setState({
+      title,
+      place_id_google
+    }, () => this.handleSubmit(ev))
+  }
+
   handleSubmit(ev) {
     ev.preventDefault()
-    const { isCustom, title, description } = this.state
-
-    if(isCustom) {
-      this.props.addSuggestion({
-        title,
-        description
-      })
-    }
+    const { isCustom, title, description, place_id_google } = this.state
+    this.props.addSuggestion({
+      title,
+      description,
+      place_id_google
+    })
 
     this.setState({
       title: '',
-      description: ''
+      description: '',
+      place_id_google: ''
     })
   }
 
@@ -59,7 +67,7 @@ class SuggestionForm extends React.Component {
         {isCustom ? (
           <SuggestionCustomForm title={title} description={description} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
         ) : (
-          <SuggestionGoogleForm />
+          <SuggestionGoogleForm chatroom_id={this.props.chatroom_id} handleSubmit={this.handleSubmitGoogle} />
         )}
       </div>
     )

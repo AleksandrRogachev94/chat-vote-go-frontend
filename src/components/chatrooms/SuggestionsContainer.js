@@ -35,25 +35,25 @@ class SuggestionsContainer extends React.Component {
     if(!chatroom_id) {
       return (<h1 className="title has-text-centered">Choose Chatroom</h1>)
     } else {
-      let choosed = null
+      let chosen = null
       switch(viewMode) {
         case 'review':
-          choosed = (<SuggestionsReview suggestions={suggestions} current_user_id={current_user_id} vote={vote} />)
+          chosen = (<SuggestionsReview suggestions={suggestions} current_user_id={current_user_id} vote={vote} />)
           break
         case 'stats':
-          choosed = (<SuggestionsStats suggestions={suggestions} />)
+          chosen = (<SuggestionsStats suggestions={suggestions} />)
           break
         case 'form':
-          choosed = (<SuggestionForm chatroom_id={chatroom_id} addSuggestion={addSuggestion} />)
+          chosen = (<SuggestionForm chatroom_id={chatroom_id} addSuggestion={addSuggestion} />)
           break
         default:
-          choosed = (<SuggestionsReview suggestions={suggestions} current_user_id={current_user_id} vote={vote} />)
+          chosen = (<SuggestionsReview suggestions={suggestions} current_user_id={current_user_id} vote={vote} />)
       }
 
       return (
         <div>
           <SuggestionsToggleMode viewMode={viewMode} handleChangeMode={this.handleChangeMode} />
-          {choosed}
+          {chosen}
         </div>
       )
     }

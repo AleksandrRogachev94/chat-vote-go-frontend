@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import SuggestionInfoModal from './SuggestionInfoModal'
+import SuggestionGoogleModal from './SuggestionGoogleModal'
+import isEmpty from 'lodash/isEmpty'
 
 class SuggestionGoogleForm extends React.Component {
 
@@ -10,6 +11,9 @@ class SuggestionGoogleForm extends React.Component {
       isOpenModal: false,
       suggestion: {}
     }
+
+    this.handleClose = this.handleClose.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
@@ -21,21 +25,37 @@ class SuggestionGoogleForm extends React.Component {
     })
   }
 
+  handleClose() {
+    this.setState({
+      isOpenModal: false,
+      suggestion: {}
+    })
+  }
+
+  handleSubmit(ev) {
+    ev.persist()
+    this.props.handleSubmit(this.state.suggestion.place_id, this.state.suggestion.name, ev)
+    this.handleClose()
+  }
+
   render() {
     return (
       <div>
         <p className="control">
           <input className="input" type="text" id="autocomplete" />
         </p>
-        <SuggestionInfoModal fromGoogle={this.state.suggestion} isOpen={this.state.isOpenModal}
-          onClose={() => this.setState({ isOpenModal: false })} />
+        { !isEmpty(this.state.suggestion) && (
+          <SuggestionGoogleModal suggestion={this.state.suggestion} isOpen={this.state.isOpenModal}
+            onClose={this.handleClose} onSubmit={this.handleSubmit} />
+        )}
       </div>
     )
   }
 }
 
 SuggestionGoogleForm.propTypes = {
-
+  chatroom_id: PropTypes.string.isRequired,
+  handleSubmit: PropTypes.func.isRequired
 }
 
 export default SuggestionGoogleForm
