@@ -23,10 +23,6 @@ class SuggestionsReview extends React.Component {
     ev.preventDefault()
     const id = ev.currentTarget.dataset.id
     this.setState({ selectedSug: id })
-    const suggestion = this.props.suggestions.find(sug => sug.id === parseInt(id, 10))
-    if(suggestion.place_id_google) {
-      fetchWrapper()
-    }
   }
 
   handleUnchoose(ev) {
@@ -54,8 +50,8 @@ class SuggestionsReview extends React.Component {
       const suggestion = suggestions.find(sug => sug.id === parseInt(this.state.selectedSug,10))
       if(suggestion.place_id_google) {
         suggestionModal = (
-          <SuggestionGoogleModal suggestion={suggestion} isOpen={selectedSug > -1}
-            onClose={this.handleUnchoose} />
+          <SuggestionGoogleModal place_id={suggestion.place_id_google} isOpen={selectedSug > -1}
+            onClose={this.handleUnchoose} voters={suggestion.voters} />
         )
       } else {
         suggestionModal = (

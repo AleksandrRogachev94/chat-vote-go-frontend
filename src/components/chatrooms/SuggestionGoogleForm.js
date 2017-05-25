@@ -17,10 +17,9 @@ class SuggestionGoogleForm extends React.Component {
   }
 
   componentDidMount() {
-    const searchBox = new window.google.maps.places.Autocomplete(document.getElementById("autocomplete"))
-    searchBox.addListener('place_changed', () => {
-      var place = searchBox.getPlace()
-      console.log(place)
+    const autocomplete = new window.google.maps.places.Autocomplete(document.getElementById("autocomplete"))
+    autocomplete.addListener('place_changed', () => {
+      var place = autocomplete.getPlace()
       this.setState({ isOpenModal: true, suggestion: place })
     })
   }
@@ -45,7 +44,7 @@ class SuggestionGoogleForm extends React.Component {
           <input className="input" type="text" id="autocomplete" />
         </p>
         { !isEmpty(this.state.suggestion) && (
-          <SuggestionGoogleModal suggestion={this.state.suggestion} isOpen={this.state.isOpenModal}
+          <SuggestionGoogleModal place_id={this.state.suggestion.place_id} isOpen={this.state.isOpenModal}
             onClose={this.handleClose} onSubmit={this.handleSubmit} />
         )}
       </div>

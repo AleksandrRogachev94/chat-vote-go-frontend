@@ -15,7 +15,7 @@ class SuggestionsContainer extends React.Component {
     super(props)
 
     this.state = {
-      viewMode: 'form'
+      viewMode: 'review'
     }
 
     this.handleChangeMode = this.handleChangeMode.bind(this)

@@ -9,7 +9,7 @@ const SuggestionInfoModal = ({ suggestion, isOpen, onClose }) => {
       <div className="modal-card">
         <header className="modal-card-head">
           <p className="modal-card-title">{suggestion.title}</p>
-          <button className="delete" onClick={onClose}></button>
+          <button className="delete" onClick={onClose} />
         </header>
         <section className="modal-card-body">
           {suggestion.description && (

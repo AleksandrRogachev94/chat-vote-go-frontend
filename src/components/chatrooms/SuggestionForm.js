@@ -9,7 +9,7 @@ class SuggestionForm extends React.Component {
     super(props)
 
     this.state = {
-      isCustom: true,
+      isCustom: false,
       title: '',
       description: '',
       place_id_google: ''
