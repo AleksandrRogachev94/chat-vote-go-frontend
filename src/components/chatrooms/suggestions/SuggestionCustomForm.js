@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import PrimaryButton from '../common/PrimaryButton'
-import InputField from '../common/InputField'
+import PrimaryButton from '../../common/PrimaryButton'
+import InputField from '../../common/InputField'
 
 const SuggestionCustomForm = ({ handleChange, handleSubmit, title, description }) => {
 

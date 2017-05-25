@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import powered_by_google from '../../../public/powered_by_google.png'
+import powered_by_google from '../../../../public/powered_by_google.png'
 
 class SuggestionGoogleModal extends React.Component {
 

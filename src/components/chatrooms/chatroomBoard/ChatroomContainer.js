@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import PropTypes from 'prop-types';
-import { fetchChatroom } from '../../actions/chatroomActions'
-import { subscribeToChatroom, unsubscribeFromChatroom } from '../../actions/actioncableActions'
-import { getFullChatroom, getIsFetchingChatroom, getChatroomErrors } from '../../reducers/index'
-import Chatroom from './Chatroom'
+import PropTypes from 'prop-types'
 import deepEqual from 'deep-equal'
+import { fetchChatroom } from '../../../actions/chatroomActions'
+import { subscribeToChatroom, unsubscribeFromChatroom } from '../../../actions/actioncableActions'
+import { getFullChatroom, getIsFetchingChatroom, getChatroomErrors } from '../../../reducers/index'
+import Chatroom from './Chatroom'
 
 class ChatroomContainer extends React.Component {
 

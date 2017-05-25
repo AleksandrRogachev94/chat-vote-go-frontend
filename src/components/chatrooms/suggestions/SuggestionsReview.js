@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import Suggestion from './Suggestion'
 import SuggestionInfoModal from './SuggestionInfoModal'
 import SuggestionGoogleModal from './SuggestionGoogleModal'
-import { fetchWrapper } from '../../lib/shared'
 
 class SuggestionsReview extends React.Component {
 
@@ -21,8 +20,7 @@ class SuggestionsReview extends React.Component {
 
   handleChoose(ev) {
     ev.preventDefault()
-    const id = ev.currentTarget.dataset.id
-    this.setState({ selectedSug: id })
+    this.setState({ selectedSug: ev.currentTarget.dataset.id })
   }
 
   handleUnchoose(ev) {

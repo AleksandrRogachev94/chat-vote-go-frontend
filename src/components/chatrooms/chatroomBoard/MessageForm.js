@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { addMessage } from '../../actions/messagesActions'
-import PrimaryButton from '../common/PrimaryButton'
+import { addMessage } from '../../../actions/messagesActions'
+import PrimaryButton from '../../common/PrimaryButton'
 
 class MessageForm extends React.Component {
   constructor(props) {

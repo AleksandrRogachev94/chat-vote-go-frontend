@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { formatDateMessage } from '../../lib/shared'
+import { formatDateMessage } from '../../../lib/shared'
 
 const Message = ({ content, owner, created_at }) => {
   return (

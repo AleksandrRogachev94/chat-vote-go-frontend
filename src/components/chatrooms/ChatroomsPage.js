@@ -1,7 +1,7 @@
 import React from 'react'
-import ChatroomsListContainer from './ChatroomsListContainer'
-import ChatroomContainer from './ChatroomContainer'
-import SuggestionsContainer from './SuggestionsContainer'
+import ChatroomsListContainer from './chatroomsList/ChatroomsListContainer'
+import ChatroomContainer from './chatroomBoard/ChatroomContainer'
+import SuggestionsContainer from './suggestions/SuggestionsContainer'
 
 const ChatroomsPage = (props) => {
   console.log("ChatroomsPage render")

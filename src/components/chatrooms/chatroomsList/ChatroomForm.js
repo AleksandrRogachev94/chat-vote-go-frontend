@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { addChatroom } from '../../actions/chatroomActions'
-import PrimaryButton from '../common/PrimaryButton'
+import { addChatroom } from '../../../actions/chatroomActions'
+import PrimaryButton from '../../common/PrimaryButton'
 
 class ChatroomForm extends React.Component {
   constructor(props) {

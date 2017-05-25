@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ChatroomLi from './ChatroomLi'
-import Error from '../common/Error'
+import Error from '../../common/Error'
 import ChatroomForm from './ChatroomForm'
 
 const ChatroomsList = ({ own_chatrooms, guest_chatrooms, isFetching, errors }) => {

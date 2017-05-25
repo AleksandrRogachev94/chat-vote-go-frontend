@@ -42,7 +42,7 @@ class SuggestionForm extends React.Component {
 
   handleSubmit(ev) {
     ev.preventDefault()
-    const { isCustom, title, description, place_id_google } = this.state
+    const { title, description, place_id_google } = this.state
     this.props.addSuggestion({
       title,
       description,

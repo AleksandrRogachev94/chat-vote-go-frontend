@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ChatroomBoard from './ChatroomBoard'
 import ChatroomUsers from './ChatroomUsers'
-import Error from '../common/Error'
+import Error from '../../common/Error'
 
 const Chatroom = (props) => {
   console.log("Chatroom render")

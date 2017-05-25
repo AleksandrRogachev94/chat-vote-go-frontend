@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import deepEqual from 'deep-equal'
-import { fetchAllChatrooms } from '../../actions/chatroomsActions'
-import { getChatroomsByTitle, getIsFetchingChatrooms, getChatroomsErrors } from '../../reducers/index'
+import { fetchAllChatrooms } from '../../../actions/chatroomsActions'
+import { getChatroomsByTitle, getIsFetchingChatrooms, getChatroomsErrors } from '../../../reducers/index'
 import ChatroomsList from './ChatroomsList'
 
 class ChatroomsListContainer extends React.Component {
