@@ -26,6 +26,7 @@ class SuggestionGoogleModal extends React.Component {
   render() {
     const { isOpen, onClose, onSubmit, voters } = this.props
     const { suggestion } = this.state
+
     return (
       <div className={isOpen ? "modal is-active" : 'modal'}>
         <div className="modal-background"></div>
@@ -43,7 +44,7 @@ class SuggestionGoogleModal extends React.Component {
             <p><b>Address:</b> {suggestion.formatted_address}</p>
             { suggestion.international_phone_number && (<p><b>Phone Number</b>: {suggestion.international_phone_number}</p>) }
             { suggestion.rating && (<p><b>Rating</b>: {suggestion.rating}</p>) }
-            { suggestion.price_level && (<p><b>Price Level(0...4)</b>: {suggestion.prive_level}</p>) }
+            { suggestion.price_level && (<p><b>Price Level (0...4)</b>: {suggestion.price_level}</p>) }
             { suggestion.website && (<p><a href={suggestion.website} target="_blank">Website</a></p>) }
             {suggestion.opening_hours && suggestion.opening_hours.weekday_text.map((txt, i) => (
               <p key={i}><em>{txt}</em></p>

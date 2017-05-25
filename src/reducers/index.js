@@ -100,6 +100,7 @@ export const getMessageWithOwner = (state, id) => {
     return result
   }
 }
+
 export const getChatroomMessages = (state, id) => {
   let ids
   if(getChatroom(state, id)) ids = getChatroom(state, id).messagesIds
@@ -107,13 +108,21 @@ export const getChatroomMessages = (state, id) => {
     return ids.map(id => getMessageWithOwner(state, id))
   }
 }
-
+export const getChatroomOwner = (state, id) => (
+  getChatroom(state, id).ownerId ? getUser(state, getChatroom(state, id).ownerId) : null
+)
+export const getChatroomGuests = (state, id) => (
+  getChatroom(state, id).guestsIds ?
+    getChatroom(state, id).guestsIds.map(id => getUser(state, id)) : null
+)
 export const getFullChatroom = (state, id) => {
   let result = Object.assign({}, getChatroom(state, id))
   if(result) {
-    if(getChatroomMessages(state, id))result.messages = getChatroomMessages(state, id)
-    if(result.ownerId) result.owner = getUser(state, result.ownerId)
-    if(result.guestsIds) result.guests = result.guestsIds.map(id => getUser(state, id))
+    if(getChatroomMessages(state, id)) result.messages = getChatroomMessages(state, id)
+    if(getChatroomOwner(state, id)) result.owner = getChatroomOwner(state, id)
+    if(getChatroomGuests(state, id)) result.guests = getChatroomGuests(state, id)
+    // if(result.ownerId) result.owner = getUser(state, result.ownerId)
+    // if(result.guestsIds) result.guests = result.guestsIds.map(id => getUser(state, id))
     delete result.messagesIds
     delete result.ownerId
     delete result.guestsIds

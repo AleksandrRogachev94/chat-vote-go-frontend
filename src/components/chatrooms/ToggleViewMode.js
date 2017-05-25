@@ -1,9 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const SuggestionsToggleMode = ({ viewMode, handleChangeMode }) => {
+const ToggleViewMode = ({ viewMode, handleChangeMode }) => {
   return (
     <div className="field has-addons">
+
+      <p className="control">
+        <a className="button" data-mode="chat" disabled={viewMode === 'chat'}
+           onClick={handleChangeMode}>
+          Chat
+        </a>
+      </p>
+
       <p className="control">
         <a className="button" data-mode="stats" disabled={viewMode === 'stats'}
            onClick={handleChangeMode}>
@@ -28,9 +36,9 @@ const SuggestionsToggleMode = ({ viewMode, handleChangeMode }) => {
   )
 }
 
-SuggestionsToggleMode.propTypes = {
-  viewMode: PropTypes.oneOf(['stats', 'review', 'form']).isRequired,
+ToggleViewMode.propTypes = {
+  viewMode: PropTypes.oneOf(['chat', 'stats', 'review', 'form']).isRequired,
   handleChangeMode: PropTypes.func.isRequired
 }
 
-export default SuggestionsToggleMode
+export default ToggleViewMode

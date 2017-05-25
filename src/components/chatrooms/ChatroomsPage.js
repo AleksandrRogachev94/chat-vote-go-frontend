@@ -1,7 +1,6 @@
 import React from 'react'
+import ChatroomElementsContainer from './ChatroomElementsContainer'
 import ChatroomsListContainer from './chatroomsList/ChatroomsListContainer'
-import ChatroomContainer from './chatroomBoard/ChatroomContainer'
-import SuggestionsContainer from './suggestions/SuggestionsContainer'
 
 const ChatroomsPage = (props) => {
   console.log("ChatroomsPage render")
@@ -12,11 +11,8 @@ const ChatroomsPage = (props) => {
         <div className="column is-3 page-column">
           <ChatroomsListContainer />
         </div>
-        <div className="column page-column is-5">
-          <ChatroomContainer />
-        </div>
-        <div className="column page-column is-4">
-          <SuggestionsContainer />
+        <div className="column page-column">
+          <ChatroomElementsContainer />
         </div>
       </div>
     </div>

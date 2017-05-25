@@ -57,6 +57,7 @@ class SuggestionForm extends React.Component {
   }
 
   render() {
+    console.log("SuggestionForm render")
     const { title, description, isCustom } = this.state
 
     return (
