@@ -5,12 +5,12 @@ import { Link } from 'react-router'
 const User = ({ nickname, id, avatar_url }) => {
   return (
     <li>
-      <Link to={`/users/${id}`} activeClassName='is-active'>
-        <div className="columns is-mobile">
-          <div className="column is-one-third">
+      <Link to={`/users/${id}`} activeClassName='active-item'>
+        <div className="row">
+          <div className="col-xs-4">
             <img src={avatar_url} alt="avatar" className="avatar-thumb" />
           </div>
-          <div className="column">
+          <div className="col-xs-8">
             <div style={{display: 'inline-block'}}>{nickname}</div>
           </div>
         </div>

@@ -1,8 +1,117 @@
-nav {
-  margin-bottom: 1em;
+html {
+  height: 100%;
 }
 
-.notification {
+body {
+ /*font-family: 'Roboto', sans-serif;*/
+ /*font-size: 1.1em;*/
+ color: white;
+ padding-top: 50px; /* For fixed navbar */
+ position: relative;
+ padding-bottom: 0; /* needed for footer to not to conflict with content. */
+ min-height: 100%;
+ background-color: #111013;
+ overflow-x: hidden;
+}
+
+.main {
+  padding: 0;
+  margin: 0;
+}
+
+footer {
+ position: absolute;
+ right: 0;
+ bottom: 0;
+ left: 0;
+ height: 6vh;
+ padding: 1em;
+ background-color: #111013;
+ text-align: right;
+ opacity: 0.92;
+ color: rgb(139, 123, 118);
+}
+
+img.avatar-thumb {
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+}
+
+img#avatar {
+  width: 25vw;
+  height: 25vw;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+.sidebar {
+  background-color: #192231;
+  height: 86vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0;
+}
+
+.right-side {
+  height: 86vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1em 3em;
+  background-color: #233237;
+}
+
+.profile {
+  text-align: center;
+  font-size: 120%;
+}
+
+/*---------------------- List Menu -------------------------*/
+
+aside.list-menu {
+  margin: 0;
+}
+
+.list-menu-label {
+  background-color: gray;
+  font-size: 150%;
+  text-align: center;
+  margin: 0;
+  padding: 0.5em;
+}
+
+ul.list-menu-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.list-menu-list li {
+  display: block;
+}
+
+ul.list-menu-list li a {
+  display: block;
+  width: 100%;
+  padding: 0.5em;
+  -webkit-transition: background-color 0.4s;
+  transition: background-color 0.4s;
+  color: white
+}
+
+ul.list-menu-list li a:hover {
+  background-color: gray;
+}
+
+ul.list-menu-list li a.active-item {
+  background-color: #494E6B;
+}
+
+/*------------Users Lists------------------*/
+
+
+/*.notification {
   margin: 1em auto;
 }
 
@@ -39,21 +148,11 @@ footer#footer {
   border: 1px solid black;
 }
 
-img#avatar {
-  width: 25vw;
-  height: 25vw;
-  border-radius: 50%;
-  display: block;
-  margin: 0 auto;
-}
 
-img.avatar-thumb {
-  width: 2em;
-  height: 2em;
-  border-radius: 50%;
-}
+
+
 
 a.inline-user {
   display: inline-block;
   margin: 0.5em;
-}
+}*/

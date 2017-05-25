@@ -11,7 +11,7 @@ class App extends React.Component {
 
         <Navbar />
 
-        <div className="container">
+        <div className="main">
           <FlashMessagesList />
           {this.props.children}
         </div>

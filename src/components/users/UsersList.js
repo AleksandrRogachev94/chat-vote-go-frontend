@@ -10,11 +10,11 @@ const UsersList = ({ users, errors, isFetching }) => {
 
   return (
     <div>
-    {errors.other && <Error msg={errors.other.join(", ")} />}
-    {errors.auth && <Error msg={errors.auth.join(", ")} />}
-      <aside className="menu">
-        <p className="menu-label">Users</p>
-        <ul className="menu-list">{usersJSX}</ul>
+      {errors.other && <Error msg={errors.other.join(", ")} />}
+      {errors.auth && <Error msg={errors.auth.join(", ")} />}
+      <aside className="list-menu">
+        <p className="list-menu-label">Users</p>
+        <ul className="list-menu-list">{usersJSX}</ul>
       </aside>
       {isFetching && (<p>Loading...</p>)}
     </div>

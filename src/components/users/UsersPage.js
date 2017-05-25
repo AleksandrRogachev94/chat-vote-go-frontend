@@ -7,13 +7,12 @@ const UsersPage = (props) => {
 
   return (
     <div>
-      <h1 className="title has-text-centered">Users Page</h1>
-      <div className="columns is-mobile">
-        <div className="column is-one-third" id="users-list">
-          <UsersListContainer />
-        </div>
-        <div className="column">
+      <div className="row">
+        <div className="col-sm-9 col-sm-push-3 right-side">
           <ProfileContainer />
+        </div>
+        <div className="col-sm-3 col-sm-pull-9 sidebar">
+          <UsersListContainer />
         </div>
       </div>
     </div>

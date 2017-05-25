@@ -35,22 +35,18 @@ class AddToChatroom extends React.Component {
 
     return (
       <div className="content">
-        <h4 className="title is-4 has-text-centered">Add User to Chatroom</h4>
+        <h4>Add User to Chatroom</h4>
 
-        <form onSubmit={this.handleSubmit}>
-          <div className="field has-addons">
-            <p className="control is-expanded">
-              <span className="select is-fullwidth">
-                <select name="chatroom_id" value={this.state.chatroom_id} onChange={this.handleChange}>
-                  <option value="" disabled>Choose Chatroom</option>
-                  {options}
-                </select>
-              </span>
-            </p>
-            <p className="control">
-              <button type="submit" disabled={!this.state.chatroom_id} className="button is-primary">Add</button>
-            </p>
+        <form onSubmit={this.handleSubmit} className="form-inline">
+          <div className="form-group">
+            <div className="input-group">
+              <select name="chatroom_id" value={this.state.chatroom_id} onChange={this.handleChange} className="form-control">
+                <option value="" disabled>Choose Chatroom</option>
+                {options}
+              </select>
+            </div>
           </div>
+          <button type="submit" disabled={!this.state.chatroom_id} className="btn btn-primary">Add</button>
         </form>
       </div>
     )

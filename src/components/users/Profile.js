@@ -13,8 +13,7 @@ const Profile = (props) => {
 
   if(props.id) {
     return (
-      <div>
-        <h1 className="title has-text-centered">Profile Page</h1>
+      <div className="profile">
         {props.errors.other && <Error msg={props.errors.other.join(", ")} />}
         {props.errors.auth && <Error msg={props.errors.auth.join(", ")} />}
 

@@ -24,30 +24,46 @@ class Navbar extends React.Component {
     const { isAuthenticated, currentUser } = this.props
 
     const userLinks = (
-      <div className="nav-right nav-menu">
-        <Link to={`/users/${currentUser.id}`} className="nav-item is-tab" activeClassName="is-active">
-          {currentUser.nickname}
-        </Link>
-        <Link to='/chatrooms' className="nav-item is-tab" activeClassName="is-active">Chatrooms</Link>
-        <Link to='/users' className="nav-item is-tab" activeClassName="is-active">Users</Link>
-        <a href="#" className="nav-item is-tab" onClick={this.logout}>Logout</a>
+      <div>
+        <ul className="nav navbar-nav">
+          <li><Link to={`/users/${currentUser.id}`}>{currentUser.nickname}</Link></li>
+          <li><Link to='/chatrooms'>Chatrooms</Link></li>
+          <li><Link to='/users'>Users</Link></li>
+        </ul>
+        <ul className="nav navbar-nav navbar-right">
+          <li><a href="#" onClick={this.logout}>Logout</a></li>
+        </ul>
       </div>
     )
 
     const guestLinks = (
-      <div className="nav-right nav-menu">
-        <Link to='/login' className="nav-item is-tab" activeClassName="is-active">Login</Link>
-        <Link to='/signup' className="nav-item is-tab" activeClassName="is-active">Signup</Link>
-      </div>
+      <ul className="nav navbar-nav navbar-right">
+        <li><Link to='/login'>Login</Link></li>
+        <li><Link to='/signup'>Signup</Link></li>
+      </ul>
     )
 
     return (
-      <nav className="nav has-shadow">
-        <div className="nav-left">
-          <Link to='/' className="nav-item is-tab" onlyActiveOnIndex activeClassName="is-active">Home</Link>
-        </div>
-        {isAuthenticated ? userLinks : guestLinks}
-      </nav>
+      <header>
+        <nav className="navbar navbar-inverse navbar-fixed-top">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span className="sr-only">Toggle navigation</span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </button>
+
+              <Link to='/' className="navbar-brand" onlyActiveOnIndex>CVG</Link>
+            </div>
+
+            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              {isAuthenticated ? userLinks : guestLinks}
+            </div>
+          </div>
+        </nav>
+      </header>
     )
   }
 }

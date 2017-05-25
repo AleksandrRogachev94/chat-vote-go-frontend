@@ -2,13 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types';
 
 export default function PrimaryButton({ isLoading, disabled, value, onClick }) {
-
   return (
-    <div className="has-text-centered">
-      <button className={isLoading ? "button is-primary is-loading" : "button is-primary"}
-              disabled={disabled}
+    <div className="form-group" style={{margin: '0.5em'}}>
+      <button className="btn btn-primary"
+              disabled={disabled || isLoading}
               onClick={onClick}
-              type="submit">{value}
+              type="submit">
+        {isLoading && (<i className="fa fa-circle-o-notch fa-spin"></i>)}
+        &nbsp;{value}
       </button>
     </div>
   )
