@@ -60,13 +60,11 @@ class SuggestionsReview extends React.Component {
     }
 
     return (
-      <div>
-        <nav className="panel" id="suggestions">
-          <p className="panel-heading">
-            Suggestions
-          </p>
+      <div className="review">
+        <h3>Suggestions</h3>
+        <ul className="list-group">
           {suggestionsJSX}
-        </nav>
+        </ul>
         {suggestionModal}
       </div>
     )

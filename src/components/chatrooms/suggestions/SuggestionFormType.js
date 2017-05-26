@@ -3,18 +3,13 @@ import PropTypes from 'prop-types'
 
 const SuggestionFormType = ({ isCustom, handleChangeType }) => {
   return (
-    <div className="field has-addons">
-      <p className="control">
-        <a className="button" disabled={isCustom} onClick={handleChangeType}>
-          <span>Custom</span>
-        </a>
-      </p>
-
-      <p className="control">
-        <a className="button" disabled={!isCustom} onClick={handleChangeType}>
-          <span>Search</span>
-        </a>
-      </p>
+    <div className="btn-group">
+      <a className="btn btn-default" disabled={isCustom} onClick={handleChangeType}>
+        Custom
+      </a>
+      <a className="btn btn-default" disabled={!isCustom} onClick={handleChangeType}>
+        Search
+      </a>
     </div>
   )
 }

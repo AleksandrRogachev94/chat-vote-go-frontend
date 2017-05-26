@@ -31,12 +31,11 @@ class MessageForm extends React.Component {
   render() {
 
     return (
-      <div className="content">
-        <form onSubmit={this.handleSubmit}>
-          <div className="field">
-            <p className="control">
-              <textarea className="textarea" placeholder="Add Message" value={this.state.content} onChange={this.handleChange} />
-            </p>
+      <div className="message-form">
+        <form onSubmit={this.handleSubmit} className="form-inline">
+          <div className="form-group">
+            <textarea className="textarea" placeholder="Add Message" value={this.state.content}
+              onChange={this.handleChange} className="form-control" rows="2" />
           </div>
           <PrimaryButton value="Send" disabled={!this.state.content} />
         </form>

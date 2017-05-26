@@ -16,20 +16,23 @@ class Suggestion extends React.Component {
     const { suggestion, current_user_id, handleVote, handleChoose } = this.props
     return(
       <div>
-        <div className="panel-block">
-          <div className="column is-one-quarter">
+        <div className="list-group-item row">
+          <div className="col-xs-3">
             <Link to={`/users/${suggestion.owner.id}`}>
-              <img src={suggestion.owner.avatar_thumb_url} alt="avatar" className="avatar-thumb" />
+              <div>
+                <img src={suggestion.owner.avatar_thumb_url} alt="avatar" className="avatar-thumb" />
+              </div>
+                <p>{suggestion.owner.nickname}</p>
             </Link>
           </div>
-          <div className="column is-half">
+          <div className="col-xs-6">
             <a href="#" onClick={handleChoose} data-id={suggestion.id}>
               <p>{suggestion.title}</p>
               <p>votes: {suggestion.voters.length}</p>
             </a>
           </div>
-          <div className="column is-one-quarter">
-            <button className={"button is-primary"}
+          <div className="col-xs-3">
+            <button className={"btn btn-primary"}
               disabled={!!suggestion.voters.find(voter => voter.id === current_user_id)}
               value="vote" data-id={suggestion.id} onClick={handleVote} type="submit">
               vote
