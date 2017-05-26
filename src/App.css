@@ -67,6 +67,12 @@ img#avatar {
   font-size: 120%;
 }
 
+.chatroom-users {
+  margin: 0;
+}
+
+/*-------------------Messages------------------*/
+
 #messages {
   overflow-y: auto;
   height: 60vh;
@@ -74,8 +80,21 @@ img#avatar {
   border-radius: 10px;
 }
 
-.chatroom-users {
+.message {
+  margin: 0.5em;
+  border-radius: 10px;
+  background-color: #707070;
+}
+
+.message .message-header {
+  border-radius: 10px 10px 0 0;
+  padding: 0;
   margin: 0;
+  background-color: #404040;
+}
+
+.message .message-body {
+  padding: 0.5em;
 }
 
 /*---------------------- List Menu -------------------------*/
