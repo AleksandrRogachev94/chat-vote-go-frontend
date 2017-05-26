@@ -67,6 +67,17 @@ img#avatar {
   font-size: 120%;
 }
 
+#messages {
+  overflow-y: auto;
+  height: 60vh;
+  background-color: #98878F;
+  border-radius: 10px;
+}
+
+.chatroom-users {
+  margin: 0;
+}
+
 /*---------------------- List Menu -------------------------*/
 
 aside.list-menu {
@@ -94,10 +105,12 @@ ul.list-menu-list li {
 ul.list-menu-list li a {
   display: block;
   width: 100%;
+  text-align: center;
   padding: 0.5em;
   -webkit-transition: background-color 0.4s;
   transition: background-color 0.4s;
-  color: white
+  color: white;
+  text-decoration: none;
 }
 
 ul.list-menu-list li a:hover {

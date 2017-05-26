@@ -8,8 +8,8 @@ export default function PrimaryButton({ isLoading, disabled, value, onClick }) {
               disabled={disabled || isLoading}
               onClick={onClick}
               type="submit">
-        {isLoading && (<i className="fa fa-circle-o-notch fa-spin"></i>)}
-        &nbsp;{value}
+        {isLoading && (<i className="fa fa-circle-o-notch fa-spin">&nbsp;</i>)}
+        {value}
       </button>
     </div>
   )

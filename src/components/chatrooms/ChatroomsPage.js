@@ -6,14 +6,12 @@ const ChatroomsPage = (props) => {
   console.log("ChatroomsPage render")
 
   return (
-    <div>
-      <div className="columns is-mobile">
-        <div className="column is-3 page-column">
-          <ChatroomsListContainer />
-        </div>
-        <div className="column page-column">
-          <ChatroomElementsContainer />
-        </div>
+    <div className="row">
+      <div className="col-sm-9 col-sm-push-3 right-side">
+        <ChatroomElementsContainer />
+      </div>
+      <div className="col-sm-3 col-sm-pull-9 sidebar">
+        <ChatroomsListContainer />
       </div>
     </div>
   )

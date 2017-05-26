@@ -39,12 +39,10 @@ class AddToChatroom extends React.Component {
 
         <form onSubmit={this.handleSubmit} className="form-inline">
           <div className="form-group">
-            <div className="input-group">
-              <select name="chatroom_id" value={this.state.chatroom_id} onChange={this.handleChange} className="form-control">
-                <option value="" disabled>Choose Chatroom</option>
-                {options}
-              </select>
-            </div>
+            <select name="chatroom_id" value={this.state.chatroom_id} onChange={this.handleChange} className="form-control">
+              <option value="" disabled>Choose Chatroom</option>
+              {options}
+            </select>
           </div>
           <button type="submit" disabled={!this.state.chatroom_id} className="btn btn-primary">Add</button>
         </form>

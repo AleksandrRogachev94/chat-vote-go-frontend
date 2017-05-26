@@ -32,7 +32,7 @@ const chatroom = (state = {
     case FETCH_CHATROOM_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
-        chatroom: parseResponseChatroom(action.chatroom),
+        chatroom: Object.assign({}, state.chatroom, parseResponseChatroom(action.chatroom)),
         errors: {}
       })
 

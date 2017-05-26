@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 const ChatroomLi = ({ title, id }) => {
   return (
     <li>
-      <Link to={`/chatrooms/${id}`} activeClassName='is-active'>
+      <Link to={`/chatrooms/${id}`} activeClassName='active-item'>
         {title}
       </Link>
     </li>

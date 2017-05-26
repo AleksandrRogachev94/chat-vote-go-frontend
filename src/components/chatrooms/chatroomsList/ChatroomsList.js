@@ -17,11 +17,11 @@ const ChatroomsList = ({ own_chatrooms, guest_chatrooms, isFetching, errors }) =
       {errors.other && <Error msg={errors.other.join(", ")} />}
       {errors.auth && <Error msg={errors.auth.join(", ")} />}
       <ChatroomForm />
-      <aside className="menu" id="users-list">
-        <p className="menu-label">Your Own Chatrooms</p>
-        <ul className="menu-list">{ownJSX}</ul>
-        <p className="menu-label">Your Guest Chatrooms</p>
-        <ul className="menu-list">{guestJSX}</ul>
+      <aside className="list-menu">
+        <p className="list-menu-label">Your Own Chatrooms</p>
+        <ul className="list-menu-list">{ownJSX}</ul>
+        <p className="list-menu-label">Your Guest Chatrooms</p>
+        <ul className="list-menu-list">{guestJSX}</ul>
       </aside>
       {isFetching && (<p>Loading...</p>)}
     </div>

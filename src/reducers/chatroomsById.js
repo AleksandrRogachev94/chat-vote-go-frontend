@@ -8,7 +8,7 @@ const chatroomsById = (state = {}, action) => {
     case FETCH_CHATROOMS_SUCCESS:
       const nextState = Object.assign({}, state)
       action.chatrooms.forEach(chatroomObj => {
-        nextState[chatroomObj.id] = chatroom(chatroomObj.id, fetchChatroomSuccess(chatroomObj))
+        nextState[chatroomObj.id] = chatroom(state[chatroomObj.id], fetchChatroomSuccess(chatroomObj))
       })
       return nextState
 
