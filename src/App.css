@@ -110,6 +110,11 @@ table.table {
   margin-bottom: 1.5em;
 }
 
+.signup {
+  height: 80vh;
+  overflow-y: auto;
+}
+
 /*-------------------Messages------------------*/
 
 #messages {

@@ -76,6 +76,7 @@ class SignupForm extends React.Component {
 
   handleSubmit(ev) {
     ev.preventDefault()
+    console.log("submitting")
     if(this.isValid()) {
       this.setState({ errors: {}, isLoading: true })
       this.props.userSignupRequest(this.state)
@@ -98,16 +99,16 @@ class SignupForm extends React.Component {
     } else {
       avatarPreview = (<div className="previewText">Please select an Image for Preview</div>);
     }
-
+console.log(errors)
     return (
       <form onSubmit={this.handleSubmit} encType="multipart/form-data">
         {errors.other &&  <Error msg={errors.other.join(", ")} />}
 
         <InputField name="email" label="Email*" placeholder="Email" type="email" value={email}
-          onChange={this.handleChange} iconClass="fa fa-envelope" errors={errors.email && errors.email.join(", ")} />
+          onChange={this.handleChange} iconClass="glyphicon glyphicon-envelope" errors={errors.email && errors.email.join(", ")} />
 
         <InputField name="nickname" label="Nickname*" placeholder="Nickname" type="text" value={nickname}
-          onChange={this.handleChange} errors={errors.nickname && errors.nickname.join(", ")} />
+          onChange={this.handleChange} iconClass="glyphicon glyphicon-user" errors={errors.nickname && errors.nickname.join(", ")} />
 
         <InputField name="first_name" label="First name" placeholder="First name" type="text" value={first_name}
           onChange={this.handleChange} errors={errors.first_name && errors.first_name.join(", ")} />
@@ -115,18 +116,18 @@ class SignupForm extends React.Component {
         <InputField name="last_name" label="Last name" placeholder="Last name" type="text" value={last_name}
           onChange={this.handleChange} errors={errors.last_name && errors.last_name.join(", ")} />
 
-        <div className="field">
+        <div className={errors.avatar ? "form-group has-error" : "form-group"}>
           <label className="label">Avatar</label>
           <input type="file" onChange={this.handleAvatarChange} />
           {avatarPreview}
-          {errors.avatar && <p className="help is-danger">{errors.avatar.join(", ")}</p>}
+          {errors.avatar && <span className="help-block">{errors.avatar.join(", ")}</span>}
         </div>
 
         <InputField name="password" label="Password*" placeholder="Password" type="password" value={password}
-          onChange={this.handleChange} iconClass="fa fa-lock" errors={errors.password && errors.password.join(", ")} />
+          onChange={this.handleChange} iconClass="glyphicon glyphicon-lock" errors={errors.password && errors.password.join(", ")} />
 
         <InputField name="password_confirmation" label="Confirm Password*" placeholder="Password Confirmation"
-          type="password" value={password_confirmation} onChange={this.handleChange} iconClass="fa fa-lock"
+          type="password" value={password_confirmation} onChange={this.handleChange} iconClass="glyphicon glyphicon-lock"
           errors={errors.password_confirmation && errors.password_confirmation.join(", ")} />
 
         <PrimaryButton value="Sign Up" isLoading={isLoading} />

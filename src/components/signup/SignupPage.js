@@ -8,14 +8,12 @@ import { addFlashMessage } from '../../actions/flashMessages'
 const SignupPage = ({ userSignupRequest, addFlashMessage }) => {
   console.log("SingupPage render")
   return (
-    <div>
-      <h1 className="title has-text-centered">Signup Page</h1>
-      <div className="columns">
-        <div className="column is-half is-offset-one-quarter">
+      <div className="row">
+        <div className="col-sm-6 col-sm-offset-3 signup">
+          <h1 className="title has-text-centered">Signup Page</h1>
           <SignupForm userSignupRequest={userSignupRequest} addFlashMessage={addFlashMessage} />
         </div>
       </div>
-    </div>
   )
 }
 

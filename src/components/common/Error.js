@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 
 export default function Error({ msg }) {
   return (
-    <article className="message is-danger">
-      <div className="message-body">
-        {msg}
-      </div>
-    </article>
+    <div className="alert alert-danger">
+      {msg}
+    </div>
   )
 }
 

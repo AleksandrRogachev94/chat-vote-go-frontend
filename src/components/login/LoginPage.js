@@ -9,13 +9,10 @@ const LoginPage = ({ login, addFlashMessage }) => {
   console.log("LoginPage render")
 
   return (
-    <div>
-      <h1 className="title has-text-centered">Login Page</h1>
-
-      <div className="columns">
-        <div className="column is-half is-offset-one-quarter">
-          <LoginForm login={login} addFlashMessage={addFlashMessage} />
-        </div>
+    <div className="row">
+      <div className="col-sm-6 col-sm-offset-3">
+        <h1>Login Page</h1>
+        <LoginForm login={login} addFlashMessage={addFlashMessage} />
       </div>
     </div>
   )

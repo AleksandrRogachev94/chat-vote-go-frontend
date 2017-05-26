@@ -71,10 +71,10 @@ class LoginForm extends React.Component {
         {errors.auth &&  <Error msg={errors.auth.join(", ")} />}
 
         <InputField name="email" label="Email" placeholder="Email" type="email" value={email}
-          onChange={this.handleChange} iconClass="fa fa-envelope" errors={errors.email && errors.email.join(", ")} />
+          onChange={this.handleChange} iconClass="glyphicon glyphicon-envelope" errors={errors.email && errors.email.join(", ")} />
 
         <InputField name="password" label="Password" placeholder="Password" type="password" value={password}
-          onChange={this.handleChange} iconClass="fa fa-lock" errors={errors.password && errors.password.join(", ")} />
+          onChange={this.handleChange} iconClass="glyphicon glyphicon-lock" errors={errors.password && errors.password.join(", ")} />
 
         <PrimaryButton value="Log In" isLoading={isLoading} />
       </form>

@@ -3,21 +3,19 @@ import PropTypes from 'prop-types';
 
 export default function InputField({ name, label, placeholder, type, value, onChange, iconClass, errors }) {
 
-  const pClass = iconClass ? "control has-icons-left" : "control"
-  const inputClass = errors ? "input is-danger" : "input"
+  let divClass = "form-group"
+  if(iconClass) divClass += " has-feedback"
+  if(errors) divClass += " has-error"
+
   return (
-    <div className="field">
-      <label className="label">{label}</label>
-      <p className={pClass}>
-        <input type={type} name={name} placeholder={placeholder} className={inputClass}
-          value={value} onChange={onChange} />
-        { iconClass && (
-          <span className="icon is-small is-left">
-            <i className={iconClass}></i>
-          </span>
-        )}
-      </p>
-      {errors && <p className="help is-danger">{errors}</p>}
+    <div className={divClass}>
+      <label className="control-label">{label}</label>
+        <div className={iconClass ? "input-group" : ""}>
+          <input type={type} name={name} className="form-control" placeholder={placeholder}
+            onChange={onChange} value={value} />
+          {iconClass && (<span className="input-group-addon"><span className={iconClass}></span></span>)}
+        </div>
+      {errors && <span className="help-block">{errors}</span>}
     </div>
   )
 }
