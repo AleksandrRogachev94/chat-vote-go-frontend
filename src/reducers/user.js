@@ -20,7 +20,7 @@ const user = (state = {
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
-        user: action.user,
+        user: Object.assign({}, state.user, action.user),
         errors: {}
       })
 

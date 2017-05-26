@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types';
 import { fetchUserProfileIfNeeded, invalidateUser } from '../../actions/userActions'
-import { getUser, getIsFetchingUser, getUserErrors } from '../../reducers/index'
+import { getUser, getIsFetchingUser, getUserErrors, getCurrentUser } from '../../reducers/index'
 import Profile from './Profile'
 
 class ProfileContainer extends React.Component {
@@ -38,10 +38,11 @@ class ProfileContainer extends React.Component {
   render() {
     console.log("ProfileContainer render")
 
-    const { profile, errors, isFetching, id } = this.props
+    const { profile, errors, isFetching, id, currentUser } = this.props
     return (
       <div>
-        <Profile profile={profile} id={id} errors={errors} onRefresh={this.handleRefreshClick} isFetching={isFetching} />
+        <Profile profile={profile} id={id} errors={errors} onRefresh={this.handleRefreshClick}
+          isFetching={isFetching} currentUser={currentUser} />
       </div>
     )
   }
@@ -51,6 +52,7 @@ ProfileContainer.propTypes = {
   profile: PropTypes.object,
   isFetching: PropTypes.bool,
   errors: PropTypes.object,
+  currentUser: PropTypes.object.isRequired,
   id: PropTypes.string,
   fetchUserProfileIfNeeded: PropTypes.func.isRequired,
   invalidateUser: PropTypes.func.isRequired
@@ -64,6 +66,7 @@ const mapStateToProps = (state, { params }) => ({
   profile: getUser(state, params.id),
   isFetching: getIsFetchingUser(state, params.id),
   errors: getUserErrors(state, params.id),
+  currentUser: getCurrentUser(state),
   id: params.id
 })
 

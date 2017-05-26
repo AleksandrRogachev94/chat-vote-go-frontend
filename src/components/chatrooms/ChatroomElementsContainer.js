@@ -67,7 +67,9 @@ class ChatroomElements extends React.Component {
 
     return (
       <div>
-        <ToggleViewMode viewMode={viewMode} handleChangeMode={this.handleChangeMode} />
+        { this.props.chatroom_id && (
+          <ToggleViewMode viewMode={viewMode} handleChangeMode={this.handleChangeMode} />
+        )}
         {chosen}
       </div>
     )

@@ -8,7 +8,7 @@ const usersById = (state = {}, action) => {
     case ADD_USERS:
       const nextState = Object.assign({}, state)
       action.users.forEach(userObj => {
-        nextState[userObj.id] = user(userObj.id, fetchUserSuccess(userObj))
+        nextState[userObj.id] = user(state[userObj.id], fetchUserSuccess(userObj))
       })
       return nextState
 

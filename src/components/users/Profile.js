@@ -10,6 +10,7 @@ const Profile = (props) => {
 
   let email, avatar_original_url, nickname, first_name, last_name, created_at
   if(props.profile) ({ email, avatar_original_url, nickname, first_name, last_name, created_at } = props.profile)
+  const { currentUser, id } = props
 
   if(props.id) {
     return (
@@ -18,7 +19,7 @@ const Profile = (props) => {
         {props.errors.auth && <Error msg={props.errors.auth.join(", ")} />}
 
         <ProfileInfo email={email} avatar_url={avatar_original_url} nickname={nickname} created_at={created_at} first_name={first_name} last_name={last_name} />
-        <AddToChatroom />
+        {(currentUser.id !== parseInt(id, 10)) && (<AddToChatroom />)}
         <PrimaryButton value="Refresh" onClick={props.onRefresh} isLoading={props.isFetching} />
       </div>
     )
@@ -30,6 +31,7 @@ const Profile = (props) => {
 Profile.propTypes = {
   profile: PropTypes.object,
   id: PropTypes.string,
+  currentUser: PropTypes.object.isRequired,
   errors: PropTypes.object,
   isFetching: PropTypes.bool,
   onRefresh: PropTypes.func.isRequired
