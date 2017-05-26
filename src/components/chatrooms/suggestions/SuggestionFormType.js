@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const SuggestionFormType = ({ isCustom, handleChangeType }) => {
   return (
-    <div className="btn-group">
+    <div className="btn-group form-type">
       <a className="btn btn-default" disabled={isCustom} onClick={handleChangeType}>
         Custom
       </a>

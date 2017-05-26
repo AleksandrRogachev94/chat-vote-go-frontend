@@ -23,6 +23,10 @@ class SuggestionsReview extends React.Component {
     this.setState({ selectedSug: ev.currentTarget.dataset.id })
   }
 
+  componentDidUpdate() {
+    if(this.state.selectedSug > -1) window.jQuery('#modal-info').modal('show')
+  }
+
   handleUnchoose(ev) {
     this.setState({ selectedSug: -1 })
   }
@@ -48,7 +52,7 @@ class SuggestionsReview extends React.Component {
       const suggestion = suggestions.find(sug => sug.id === parseInt(this.state.selectedSug,10))
       if(suggestion.place_id_google) {
         suggestionModal = (
-          <SuggestionGoogleModal place_id={suggestion.place_id_google} isOpen={selectedSug > -1}
+          <SuggestionGoogleModal place_id={suggestion.place_id_google}
             onClose={this.handleUnchoose} voters={suggestion.voters} />
         )
       } else {

@@ -61,8 +61,8 @@ class SuggestionForm extends React.Component {
     const { title, description, isCustom } = this.state
 
     return (
-      <div className="content">
-        <h4 className="title is-4">Create New Suggestion</h4>
+      <div className="sug-form">
+        <h4>Create New Suggestion</h4>
         <SuggestionFormType isCustom={isCustom} handleChangeType={this.handleChangeFormType} />
 
         {isCustom ? (

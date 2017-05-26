@@ -4,7 +4,6 @@ import { Link } from 'react-router'
 import { formatDateMessage } from '../../../lib/shared'
 
 const Message = ({ content, owner, created_at }) => {
-  console.log(owner)
   return (
     <article className="row" style={{width: '100%'}}>
       <div className="message-author col-xs-2">

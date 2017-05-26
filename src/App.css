@@ -94,6 +94,22 @@ table.table {
   margin-bottom: 1em;
 }
 
+.form-type {
+  margin-bottom: 1.5em;
+}
+
+.sug-form h4 {
+  margin: 1em auto;
+}
+
+#modal-info {
+  text-align: left;
+}
+
+#carousel {
+  margin-bottom: 1.5em;
+}
+
 /*-------------------Messages------------------*/
 
 #messages {

@@ -10,11 +10,9 @@ const SuggestionCustomForm = ({ handleChange, handleSubmit, title, description }
       <InputField name="title" label="Title*" placeholder="Title" type="text" value={title}
         onChange={handleChange} />
 
-      <div className="field">
+      <div className="form-group">
         <label className="label">Description</label>
-        <p className="control">
-          <textarea className="textarea" name="description" placeholder="Add Description" value={description} onChange={handleChange} />
-        </p>
+        <textarea className="form-control" name="description" placeholder="Add Description" value={description} onChange={handleChange} />
       </div>
       <PrimaryButton value="Create Suggestion" disabled={!title} />
     </form>

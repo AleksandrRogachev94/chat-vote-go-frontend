@@ -24,6 +24,10 @@ class SuggestionGoogleForm extends React.Component {
     })
   }
 
+  componentDidUpdate() {
+    if(this.state.isOpenModal) window.jQuery('#modal-info').modal('show')
+  }
+
   handleClose() {
     this.setState({
       isOpenModal: false,
@@ -40,11 +44,11 @@ class SuggestionGoogleForm extends React.Component {
   render() {
     return (
       <div>
-        <p className="control">
-          <input className="input" type="text" id="autocomplete" />
-        </p>
+        <div className="form-group">
+          <input className="form-control" type="text" id="autocomplete" />
+        </div>
         { !isEmpty(this.state.suggestion) && (
-          <SuggestionGoogleModal place_id={this.state.suggestion.place_id} isOpen={this.state.isOpenModal}
+          <SuggestionGoogleModal place_id={this.state.suggestion.place_id}
             onClose={this.handleClose} onSubmit={this.handleSubmit} />
         )}
       </div>
