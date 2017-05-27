@@ -12,25 +12,25 @@ const ProfileInfo = ({ email, avatar_url, nickname, first_name, last_name, creat
 
       <table className="table">
         <tbody>
-          {email && (
+          {!!email && (
             <tr>
               <th>Email</th>
               <th>{email}</th>
             </tr>
           )}
-          {first_name && (
+          {!!first_name && (
             <tr>
               <th>First name</th>
               <th>{first_name}</th>
             </tr>
           )}
-          {last_name && (
+          {!!last_name && (
             <tr>
               <th>Last name</th>
               <th>{last_name}</th>
             </tr>
           )}
-          {created_at && (
+          {!!created_at && (
             <tr>
               <th>Registered</th>
               <th>{formatDate(created_at)}</th>

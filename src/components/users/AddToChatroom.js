@@ -24,7 +24,6 @@ class AddToChatroom extends React.Component {
   handleSubmit(ev) {
     ev.preventDefault()
     this.setState({ chatroom_id: '' })
-    // alert(this.props.user_id)
     this.props.addGuestToChatroom(this.props.user_id, this.state.chatroom_id)
   }
 

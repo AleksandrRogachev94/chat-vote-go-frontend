@@ -17,7 +17,6 @@ class SuggestionGoogleModal extends React.Component {
     if(this.props.place_id) {
       this.service.getDetails({ placeId: this.props.place_id }, (place, status) => {
         if(status === window.google.maps.places.PlacesServiceStatus.OK) {
-          // console.log(place)
           this.setState({ suggestion: place })
         }
       })
