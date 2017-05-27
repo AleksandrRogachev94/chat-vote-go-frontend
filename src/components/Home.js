@@ -1,10 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router'
+import chat from '../../public/chat.png'
+import vote from '../../public/vote.png'
 
 const Home = () => {
   console.log("Home render")
   return (
-    <div>
-      <h1 className="title has-text-centered">Chat Vote Go Home Page</h1>
+    <div className="home">
+      <div className="home-logo">
+        <h1>Welcome to<br/>Chat Vote Go</h1>
+        <Link to="/signup" className="btn btn-primary">Join Now</Link>
+      </div>
     </div>
   )
 }

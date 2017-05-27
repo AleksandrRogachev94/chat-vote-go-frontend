@@ -14,7 +14,7 @@ const SuggestionsStats = (props) => {
   return (
     <ResponsiveContainer height={400} width='100%'>
       <PieChart>
-        <Pie data={data} innerRadius='50%' outerRadius='60%' fill="#000080"  paddingAngle={5} label={(obj) => obj.payload.name} />
+        <Pie data={data} innerRadius='70%' outerRadius='85%' fill="#494E6B"  paddingAngle={5} label={(obj) => obj.payload.name} />
         <Tooltip/>
       </PieChart>
     </ResponsiveContainer>
