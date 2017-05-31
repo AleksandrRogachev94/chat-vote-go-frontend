@@ -31,7 +31,7 @@ export const fetchUsers = (title) => (dispatch, getState) => {
 
   dispatch(fetchUsersRequest(title))
 
-  const request = new Request(`/api/v1/users`, {
+  const request = new Request(process.env.REACT_APP_SERVER_URL_BASE + "/api/v1/users", {
     method: 'GET',
     headers: new Headers({
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`,

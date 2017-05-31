@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "chatvotego-server.herokuapp.com/",
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "actioncable": "^5.1.1",
     "deep-equal": "^1.0.1",

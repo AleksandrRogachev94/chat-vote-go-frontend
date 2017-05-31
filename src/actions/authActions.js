@@ -21,7 +21,7 @@ export const logout = () => (dispatch, getState) => {
 }
 
 export const login = (userData) => (dispatch, getState) => {
-  const request = new Request('/api/v1/login', {
+  const request = new Request(process.env.REACT_APP_SERVER_URL_BASE + '/api/v1/login', {
     method: 'POST',
     headers: new Headers({
       'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export const login = (userData) => (dispatch, getState) => {
       localStorage.setItem('jwt', data.jwt)
 
       if(!isEmpty(getCable(getState()))) getCable(getState()).disconnect()
-      const cable = ActionCable.createConsumer(`/cable?jwt=${data.jwt}`) // Connect to ActionCable
+      const cable = ActionCable.createConsumer(`${process.env.REACT_APP_SERVER_URL_BASE}/cable?jwt=${data.jwt}`) // Connect to ActionCable
       const user = jwtDecode(data.jwt)
       dispatch(setCurrentUser(user, cable))
     })

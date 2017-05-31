@@ -27,7 +27,7 @@ export const invalidateUser = (id) => ({
 export const fetchUserProfile = (id) => (dispatch) => {
   dispatch(fetchUserRequest(id))
 
-  const request = new Request(`/api/v1/users/${id}`, {
+  const request = new Request(`${process.env.REACT_APP_SERVER_URL_BASE}/api/v1/users/${id}`, {
     method: 'GET',
     headers: new Headers({
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`,

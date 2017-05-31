@@ -25,7 +25,7 @@ export const fetchChatrooms = (title) => (dispatch, getState) => {
 
   dispatch(fetchChatroomsRequest(title))
 
-  const request = new Request(`/api/v1/chatrooms?type=${title}`, {
+  const request = new Request(`${process.env.REACT_APP_SERVER_URL_BASE}/api/v1/chatrooms?type=${title}`, {
     method: 'GET',
     headers: new Headers({
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
@@ -34,7 +34,6 @@ export const fetchChatrooms = (title) => (dispatch, getState) => {
   })
 
   return fetchWrapper(request)
-    // .then(res => { debugger })
     // All OK.
     .then((data) => dispatch(fetchChatroomsSuccess(title, data.chatrooms)))
     // Error.

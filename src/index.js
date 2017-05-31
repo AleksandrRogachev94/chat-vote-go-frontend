@@ -12,7 +12,7 @@ const store = configureStore()
 
 if(localStorage.getItem('jwt')) {
   const jwt = localStorage.getItem('jwt')
-  const cable = ActionCable.createConsumer(`/cable?jwt=${jwt}`) // Connect to ActionCable
+  const cable = ActionCable.createConsumer(`${process.env.REACT_APP_SERVER_URL_BASE}/cable?jwt=${jwt}`) // Connect to ActionCable
   const user = jwtDecode(jwt)
   store.dispatch(setCurrentUser(user, cable))
 }

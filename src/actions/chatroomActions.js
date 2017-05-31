@@ -28,7 +28,7 @@ export const fetchChatroom = (id) => (dispatch, getState) => {
 
   dispatch(fetchChatroomRequest(id))
 
-  const request = new Request(`/api/v1/chatrooms/${id}`, {
+  const request = new Request(`${process.env.REACT_APP_SERVER_URL_BASE}/api/v1/chatrooms/${id}`, {
     method: 'GET',
     headers: new Headers({
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
@@ -61,7 +61,7 @@ export const addChatroomFailure = () => ({
 export const addChatroom = (chatroomData) => (dispatch) => {
   // dispatch(fetchUserRequest(id))
 
-  const request = new Request(`/api/v1/chatrooms`, {
+  const request = new Request(`${process.env.REACT_APP_SERVER_URL_BASE}/api/v1/chatrooms`, {
     method: 'POST',
     headers: new Headers({
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
