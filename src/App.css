@@ -104,6 +104,13 @@ table.table {
   margin: 1em auto;
 }
 
+.signup {
+  height: 80vh;
+  overflow-y: auto;
+}
+
+/*--------------------Modals------------------------*/
+
 #modal-info {
   text-align: left;
 }
@@ -112,17 +119,16 @@ table.table {
   margin-bottom: 1.5em;
 }
 
-.signup {
-  height: 80vh;
-  overflow-y: auto;
+.rating {
+  text-align: center;
 }
 
-.jumbo {
-  width: 100%;
-  height: 430px;
-  /*padding: 0.5em;*/
-  /*height: 400px;*/
+a.inline-user {
+  display: inline-block;
+  margin: 0.5em;
 }
+
+/*------------------------------Home-------------------------*/
 
 .home {
   margin: 0;
@@ -156,27 +162,21 @@ table.table {
 #messages {
   overflow-y: auto;
   height: 60vh;
-  /*background-color: #E0E0E0;*/
   border-radius: 10px;
   margin-bottom: 0.5em;
 }
 
 .message {
-  /*margin: 0.5em;*/
   padding: 0;
   border-radius: 10px;
-  /*background-color: #707070;*/
-  /*background-color: white;*/
   background-color: #E8E8E8;
 }
 
 .message .message-header {
   border-radius: 10px 10px 0 0;
   border-bottom: 1px dashed white;
-  /*padding: 0;*/
   padding-right: 1em;
   margin: 0;
-  /*background-color: #404040;*/
 }
 
 .message .message-body {
@@ -195,7 +195,6 @@ aside.list-menu {
 
 .list-menu-label {
   border-bottom: 2px solid #222222;
-  /*border-top: 2px solid white;*/
   background-color: #494E6B;
   border-radius: 10px 10px 0 0;
 
@@ -232,55 +231,5 @@ ul.list-menu-list li a:hover {
 }
 
 ul.list-menu-list li a.active-item {
-  /*background-color: rgba(255, 255, 255, 0.3);*/
   background-color: rgba(255, 255, 255, 0.2);
 }
-
-/*------------Users Lists------------------*/
-
-
-/*.notification {
-  margin: 1em auto;
-}
-
-ul {
-  list-style-type: none
-}
-
-#users-list {
-  overflow: scroll;
-  height: 65vh;
-}
-
-#messages {
-  overflow: scroll;
-  height: 50vh;
-}
-
-#suggestions {
-  overflow: scroll;
-  height: 74vh;
-}
-
-.page-column {
-  height: 88vh;
-}
-
-textarea.textarea {
-  min-height: 3em;
-}
-
-footer#footer {
-  min-height: 5vh;
-  height: 5vh;
-  border: 1px solid black;
-}
-
-
-
-
-
-a.inline-user {
-  display: inline-block;
-  margin: 0.5em;
-}*/

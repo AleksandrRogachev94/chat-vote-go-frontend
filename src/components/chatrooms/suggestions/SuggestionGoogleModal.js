@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import StarRatingComponent from 'react-star-rating-component';
 import Carousel from './Carousel'
 import powered_by_google from '../../../../public/powered_by_google.png'
 
@@ -44,11 +45,13 @@ class SuggestionGoogleModal extends React.Component {
                     ))} />
                   )}
                 </div>
+                {suggestion.rating && (
+                  <div className="rating"><StarRatingComponent editing={false} starCount={5} value={suggestion.rating} name="rating" /></div>
+                )}
                 <p><b>Address:</b> {suggestion.formatted_address}</p>
-                { suggestion.international_phone_number && (<p><b>Phone Number</b>: {suggestion.international_phone_number}</p>) }
-                { suggestion.rating && (<p><b>Rating</b>: {suggestion.rating}</p>) }
-                { suggestion.price_level && (<p><b>Price Level (0...4)</b>: {suggestion.price_level}</p>) }
-                { suggestion.website && (<p><a href={suggestion.website} target="_blank">Website</a></p>) }
+                {suggestion.international_phone_number && (<p><b>Phone Number</b>: {suggestion.international_phone_number}</p>) }
+                {suggestion.price_level && (<p><b>Price Level (0...4)</b>: {suggestion.price_level}</p>) }
+                {suggestion.website && (<p><a href={suggestion.website} target="_blank">Website</a></p>) }
                 {suggestion.opening_hours && suggestion.opening_hours.weekday_text.map((txt, i) => (
                   <p key={i}><em>{txt}</em></p>
                 ))}

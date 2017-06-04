@@ -99,7 +99,7 @@ class SignupForm extends React.Component {
     } else {
       avatarPreview = (<div className="previewText">Please select an Image for Preview</div>);
     }
-console.log(errors)
+
     return (
       <form onSubmit={this.handleSubmit} encType="multipart/form-data">
         {errors.other &&  <Error msg={errors.other.join(", ")} />}
