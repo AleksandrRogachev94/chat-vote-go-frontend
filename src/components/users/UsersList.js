@@ -1,30 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import User from './User'
-import Error from '../common/Error'
 
-const UsersList = ({ users, errors, isFetching }) => {
+const UsersList = ({ users }) => {
   console.log("UsersList render")
 
   const usersJSX = users.map(user => <User key={user.id} nickname={user.nickname} id={user.id} avatar_url={user.avatar_thumb_url} />)
 
   return (
-    <div>
-      {errors.other && <Error msg={errors.other.join(", ")} />}
-      {errors.auth && <Error msg={errors.auth.join(", ")} />}
-      <aside className="list-menu">
-        <p className="list-menu-label">Users</p>
-        <ul className="list-menu-list">{usersJSX}</ul>
-      </aside>
-      {isFetching && (<p>Loading...</p>)}
-    </div>
+    <aside className="list-menu">
+      <p className="list-menu-label">Users</p>
+      <ul className="list-menu-list">{usersJSX}</ul>
+    </aside>
   )
 }
 
 UsersList.propTypes = {
   users: PropTypes.array.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  errors: PropTypes.object
 }
 
 export default UsersList

@@ -109,6 +109,10 @@ table.table {
   overflow-y: auto;
 }
 
+.users-panel {
+  margin-top: 0.5em;
+}
+
 /*--------------------Modals------------------------*/
 
 #modal-info {

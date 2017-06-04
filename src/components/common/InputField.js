@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 
-export default function InputField({ name, label, placeholder, type, value, onChange, iconClass, errors }) {
+export default function InputField({ name, label, placeholder, type, value, onChange, iconClass, errors, autoFocus }) {
 
   let divClass = "form-group"
   if(iconClass) divClass += " has-feedback"
@@ -9,10 +9,10 @@ export default function InputField({ name, label, placeholder, type, value, onCh
 
   return (
     <div className={divClass}>
-      <label className="control-label">{label}</label>
+      {label && <label className="control-label">{label}</label>}
         <div className={iconClass ? "input-group" : ""}>
           <input type={type} name={name} className="form-control" placeholder={placeholder}
-            onChange={onChange} value={value} />
+            onChange={onChange} value={value} autoFocus={autoFocus} />
           {iconClass && (<span className="input-group-addon"><span className={iconClass}></span></span>)}
         </div>
       {errors && <span className="help-block">{errors}</span>}
@@ -22,11 +22,12 @@ export default function InputField({ name, label, placeholder, type, value, onCh
 
 InputField.propTypes = {
   name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   placeholder: PropTypes.string,
   type: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   iconClass: PropTypes.string,
-  errors: PropTypes.string
+  errors: PropTypes.string,
+  autoFocus: PropTypes.bool
 }

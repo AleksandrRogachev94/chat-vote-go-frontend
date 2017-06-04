@@ -5,7 +5,7 @@ import deepEqual from 'deep-equal'
 import { fetchUsers } from '../../actions/usersActions'
 import { fetchAllChatrooms } from '../../actions/chatroomsActions'
 import { getUsersByTitle, getIsFetchingUsers, getUsersErrors } from '../../reducers/index'
-import UsersList from './UsersList'
+import UsersListSearch from './UsersListSearch'
 
 class UsersListContainer extends React.Component {
 
@@ -39,7 +39,7 @@ class UsersListContainer extends React.Component {
     const { users, isFetching, errors } = this.props
 
     return (
-      <UsersList users={users} isFetching={isFetching} errors={errors} />
+      <UsersListSearch users={users} isFetching={isFetching} errors={errors} />
     )
   }
 }
