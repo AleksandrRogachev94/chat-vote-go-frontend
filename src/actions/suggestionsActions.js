@@ -1,5 +1,6 @@
 import 'isomorphic-fetch'
 import { fetchWrapper, dataFromReject } from '../lib/shared'
+import { addFlashMessage } from './flashMessages'
 import { RECEIVE_SUGGESTIONS, ADD_SUGGESTION_SUCCESS, REMOVE_SUGGESTION_SUCCESS } from './actionTypes'
 import { getSubscriptionSuggestions } from '../reducers/index'
 
@@ -42,5 +43,11 @@ export const removeSuggestion = (suggestion_id) => (dispatch, getState) => {
     // All OK.
     .then(data => dispatch(removeSuggestionSuccess(data.suggestion)))
     // Error.
-    // .catch((err) => dispatch(removeSuggestionFailure(dataFromReject(err).errors)));
+    .catch((err) => {
+      let result = ''
+      const errors = dataFromReject(err).errors
+      if(errors.other) result += errors.other.join(', ')
+      if(errors.auth) result += errors.auth.join(', ')
+      dispatch(addFlashMessage({ text: result, type: "danger" }));
+    })
 }

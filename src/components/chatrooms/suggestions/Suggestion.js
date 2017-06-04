@@ -12,9 +12,6 @@ class Suggestion extends React.Component {
   }
 
   render() {
-    console.log("Suggestion render")
-    console.log('-----------------1-1-1-1-1->')
-    console.log(this.props.chatroomOwner)
     const { suggestion, chatroomOwner, current_user_id, handleVote, handleRemove, handleChoose } = this.props
     return(
       <div>
@@ -28,7 +25,7 @@ class Suggestion extends React.Component {
             </Link>
           </div>
           <div className="col-xs-6">
-            { chatroomOwner && (chatroomOwner.id === current_user_id) && (
+            { chatroomOwner  && (
               <button type="button" className="close" onClick={handleRemove}>
                 <span aria-hidden="true" data-id={suggestion.id}>&times;</span>
               </button>
