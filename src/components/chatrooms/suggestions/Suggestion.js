@@ -25,11 +25,6 @@ class Suggestion extends React.Component {
             </Link>
           </div>
           <div className="col-xs-6">
-            { chatroomOwner  && (
-              <button type="button" className="close" onClick={handleRemove}>
-                <span aria-hidden="true" data-id={suggestion.id}>&times;</span>
-              </button>
-            )}
             <a href="#" onClick={handleChoose} data-id={suggestion.id}>
               <p>{suggestion.title}</p>
               <p>votes: {suggestion.voters.length}</p>
@@ -41,6 +36,11 @@ class Suggestion extends React.Component {
               value="vote" data-id={suggestion.id} onClick={handleVote} type="submit">
               vote
             </button>
+            { chatroomOwner && (chatroomOwner.id === current_user_id) && (
+              <button type="button" className="close" onClick={handleRemove}>
+                <span aria-hidden="true" data-id={suggestion.id}>&times;</span>
+              </button>
+            )}
           </div>
         </div>
       </div>

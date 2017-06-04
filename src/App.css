@@ -118,6 +118,13 @@ table.table {
   margin-bottom: 1em;
 }
 
+.alert {
+  z-index: 100;
+  position: absolute;
+  width: 100%;
+  opacity: 0.95;
+}
+
 /*--------------------Modals------------------------*/
 
 #modal-info {
