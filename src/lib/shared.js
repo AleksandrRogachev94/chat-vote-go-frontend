@@ -63,10 +63,18 @@ export const formatDate = (date) => {
   return `${month[formatted.getMonth()]} ${formatted.getDate()}, ${formatted.getFullYear()}`
 }
 
+// export const formatDateMessage = (date) => {
+//   var options = {
+//     weekday: "long", year: "numeric", month: "short",
+//     day: "numeric", hour: "2-digit", minute: "2-digit"
+//   };
+//   const formatted = new Date(date)
+//   return formatted.toLocaleTimeString("en-us", options)
+// }
+
 export const formatDateMessage = (date) => {
   var options = {
-    weekday: "long", year: "numeric", month: "short",
-    day: "numeric", hour: "2-digit", minute: "2-digit"
+    hour: "2-digit", minute: "2-digit"
   };
   const formatted = new Date(date)
   return formatted.toLocaleTimeString("en-us", options)

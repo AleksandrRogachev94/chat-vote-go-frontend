@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import deepEqual from 'deep-equal'
-import { getChatroomMessages, getChatroomOwner, getChatroomGuests } from '../../../reducers/index'
+import { getChatroomMessages, getChatroomOwner, getChatroomGuests, getCurrentUser } from '../../../reducers/index'
 import Chatroom from './Chatroom'
 
 class ChatroomContainer extends React.Component {
@@ -21,12 +21,12 @@ class ChatroomContainer extends React.Component {
   render() {
     console.log("ChatroomContainer render")
 
-    const { id, messages, owner, guests } = this.props
+    const { id, messages, owner, guests, currentUser } = this.props
 
     return (
       <div>
         <Chatroom messages={messages} owner={owner} guests={guests}
-          id={id} />
+          id={id} currentUser={currentUser} />
       </div>
     )
   }
@@ -37,6 +37,7 @@ ChatroomContainer.propTypes = {
   messages: PropTypes.array,
   owner: PropTypes.object,
   guests: PropTypes.array,
+  currentUser: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state, { params }) => ({
@@ -44,6 +45,7 @@ const mapStateToProps = (state, { params }) => ({
   messages: getChatroomMessages(state, params.id),
   owner: getChatroomOwner(state, params.id),
   guests: getChatroomGuests(state, params.id),
+  currentUser: getCurrentUser(state)
 })
 
 export default withRouter(
