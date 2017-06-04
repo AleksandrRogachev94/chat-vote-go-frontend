@@ -109,10 +109,10 @@ export const getChatroomMessages = (state, id) => {
   }
 }
 export const getChatroomOwner = (state, id) => (
-  getChatroom(state, id).ownerId ? getUser(state, getChatroom(state, id).ownerId) : null
+  (getChatroom(state, id) && getChatroom(state, id).ownerId) ? getUser(state, getChatroom(state, id).ownerId) : null
 )
 export const getChatroomGuests = (state, id) => (
-  getChatroom(state, id).guestsIds ?
+  (getChatroom(state, id) && getChatroom(state, id).guestsIds) ?
     getChatroom(state, id).guestsIds.map(id => getUser(state, id)) : null
 )
 export const getFullChatroom = (state, id) => {

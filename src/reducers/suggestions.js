@@ -1,4 +1,4 @@
-import { RECEIVE_SUGGESTIONS, ADD_SUGGESTION_SUCCESS } from '../actions/actionTypes'
+import { RECEIVE_SUGGESTIONS, ADD_SUGGESTION_SUCCESS, REMOVE_SUGGESTION_SUCCESS } from '../actions/actionTypes'
 
 const suggestions = (state = {
   suggestionsById: {}
@@ -15,6 +15,11 @@ const suggestions = (state = {
           [action.suggestion.id]: action.suggestion
         })
       })
+
+    case REMOVE_SUGGESTION_SUCCESS:
+      let newState = Object.assign({}, state)
+      delete newState.suggestionsById[action.suggestion.id]
+      return newState
 
     default:
       return state

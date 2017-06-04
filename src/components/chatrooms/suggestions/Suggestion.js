@@ -13,7 +13,9 @@ class Suggestion extends React.Component {
 
   render() {
     console.log("Suggestion render")
-    const { suggestion, current_user_id, handleVote, handleChoose } = this.props
+    console.log('-----------------1-1-1-1-1->')
+    console.log(this.props.chatroomOwner)
+    const { suggestion, chatroomOwner, current_user_id, handleVote, handleRemove, handleChoose } = this.props
     return(
       <div>
         <div className="list-group-item row">
@@ -26,6 +28,11 @@ class Suggestion extends React.Component {
             </Link>
           </div>
           <div className="col-xs-6">
+            { chatroomOwner && (chatroomOwner.id === current_user_id) && (
+              <button type="button" className="close" onClick={handleRemove}>
+                <span aria-hidden="true" data-id={suggestion.id}>&times;</span>
+              </button>
+            )}
             <a href="#" onClick={handleChoose} data-id={suggestion.id}>
               <p>{suggestion.title}</p>
               <p>votes: {suggestion.voters.length}</p>
@@ -46,9 +53,11 @@ class Suggestion extends React.Component {
 
 Suggestion.propTypes = {
   suggestion: PropTypes.object.isRequired,
+  chatroomOwner: PropTypes.object,
   current_user_id: PropTypes.number.isRequired,
   handleChoose: PropTypes.func.isRequired,
-  handleVote: PropTypes.func.isRequired
+  handleVote: PropTypes.func.isRequired,
+  handleRemove: PropTypes.func.isRequired
 }
 
 export default Suggestion

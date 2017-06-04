@@ -16,6 +16,7 @@ class SuggestionsReview extends React.Component {
     this.handleChoose = this.handleChoose.bind(this)
     this.handleUnchoose = this.handleUnchoose.bind(this)
     this.handleVote = this.handleVote.bind(this)
+    this.handleRemove = this.handleRemove.bind(this)
   }
 
   handleChoose(ev) {
@@ -36,15 +37,20 @@ class SuggestionsReview extends React.Component {
     this.props.vote(ev.target.dataset.id)
   }
 
+  handleRemove(ev) {
+    ev.preventDefault()
+    this.props.removeSuggestion(ev.target.dataset.id)
+  }
+
   render() {
     console.log("SuggestionsReview render")
-    const { suggestions, current_user_id } = this.props
+    const { suggestions, current_user_id, chatroomOwner } = this.props
     const { selectedSug } = this.state
 
     let suggestionsJSX
     if(suggestions) suggestionsJSX = suggestions.map(sug => (
-      <Suggestion key={sug.id} current_user_id={current_user_id} handleVote={this.handleVote}
-        handleChoose={this.handleChoose} suggestion={sug} />
+      <Suggestion key={sug.id} current_user_id={current_user_id} chatroomOwner={chatroomOwner} handleVote={this.handleVote}
+        handleRemove={this.handleRemove} handleChoose={this.handleChoose} suggestion={sug} />
     ))
 
     let suggestionModal = null
@@ -77,8 +83,10 @@ class SuggestionsReview extends React.Component {
 
 SuggestionsReview.propTypes = {
   suggestions: PropTypes.array,
+  chatroomOwner: PropTypes.object,
   current_user_id: PropTypes.number.isRequired,
-  vote: PropTypes.func.isRequired
+  vote: PropTypes.func.isRequired,
+  removeSuggestion: PropTypes.func.isRequired
 }
 
 export default SuggestionsReview
