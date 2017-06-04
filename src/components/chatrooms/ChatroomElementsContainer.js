@@ -4,11 +4,14 @@ import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import { subscribeToChatroom, unsubscribeFromChatroom } from '../../actions/actioncableActions'
 import { fetchChatroom } from '../../actions/chatroomActions'
+import { getIsFetchingChatroom, getChatroomErrors } from '../../reducers/index'
+import isEmpty from 'lodash/isEmpty'
 import ToggleViewMode from './ToggleViewMode'
 import ChatroomContainer from './chatroomBoard/ChatroomContainer'
 import SuggestionsContainer from './suggestions/SuggestionsContainer'
+import Error from '../common/Error'
 
-class ChatroomElements extends React.Component {
+class ChatroomElementsContainer extends React.Component {
 
   constructor(props) {
     super(props)
@@ -50,6 +53,7 @@ class ChatroomElements extends React.Component {
   render() {
     console.log("ChatroomElements render")
     const viewMode = this.state.viewMode
+    const { chatroom_id, errors, isFetching } = this.props
 
     let chosen = null
     switch(viewMode) {
@@ -65,28 +69,47 @@ class ChatroomElements extends React.Component {
         chosen = (<SuggestionsContainer viewMode={viewMode} /> )
     }
 
-    return (
-      <div>
-        { this.props.chatroom_id && (
-          <ToggleViewMode viewMode={viewMode} handleChangeMode={this.handleChangeMode} />
-        )}
-        {chosen}
-      </div>
-    )
+    if(!isEmpty(errors)) {
+      return (
+        <div>
+          {errors.other && <Error msg={errors.other.join(", ")} />}
+          {errors.auth && <Error msg={errors.auth.join(", ")} />}
+        </div>
+      )
+    } else if(!chatroom_id) {
+      return <h3>Choose Chatroom</h3>
+    } else if(isFetching) {
+      return <p>Loading...</p>
+    } else {
+      return (
+        <div>
+          {chatroom_id && (
+            <ToggleViewMode viewMode={viewMode} handleChangeMode={this.handleChangeMode} />
+          )}
+          {chosen}
+        </div>
+      )
+    }
   }
 }
 
-ChatroomElements.propTypes = {
+ChatroomElementsContainer.propTypes = {
   chatroom_id: PropTypes.string,
   fetchChatroom: PropTypes.func.isRequired,
   subscribeToChatroom: PropTypes.func.isRequired,
   unsubscribeFromChatroom: PropTypes.func.isRequired
 }
 
+ChatroomElementsContainer.defaultProps = {
+  errors: {}
+}
+
 const mapStateToProps = (state, { params }) => ({
   chatroom_id: params.id,
+  isFetching: getIsFetchingChatroom(state, params.id),
+  errors: getChatroomErrors(state, params.id)
 })
 
 export default withRouter(
-  connect(mapStateToProps, { fetchChatroom, subscribeToChatroom, unsubscribeFromChatroom })(ChatroomElements)
+  connect(mapStateToProps, { fetchChatroom, subscribeToChatroom, unsubscribeFromChatroom })(ChatroomElementsContainer)
 )

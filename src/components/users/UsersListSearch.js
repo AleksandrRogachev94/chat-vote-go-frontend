@@ -40,7 +40,7 @@ class UsersListSearch extends React.Component {
           {errors.auth && <Error msg={errors.auth.join(", ")} />}
           <InputField name="searchUser" placeholder="Search" type="text" value={filter}
             onChange={this.handleChangeFilter} iconClass="glyphicon glyphicon-search" autoFocus={true} />
-          {filteredUsers.length > 0 ? <UsersList users={filteredUsers} /> : <UsersList users={users} />}
+          {filter ? <UsersList users={filteredUsers} /> : <UsersList users={users} />}
         </div>
       )
     }
