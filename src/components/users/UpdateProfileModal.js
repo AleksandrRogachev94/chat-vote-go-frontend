@@ -90,6 +90,7 @@ class UpdateProfileModal extends React.Component {
           (response) => {
             this.props.addFlashMessage({ type: 'success', text: 'Updated Profile Successfully' })
             this.setState({ isLoading: false })
+            this.props.onRefresh()
             this.props.onClose()
           },
           (fail) => this.setState(dataFromReject(fail, true))
@@ -145,7 +146,7 @@ class UpdateProfileModal extends React.Component {
 
             <div className="modal-footer">
               <button className="btn btn-success" onClick={this.handleSubmit} aria-label="Close" disabled={isLoading}>Update</button>
-              <a className="btn btn-danger" onClick={onClose} aria-label="Close" onClick={onClose}>Cancel</a>
+              <a className="btn btn-danger" onClick={onClose} aria-label="Close">Cancel</a>
             </div>
           </div>
         </div>
@@ -158,7 +159,8 @@ UpdateProfileModal.propTypes = {
   profile: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
   profileUpdateRequest: PropTypes.func.isRequired,
-  addFlashMessage: PropTypes.func.isRequired
+  addFlashMessage: PropTypes.func.isRequired,
+  onRefresh: PropTypes.func.isRequired
 }
 
 export default UpdateProfileModal

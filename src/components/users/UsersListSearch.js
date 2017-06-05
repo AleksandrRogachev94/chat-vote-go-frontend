@@ -27,23 +27,18 @@ class UsersListSearch extends React.Component {
   }
 
   render() {
-
     const { users, errors, isFetching } = this.props
     const { filter, filteredUsers } = this.state
-
-    if(isFetching) {
-      return (<p>Loading...</p>)
-    } else {
-      return (
-        <div className="users-panel">
-          {errors.other && <Error msg={errors.other.join(", ")} />}
-          {errors.auth && <Error msg={errors.auth.join(", ")} />}
-          <InputField name="searchUser" placeholder="Search" type="text" value={filter}
-            onChange={this.handleChangeFilter} iconClass="glyphicon glyphicon-search" autoFocus={true} />
-          {filter ? <UsersList users={filteredUsers} /> : <UsersList users={users} />}
-        </div>
-      )
-    }
+    return (
+      <div className="users-panel">
+        {errors.other && <Error msg={errors.other.join(", ")} />}
+        {errors.auth && <Error msg={errors.auth.join(", ")} />}
+        <InputField name="searchUser" placeholder="Search" type="text" value={filter}
+          onChange={this.handleChangeFilter} iconClass="glyphicon glyphicon-search" autoFocus={true} />
+        {filter ? <UsersList users={filteredUsers} /> : <UsersList users={users} />}
+        {isFetching && (<p>Loading...</p>)}
+      </div>
+    )
   }
 }
 

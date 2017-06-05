@@ -9,6 +9,7 @@ const ChatroomBoard = (props) => {
   let messages
   if(props.messages) messages = props.messages.map((msg, i) => (
     <div key={msg.id} >
+      {i === 0 && <p className="separator">{formatDate(msg.created_at)}</p>}
       {(i > 0) && (new Date(msg.created_at).toDateString() !== new Date(props.messages[i-1].created_at).toDateString()) && (
         <p className="separator">{formatDate(msg.created_at)}</p>
       )}

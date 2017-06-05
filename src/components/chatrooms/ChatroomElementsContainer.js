@@ -77,7 +77,7 @@ class ChatroomElementsContainer extends React.Component {
         </div>
       )
     } else if(!chatroom_id) {
-      return <h3>Choose Chatroom</h3>
+      return <h1>Choose Chatroom</h1>
     } else if(isFetching) {
       return <p>Loading...</p>
     } else {

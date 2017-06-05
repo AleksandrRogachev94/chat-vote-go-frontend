@@ -8,7 +8,8 @@ import PrimaryButton from '../common/PrimaryButton'
 
 class Profile extends React.Component {
 
-  openModal() {
+  openModal(ev) {
+    ev.preventDefault()
     window.jQuery('#modal-update-profile').modal('show')
   }
 
@@ -34,7 +35,7 @@ class Profile extends React.Component {
           {(currentUser.id !== parseInt(id, 10)) && (<AddToChatroom />)}
           <PrimaryButton value="Refresh" onClick={onRefresh} isLoading={isFetching} />
           {profile && <UpdateProfileModal onClose={this.closeModal} profileUpdateRequest={profileUpdateRequest}
-            addFlashMessage={addFlashMessage} profile={profile} />}
+            addFlashMessage={addFlashMessage} profile={profile} onRefresh={onRefresh} />}
         </div>
       )
     } else {
