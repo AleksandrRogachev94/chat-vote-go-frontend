@@ -2,29 +2,44 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import ProfileInfo from './ProfileInfo'
 import AddToChatroom from './AddToChatroom'
+import UpdateProfileModal from './UpdateProfileModal'
 import Error from '../common/Error'
 import PrimaryButton from '../common/PrimaryButton'
 
-const Profile = (props) => {
-  console.log("Profile render")
+class Profile extends React.Component {
 
-  let email, avatar_original_url, nickname, first_name, last_name, created_at
-  if(props.profile) ({ email, avatar_original_url, nickname, first_name, last_name, created_at } = props.profile)
-  const { currentUser, id } = props
+  openModal() {
+    window.jQuery('#modal-update-profile').modal('show')
+  }
 
-  if(props.id) {
-    return (
-      <div className="profile">
-        {props.errors.other && <Error msg={props.errors.other.join(", ")} />}
-        {props.errors.auth && <Error msg={props.errors.auth.join(", ")} />}
+  closeModal() {
+    window.jQuery('#modal-update-profile').modal('hide')
+  }
 
-        <ProfileInfo email={email} avatar_url={avatar_original_url} nickname={nickname} created_at={created_at} first_name={first_name} last_name={last_name} />
-        {(currentUser.id !== parseInt(id, 10)) && (<AddToChatroom />)}
-        <PrimaryButton value="Refresh" onClick={props.onRefresh} isLoading={props.isFetching} />
-      </div>
-    )
-  } else {
-    return (<h1 className="title has-text-centered">Choose User</h1>)
+  render() {
+    console.log("Profile render")
+
+    let email, avatar_original_url, nickname, first_name, last_name, created_at
+    if(this.props.profile) ({ email, avatar_original_url, nickname, first_name, last_name, created_at } = this.props.profile)
+    const { currentUser, id, errors, isFetching, onRefresh, profile, profileUpdateRequest, addFlashMessage } = this.props
+
+    if(id) {
+      return (
+        <div className="profile">
+          {errors.other && <Error msg={errors.other.join(", ")} />}
+          {errors.auth && <Error msg={errors.auth.join(", ")} />}
+
+          <ProfileInfo email={email} avatar_url={avatar_original_url} nickname={nickname} created_at={created_at} first_name={first_name} last_name={last_name} />
+          {(currentUser.id === parseInt(id, 10)) && (<a href="#" onClick={this.openModal}>Update Profile</a>)}
+          {(currentUser.id !== parseInt(id, 10)) && (<AddToChatroom />)}
+          <PrimaryButton value="Refresh" onClick={onRefresh} isLoading={isFetching} />
+          {profile && <UpdateProfileModal onClose={this.closeModal} profileUpdateRequest={profileUpdateRequest}
+            addFlashMessage={addFlashMessage} profile={profile} />}
+        </div>
+      )
+    } else {
+      return (<h1 className="title has-text-centered">Choose User</h1>)
+    }
   }
 }
 
@@ -34,7 +49,9 @@ Profile.propTypes = {
   currentUser: PropTypes.object.isRequired,
   errors: PropTypes.object,
   isFetching: PropTypes.bool,
-  onRefresh: PropTypes.func.isRequired
+  onRefresh: PropTypes.func.isRequired,
+  profileUpdateRequest: PropTypes.func.isRequired,
+  addFlashMessage: PropTypes.func.isRequired
 }
 
 export default Profile

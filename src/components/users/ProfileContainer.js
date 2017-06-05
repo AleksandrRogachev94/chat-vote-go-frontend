@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types';
-import { fetchUserProfileIfNeeded, invalidateUser } from '../../actions/userActions'
+import { fetchUserProfileIfNeeded, invalidateUser, profileUpdateRequest } from '../../actions/userActions'
+import { addFlashMessage } from '../../actions/flashMessages'
 import { getUser, getIsFetchingUser, getUserErrors, getCurrentUser } from '../../reducers/index'
 import Profile from './Profile'
 
@@ -25,8 +26,6 @@ class ProfileContainer extends React.Component {
     if(id && prevProps.id !== id) {
       fetchUserProfileIfNeeded(id)
     }
-    // if(id && (!user || !user.email))
-    // if(!this.props.profile || !prevProps.profile || (this.props.profile.profile.id !== prevProps.profile.profile.id)) {
   }
 
   handleRefreshClick() {
@@ -38,11 +37,11 @@ class ProfileContainer extends React.Component {
   render() {
     console.log("ProfileContainer render")
 
-    const { profile, errors, isFetching, id, currentUser } = this.props
+    const { profile, errors, isFetching, id, currentUser, profileUpdateRequest, addFlashMessage } = this.props
     return (
       <div>
-        <Profile profile={profile} id={id} errors={errors} onRefresh={this.handleRefreshClick}
-          isFetching={isFetching} currentUser={currentUser} />
+        <Profile profile={profile} id={id} errors={errors} onRefresh={this.handleRefreshClick} isFetching={isFetching}
+          currentUser={currentUser} profileUpdateRequest={profileUpdateRequest} addFlashMessage={addFlashMessage} />
       </div>
     )
   }
@@ -55,7 +54,9 @@ ProfileContainer.propTypes = {
   currentUser: PropTypes.object.isRequired,
   id: PropTypes.string,
   fetchUserProfileIfNeeded: PropTypes.func.isRequired,
-  invalidateUser: PropTypes.func.isRequired
+  invalidateUser: PropTypes.func.isRequired,
+  profileUpdateRequest: PropTypes.func.isRequired,
+  addFlashMessage: PropTypes.func.isRequired
 }
 
 ProfileContainer.defaultProps = {
@@ -70,4 +71,6 @@ const mapStateToProps = (state, { params }) => ({
   id: params.id
 })
 
-export default withRouter(connect(mapStateToProps, { fetchUserProfileIfNeeded, invalidateUser })(ProfileContainer))
+export default withRouter(
+  connect(mapStateToProps, { fetchUserProfileIfNeeded, invalidateUser, profileUpdateRequest, addFlashMessage })(ProfileContainer)
+)

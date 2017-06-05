@@ -76,7 +76,7 @@ class SignupForm extends React.Component {
 
   handleSubmit(ev) {
     ev.preventDefault()
-    console.log("submitting")
+
     if(this.isValid()) {
       this.setState({ errors: {}, isLoading: true })
       this.props.userSignupRequest(this.state)

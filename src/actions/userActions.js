@@ -1,7 +1,11 @@
 import 'isomorphic-fetch'
+import jwtDecode from 'jwt-decode'
+import ActionCable from 'actioncable'
 import { fetchWrapper, dataFromReject } from '../lib/shared'
-import { getUser, getIsFetchingUser, getDidInvalidateUser } from '../reducers/index'
+import { getUser, getIsFetchingUser, getDidInvalidateUser, getCable } from '../reducers/index'
+import { setCurrentUser } from './authActions'
 import { FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE, INVALIDATE_USER } from './actionTypes'
+import isEmpty from 'lodash/isEmpty'
 
 const fetchUserRequest = (id) => ({
   type: FETCH_USER_REQUEST,
@@ -62,4 +66,25 @@ export const fetchUserProfileIfNeeded = (id) => (dispatch, getState) => {
   } else {
     return Promise.resolve()
   }
+}
+
+export const profileUpdateRequest = (userData, id) => (dispatch, getState) => {
+  const request = new Request(process.env.REACT_APP_SERVER_URL_BASE + `/api/v1/users/${id}`, {
+    method: 'PATCH',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+      'Accepts': 'application/json'
+    }),
+    body: JSON.stringify({user: userData})
+  });
+
+  return fetchWrapper(request)
+    .then(data => {
+      localStorage.setItem('jwt', data.jwt)
+
+      if(!isEmpty(getCable(getState()))) getCable(getState()).disconnect()
+      const cable = ActionCable.createConsumer(`${process.env.REACT_APP_SERVER_URL_BASE}/cable?jwt=${data.jwt}`) // Connect to ActionCable
+      const user = jwtDecode(data.jwt)
+      dispatch(setCurrentUser(user, cable))
+    })
 }
