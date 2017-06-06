@@ -8,7 +8,14 @@ const ChatroomUsers = (props) => {
 
   if(props.owner) owner = <Link to={`/users/${props.owner.id}`}>{props.owner.nickname}</Link>
   if(props.guests) guests = props.guests.map((guest) =>(
-    <Link key={guest.id} to={`/users/${guest.id}`}>{guest.nickname} </Link>
+    <div key={guest.id} className="chatUser">
+      { props.owner && (props.owner.id === props.currentUser.id) && (
+        <button type="button" className="close" onClick={props.handleRemove}>
+          <span aria-hidden="true" data-user_id={guest.id}>&times;</span>
+        </button>
+      )}
+      <Link to={`/users/${guest.id}`}>{guest.nickname} </Link>
+    </div>
   ))
 
   return (
@@ -31,7 +38,9 @@ const ChatroomUsers = (props) => {
 
 ChatroomUsers.propTypes = {
   owner: PropTypes.object,
-  guests: PropTypes.array
+  guests: PropTypes.array,
+  handleRemove: PropTypes.func.isRequired,
+  currentUser: PropTypes.object.isRequired
 }
 
 export default ChatroomUsers

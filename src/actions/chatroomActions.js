@@ -1,6 +1,5 @@
 import 'isomorphic-fetch'
 import { fetchWrapper, dataFromReject } from '../lib/shared'
-// import { getProfile, getIsFetchingProfile, getDidInvalidateProfile } from '../reducers/profilesByUserId'
 import { getIsFetchingChatroom } from '../reducers/index'
 import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, ADD_CHATROOM_SUCCESS, ADD_CHATROOM_FAILURE } from './actionTypes'
 import { receiveMessages } from './messagesActions'

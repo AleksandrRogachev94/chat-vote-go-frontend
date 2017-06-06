@@ -4,6 +4,7 @@ import InputField from '../common/InputField'
 import deepEqual from 'deep-equal'
 import isEmpty from 'lodash/isEmpty'
 import { dataFromReject, validateEmail, validateNickname } from '../../lib/shared'
+import Error from '../common/Error'
 
 class UpdateProfileModal extends React.Component {
 
@@ -118,6 +119,11 @@ class UpdateProfileModal extends React.Component {
               <h4 className="modal-title" id="myModalLabel">Update Profile</h4>
             </div>
             <div className="modal-body">
+              {errors.auth && (
+                <section>
+                  <Error msg={errors.auth.join(', ')} />
+                </section>
+              )}
               <section className="modal-card-body">
                 <form onSubmit={this.handleSubmit} encType="multipart/form-data">
                   {errors.other &&  <Error msg={errors.other.join(", ")} />}

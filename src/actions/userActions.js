@@ -48,7 +48,6 @@ export const fetchUserProfile = (id) => (dispatch) => {
 
 function shouldFetchUserProfile(state, id) {
   const user = getUser(state, id)
-  // debugger
   if (!user) {
     return true
   } else if (getIsFetchingUser(state, id)) {
@@ -72,6 +71,7 @@ export const profileUpdateRequest = (userData, id) => (dispatch, getState) => {
   const request = new Request(process.env.REACT_APP_SERVER_URL_BASE + `/api/v1/users/${id}`, {
     method: 'PATCH',
     headers: new Headers({
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
       'Content-Type': 'application/json',
       'Accepts': 'application/json'
     }),

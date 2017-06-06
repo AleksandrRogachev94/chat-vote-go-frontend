@@ -3,10 +3,16 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import deepEqual from 'deep-equal'
+import { removeUserFromChatroom } from '../../../actions/userChatroomsActions'
 import { getChatroomMessages, getChatroomOwner, getChatroomGuests, getCurrentUser } from '../../../reducers/index'
 import Chatroom from './Chatroom'
 
 class ChatroomContainer extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.handleRemoveUser = this.handleRemoveUser.bind(this)
+  }
 
   // Selectors make some calculations with chatroom details. Same objects are not the same here
   shouldComponentUpdate(nextProps) {
@@ -18,6 +24,11 @@ class ChatroomContainer extends React.Component {
     )
   }
 
+  handleRemoveUser(ev) {
+    ev.preventDefault()
+    this.props.removeUserFromChatroom(ev.target.dataset.user_id, this.props.id)
+  }
+
   render() {
     console.log("ChatroomContainer render")
 
@@ -26,7 +37,7 @@ class ChatroomContainer extends React.Component {
     return (
       <div>
         <Chatroom messages={messages} owner={owner} guests={guests}
-          id={id} currentUser={currentUser} />
+          id={id} currentUser={currentUser} handleRemoveUser={this.handleRemoveUser} />
       </div>
     )
   }
@@ -49,5 +60,5 @@ const mapStateToProps = (state, { params }) => ({
 })
 
 export default withRouter(
-  connect(mapStateToProps)(ChatroomContainer)
+  connect(mapStateToProps, { removeUserFromChatroom })(ChatroomContainer)
 )

@@ -1,5 +1,5 @@
 import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE,
-ADD_CHATROOM_SUCCESS, ADD_MESSAGE_SUCCESS, ADD_SUGGESTION_SUCCESS, REMOVE_SUGGESTION_SUCCESS } from '../actions/actionTypes'
+ADD_CHATROOM_SUCCESS, ADD_MESSAGE_SUCCESS, ADD_SUGGESTION_SUCCESS, REMOVE_SUGGESTION_SUCCESS, REMOVE_USER_FROM_CHATROOM_SUCCESS } from '../actions/actionTypes'
 
 const parseResponseChatroom = (response) => {
   let result = {
@@ -65,6 +65,14 @@ const chatroom = (state = {
       return Object.assign({}, state, {
         chatroom: Object.assign({}, state.chatroom, {
           suggestionsIds: state.chatroom.suggestionsIds.filter(id => id !== action.suggestion.id)
+        })
+      })
+
+    case REMOVE_USER_FROM_CHATROOM_SUCCESS:
+      if(action.chatroom_id !== state.chatroom.id) return state
+      return Object.assign({}, state, {
+        chatroom: Object.assign({}, state.chatroom, {
+          guestsIds: state.chatroom.guestsIds.filter(id => id !== action.user_id)
         })
       })
     default:

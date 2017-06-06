@@ -7,7 +7,8 @@ const auth = (state = {
   user: {},
   cable: {},
   subscriptionMessages: {},
-  subscriptionSuggestions: {}
+  subscriptionSuggestions: {},
+  subscriptionUsers: {}
 }, action) => {
   switch(action.type) {
 
@@ -49,6 +50,16 @@ const auth = (state = {
         subscriptionSuggestions: {}
       })
 
+    case SUBSCRIBE_TO_CHATROOM_USERS:
+      return Object.assign({}, state, {
+        subscriptionUsers: action.subscriptionUsers
+      })
+
+    case UNSUBSCRIBE_FROM_CHATROOM_USERS:
+      return Object.assign({}, state, {
+        subscriptionUsers: {}
+      })
+
     default:
       return state
   }
@@ -76,4 +87,8 @@ export const getSubscriptionMessages = (state) => (
 
 export const getSubscriptionSuggestions = (state) => (
   state.subscriptionSuggestions
+)
+
+export const getSubscriptionUsers = (state) => (
+  state.subscriptionUsers
 )

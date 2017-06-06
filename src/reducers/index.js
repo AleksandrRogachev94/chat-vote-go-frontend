@@ -37,6 +37,9 @@ export const getSubscriptionMessages = (state) => (
 export const getSubscriptionSuggestions = (state) => (
   fromAuth.getSubscriptionSuggestions(state.auth)
 )
+export const getSubscriptionUsers = (state) => (
+  fromAuth.getSubscriptionUsers(state.auth)
+)
 
 // Users
 

@@ -116,12 +116,10 @@ table.table {
 .alert {
   margin-top: 1em;
   margin-bottom: 1em;
-}
-
-.alert {
   z-index: 100;
   position: absolute;
-  width: 100%;
+  left: 5%;
+  right: 5%;
   opacity: 0.95;
 }
 
@@ -225,6 +223,11 @@ a.inline-user {
 
 .message-author {
   text-align: center;
+}
+
+.chatUser {
+  display: inline-block;
+  margin-right: 1em;
 }
 
 /*---------------------- List Menu -------------------------*/

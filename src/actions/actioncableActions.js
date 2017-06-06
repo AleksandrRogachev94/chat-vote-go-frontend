@@ -1,5 +1,6 @@
 import { SUBSCRIBE_TO_CHATROOM_MESSAGES, UNSUBSCRIBE_FROM_CHATROOM_MESSAGES,
-SUBSCRIBE_TO_CHATROOM_SUGGESTIONS, UNSUBSCRIBE_FROM_CHATROOM_SUGGESTIONS } from './actionTypes'
+  SUBSCRIBE_TO_CHATROOM_SUGGESTIONS, UNSUBSCRIBE_FROM_CHATROOM_SUGGESTIONS,
+  SUBSCRIBE_TO_CHATROOM_USERS, UNSUBSCRIBE_FROM_CHATROOM_USERS } from './actionTypes'
 import { getSubscriptionMessages, getSubscriptionSuggestions, getCable } from '../reducers/index'
 import { addMessageSuccess } from './messagesActions'
 import { addSuggestionSuccess } from './suggestionsActions'
@@ -35,6 +36,9 @@ export const subscribeToChatroomMessages = (chatroom_id) => (dispatch, getState)
     },
     disconnected: function(data) {
       console.log('----------->ACTIONCABLE DISCONNECTED')
+    },
+    rejected: function(data) {
+      alert("Can't establish web socket connection")
     }
   })
 
@@ -74,12 +78,58 @@ export const subscribeToChatroomSuggestions = (chatroom_id) => (dispatch, getSta
     },
     disconnected: function(data) {
       console.log('----------->ACTIONCABLE DISCONNECTED')
+    },
+    rejected: function(data) {
+      alert("Can't establish web socket connection")
     }
   })
 
   dispatch({
     type: SUBSCRIBE_TO_CHATROOM_SUGGESTIONS,
     subscriptionSuggestions
+  })
+}
+
+export const unsubscribeFromChatroomUsers = () => (dispatch, getState) => {
+  let cable = getCable(getState())
+  if(isEmpty(cable)) return
+  let subscriptionUsers = getSubscriptionUsers(getState())
+  if(!isEmpty(subscriptionUsers)) {
+    cable.subscriptions.remove(subscriptionUsers)
+  }
+  dispatch({
+    type: UNSUBSCRIBE_FROM_CHATROOM_USERS
+  })
+}
+
+// Also unsubscribes from the previous chatroom.
+export const subscribeToChatroomUsers = (chatroom_id) => (dispatch, getState) => {
+  let cable = getCable(getState())
+  if(isEmpty(cable)) return;
+  dispatch(unsubscribeFromChatroomUsers())
+
+  const subscriptionUsers = cable.subscriptions.create({
+    channel: 'ChatroomUsersChannel', chatroom_id
+  }, {
+    received: (data) => {
+      console.log("----------->ACTIONCABLE GET/DELETE USER")
+      debugger
+      dispatch(addGuestToChatroomSuccess(data.user_chatroom))
+    },
+    connected: function(data) {
+      console.log('----------->ACTIONCABLE CHATROOM USERS SUBSCRIBED')
+    },
+    disconnected: function(data) {
+      console.log('----------->ACTIONCABLE DISCONNECTED')
+    },
+    rejected: function(data) {
+      alert("Can't establish web socket connection")
+    }
+  })
+
+  dispatch({
+    type: SUBSCRIBE_TO_CHATROOM_USERS,
+    subscriptionUsers
   })
 }
 
@@ -90,9 +140,11 @@ export const subscribeToChatroomSuggestions = (chatroom_id) => (dispatch, getSta
 export const subscribeToChatroom = (chatroom_id) => (dispatch) => {
   dispatch(subscribeToChatroomMessages(chatroom_id))
   dispatch(subscribeToChatroomSuggestions(chatroom_id))
+  dispatch(subscribeToChatroomUsers(chatroom_id))
 }
 
 export const unsubscribeFromChatroom = (chatroom_id) => (dispatch) => {
   dispatch(unsubscribeFromChatroomMessages(chatroom_id))
   dispatch(unsubscribeFromChatroomSuggestions(chatroom_id))
+  dispatch(unsubscribeFromChatroomUsers(chatroom_id))
 }
