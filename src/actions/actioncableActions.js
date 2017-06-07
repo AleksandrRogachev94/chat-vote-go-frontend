@@ -1,9 +1,10 @@
 import { SUBSCRIBE_TO_CHATROOM_MESSAGES, UNSUBSCRIBE_FROM_CHATROOM_MESSAGES,
   SUBSCRIBE_TO_CHATROOM_SUGGESTIONS, UNSUBSCRIBE_FROM_CHATROOM_SUGGESTIONS,
   SUBSCRIBE_TO_CHATROOM_USERS, UNSUBSCRIBE_FROM_CHATROOM_USERS } from './actionTypes'
-import { getSubscriptionMessages, getSubscriptionSuggestions, getCable } from '../reducers/index'
+import { getSubscriptionMessages, getSubscriptionSuggestions, getSubscriptionUsers, getCable } from '../reducers/index'
 import { addMessageSuccess } from './messagesActions'
 import { addSuggestionSuccess } from './suggestionsActions'
+import { addGuestToChatroomSuccess } from './userChatroomsActions'
 import isEmpty from 'lodash/isEmpty'
 
 export const unsubscribeFromChatroomMessages = () => (dispatch, getState) => {
@@ -113,8 +114,7 @@ export const subscribeToChatroomUsers = (chatroom_id) => (dispatch, getState) =>
   }, {
     received: (data) => {
       console.log("----------->ACTIONCABLE GET/DELETE USER")
-      debugger
-      dispatch(addGuestToChatroomSuccess(data.user_chatroom))
+      dispatch(addGuestToChatroomSuccess(data.user_chatroom.user, data.user_chatroom.chatroom))
     },
     connected: function(data) {
       console.log('----------->ACTIONCABLE CHATROOM USERS SUBSCRIBED')

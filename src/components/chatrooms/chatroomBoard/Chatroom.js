@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ChatroomBoard from './ChatroomBoard'
 import ChatroomUsers from './ChatroomUsers'
+import AddUserToChatroom from './AddUserToChatroom'
 
 const Chatroom = ({ messages, owner, guests, id, currentUser, handleRemoveUser }) => {
   console.log("Chatroom render")
@@ -9,6 +10,7 @@ const Chatroom = ({ messages, owner, guests, id, currentUser, handleRemoveUser }
   return (
     <div>
       <ChatroomUsers owner={owner} guests={guests} currentUser={currentUser} handleRemove={handleRemoveUser} />
+      <AddUserToChatroom />
       <ChatroomBoard messages={messages} chatroom_id={id} currentUser={currentUser} />
     </div>
   )

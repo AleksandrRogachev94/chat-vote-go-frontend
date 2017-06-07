@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import ProfileInfo from './ProfileInfo'
-import AddToChatroom from './AddToChatroom'
 import UpdateProfileModal from './UpdateProfileModal'
 import Error from '../common/Error'
 import PrimaryButton from '../common/PrimaryButton'
@@ -32,7 +31,6 @@ class Profile extends React.Component {
 
           <ProfileInfo email={email} avatar_url={avatar_original_url} nickname={nickname} created_at={created_at} first_name={first_name} last_name={last_name} />
           {(currentUser.id === parseInt(id, 10)) && (<a href="#" onClick={this.openModal}>Update Profile</a>)}
-          {(currentUser.id !== parseInt(id, 10)) && (<AddToChatroom />)}
           <PrimaryButton value="Refresh" onClick={onRefresh} isLoading={isFetching} />
           {profile && <UpdateProfileModal onClose={this.closeModal} profileUpdateRequest={profileUpdateRequest}
             addFlashMessage={addFlashMessage} profile={profile} onRefresh={onRefresh} />}

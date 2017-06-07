@@ -4,6 +4,7 @@ import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import { subscribeToChatroom, unsubscribeFromChatroom } from '../../actions/actioncableActions'
 import { fetchChatroom } from '../../actions/chatroomActions'
+import { fetchUsers } from '../../actions/usersActions'
 import { getIsFetchingChatroom, getChatroomErrors } from '../../reducers/index'
 import isEmpty from 'lodash/isEmpty'
 import ToggleViewMode from './ToggleViewMode'
@@ -24,9 +25,10 @@ class ChatroomElementsContainer extends React.Component {
   }
 
   componentDidMount() {
-    const { subscribeToChatroom, fetchChatroom, chatroom_id } = this.props
+    const { subscribeToChatroom, fetchChatroom, fetchUsers, chatroom_id } = this.props
     if(chatroom_id) {
       fetchChatroom(chatroom_id)
+      fetchUsers('all')
       subscribeToChatroom(chatroom_id)
     }
   }
@@ -96,6 +98,7 @@ class ChatroomElementsContainer extends React.Component {
 ChatroomElementsContainer.propTypes = {
   chatroom_id: PropTypes.string,
   fetchChatroom: PropTypes.func.isRequired,
+  fetchUsers: PropTypes.func.isRequired,
   subscribeToChatroom: PropTypes.func.isRequired,
   unsubscribeFromChatroom: PropTypes.func.isRequired
 }
@@ -111,5 +114,5 @@ const mapStateToProps = (state, { params }) => ({
 })
 
 export default withRouter(
-  connect(mapStateToProps, { fetchChatroom, subscribeToChatroom, unsubscribeFromChatroom })(ChatroomElementsContainer)
+  connect(mapStateToProps, { fetchChatroom, fetchUsers, subscribeToChatroom, unsubscribeFromChatroom })(ChatroomElementsContainer)
 )
