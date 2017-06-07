@@ -38,11 +38,11 @@ class AddUserToChatroom extends React.Component {
   render() {
     const { currentUser, guests, allUsers } = this.props
 
-    const options = allUsers.filter((user) =>
+    const options = allUsers && guests ? allUsers.filter((user) =>
       user.id !== currentUser.id && !guests.map(user => user.id).includes(user.id))
       .map(user => (
       <option key={user.id} value={user.id}>{user.nickname}</option>
-    ))
+    )) : []
 
     return (
       <form onSubmit={this.handleSubmit}>

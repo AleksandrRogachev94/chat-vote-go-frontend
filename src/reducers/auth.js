@@ -1,15 +1,10 @@
 import isEmpty from 'lodash/isEmpty';
-import { SET_CURRENT_USER, LOGOUT, SUBSCRIBE_TO_CHATROOM_MESSAGES, UNSUBSCRIBE_FROM_CHATROOM_MESSAGES,
-  SUBSCRIBE_TO_CHATROOM_SUGGESTIONS, UNSUBSCRIBE_FROM_CHATROOM_SUGGESTIONS,
-  SUBSCRIBE_TO_CHATROOM_USERS, UNSUBSCRIBE_FROM_CHATROOM_USERS } from '../actions/actionTypes'
+import { SET_CURRENT_USER, LOGOUT, UPDATE_CABLE } from '../actions/actionTypes'
 
 const auth = (state = {
   isAuthenticated: false,
   user: {},
-  cable: {},
-  subscriptionMessages: {},
-  subscriptionSuggestions: {},
-  subscriptionUsers: {}
+  cable: {}
 }, action) => {
   switch(action.type) {
 
@@ -18,47 +13,18 @@ const auth = (state = {
         isAuthenticated: !isEmpty(action.user),
         user: action.user,
         cable: action.cable,
-        subscriptionMessages: {},
-        subscriptionSuggestions: {}
       }
 
     case LOGOUT:
       return {
         isAuthenticated: false,
         user: {},
-        cable: {},
-        subscriptionMessages: {},
-        subscriptionSuggestions: {}
+        cable: {}
       }
 
-    case SUBSCRIBE_TO_CHATROOM_MESSAGES:
+    case UPDATE_CABLE:
       return Object.assign({}, state, {
-        subscriptionMessages: action.subscriptionMessages
-      })
-
-    case UNSUBSCRIBE_FROM_CHATROOM_MESSAGES:
-      return Object.assign({}, state, {
-        subscriptionMessages: {}
-      })
-
-    case SUBSCRIBE_TO_CHATROOM_SUGGESTIONS:
-      return Object.assign({}, state, {
-        subscriptionSuggestions: action.subscriptionSuggestions
-      })
-
-    case UNSUBSCRIBE_FROM_CHATROOM_SUGGESTIONS:
-      return Object.assign({}, state, {
-        subscriptionSuggestions: {}
-      })
-
-    case SUBSCRIBE_TO_CHATROOM_USERS:
-      return Object.assign({}, state, {
-        subscriptionUsers: action.subscriptionUsers
-      })
-
-    case UNSUBSCRIBE_FROM_CHATROOM_USERS:
-      return Object.assign({}, state, {
-        subscriptionUsers: {}
+        cable: action.cable
       })
 
     default:
@@ -83,13 +49,19 @@ export const getCable = (state) => (
 )
 
 export const getSubscriptionMessages = (state) => (
-  state.subscriptionMessages
+  state.cable.subscriptions.subscriptions.find(s =>
+    JSON.parse(s.identifier).channel === "ChatroomMessagesChannel"
+  )
 )
 
 export const getSubscriptionSuggestions = (state) => (
-  state.subscriptionSuggestions
+  state.cable.subscriptions.subscriptions.find(s =>
+    JSON.parse(s.identifier).channel === "ChatroomSuggestionsChannel"
+  )
 )
 
 export const getSubscriptionUsers = (state) => (
-  state.subscriptionUsers
+  state.cable.subscriptions.subscriptions.find(s =>
+    JSON.parse(s.identifier).channel === "ChatroomUsersChannel"
+  )
 )

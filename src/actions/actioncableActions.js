@@ -1,31 +1,33 @@
-import { SUBSCRIBE_TO_CHATROOM_MESSAGES, UNSUBSCRIBE_FROM_CHATROOM_MESSAGES,
-  SUBSCRIBE_TO_CHATROOM_SUGGESTIONS, UNSUBSCRIBE_FROM_CHATROOM_SUGGESTIONS,
-  SUBSCRIBE_TO_CHATROOM_USERS, UNSUBSCRIBE_FROM_CHATROOM_USERS } from './actionTypes'
-import { getSubscriptionMessages, getSubscriptionSuggestions, getSubscriptionUsers, getCable } from '../reducers/index'
+import { UPDATE_CABLE } from './actionTypes'
+import { getCable, getCurrentUser } from '../reducers/index'
 import { addMessageSuccess } from './messagesActions'
 import { addSuggestionSuccess } from './suggestionsActions'
 import { addUserToChatroomSuccess, removeUserFromChatroomSuccess } from './userChatroomsActions'
 import isEmpty from 'lodash/isEmpty'
 
 export const unsubscribeFromChatroomMessages = () => (dispatch, getState) => {
-  let cable = getCable(getState())
-  if(isEmpty(cable)) return
-  let subscriptionMessages = getSubscriptionMessages(getState())
-  if(!isEmpty(subscriptionMessages)) {
+  if(isEmpty(getCable(getState()))) return
+  let cable = Object.assign({}, getCable(getState()))
+
+  let subscriptionMessages = cable.subscriptions.subscriptions.find(s =>
+    JSON.parse(s.identifier).channel === "ChatroomMessagesChannel"
+  )
+  if(subscriptionMessages) {
     cable.subscriptions.remove(subscriptionMessages)
+    dispatch({
+      type: UPDATE_CABLE,
+      cable
+    })
   }
-  dispatch({
-    type: UNSUBSCRIBE_FROM_CHATROOM_MESSAGES
-  })
 }
 
 // Also unsubscribes from the previous chatroom.
 export const subscribeToChatroomMessages = (chatroom_id) => (dispatch, getState) => {
-  let cable = getCable(getState())
-  if(isEmpty(cable)) return;
+  if(isEmpty(getCable(getState()))) return
+  let cable = Object.assign({}, getCable(getState()))
   dispatch(unsubscribeFromChatroomMessages())
 
-  const subscriptionMessages = cable.subscriptions.create({
+  cable.subscriptions.create({
     channel: 'ChatroomMessagesChannel', chatroom_id
   }, {
     received: (data) => {
@@ -41,30 +43,34 @@ export const subscribeToChatroomMessages = (chatroom_id) => (dispatch, getState)
   })
 
   dispatch({
-    type: SUBSCRIBE_TO_CHATROOM_MESSAGES,
-    subscriptionMessages
+    type: UPDATE_CABLE,
+    cable
   })
 }
 
 export const unsubscribeFromChatroomSuggestions = () => (dispatch, getState) => {
-  let cable = getCable(getState())
-  if(isEmpty(cable)) return
-  let subscriptionSuggestions = getSubscriptionSuggestions(getState())
-  if(!isEmpty(subscriptionSuggestions)) {
+  if(isEmpty(getCable(getState()))) return
+  let cable = Object.assign({}, getCable(getState()))
+
+  let subscriptionSuggestions = cable.subscriptions.subscriptions.find(s =>
+    JSON.parse(s.identifier).channel === "ChatroomSuggestionsChannel"
+  )
+  if(subscriptionSuggestions) {
     cable.subscriptions.remove(subscriptionSuggestions)
+    dispatch({
+      type: UPDATE_CABLE,
+      cable
+    })
   }
-  dispatch({
-    type: UNSUBSCRIBE_FROM_CHATROOM_SUGGESTIONS
-  })
 }
 
 // Also unsubscribes from the previous chatroom.
 export const subscribeToChatroomSuggestions = (chatroom_id) => (dispatch, getState) => {
-  let cable = getCable(getState())
-  if(isEmpty(cable)) return;
+  if(isEmpty(getCable(getState()))) return
+  let cable = Object.assign({}, getCable(getState()))
   dispatch(unsubscribeFromChatroomSuggestions())
 
-  const subscriptionSuggestions = cable.subscriptions.create({
+  cable.subscriptions.create({
     channel: 'ChatroomSuggestionsChannel', chatroom_id
   }, {
     received: (data) => {
@@ -80,30 +86,34 @@ export const subscribeToChatroomSuggestions = (chatroom_id) => (dispatch, getSta
   })
 
   dispatch({
-    type: SUBSCRIBE_TO_CHATROOM_SUGGESTIONS,
-    subscriptionSuggestions
+    type: UPDATE_CABLE,
+    cable
   })
 }
 
 export const unsubscribeFromChatroomUsers = () => (dispatch, getState) => {
-  let cable = getCable(getState())
-  if(isEmpty(cable)) return
-  let subscriptionUsers = getSubscriptionUsers(getState())
-  if(!isEmpty(subscriptionUsers)) {
+  if(isEmpty(getCable(getState()))) return
+  let cable = Object.assign({}, getCable(getState()))
+
+  let subscriptionUsers = cable.subscriptions.subscriptions.find(s =>
+    JSON.parse(s.identifier).channel === "ChatroomUsersChannel"
+  )
+  if(subscriptionUsers) {
     cable.subscriptions.remove(subscriptionUsers)
+    dispatch({
+      type: UPDATE_CABLE,
+      cable
+    })
   }
-  dispatch({
-    type: UNSUBSCRIBE_FROM_CHATROOM_USERS
-  })
 }
 
 // Also unsubscribes from the previous chatroom.
 export const subscribeToChatroomUsers = (chatroom_id) => (dispatch, getState) => {
-  let cable = getCable(getState())
-  if(isEmpty(cable)) return;
+  if(isEmpty(getCable(getState()))) return
+  let cable = Object.assign({}, getCable(getState()))
   dispatch(unsubscribeFromChatroomUsers())
 
-  const subscriptionUsers = cable.subscriptions.create({
+  cable.subscriptions.create({
     channel: 'ChatroomUsersChannel', chatroom_id
   }, {
     received: (data) => {
@@ -127,8 +137,8 @@ export const subscribeToChatroomUsers = (chatroom_id) => (dispatch, getState) =>
   })
 
   dispatch({
-    type: SUBSCRIBE_TO_CHATROOM_USERS,
-    subscriptionUsers
+    type: UPDATE_CABLE,
+    cable
   })
 }
 
