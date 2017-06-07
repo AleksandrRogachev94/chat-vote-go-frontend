@@ -1,7 +1,9 @@
+import { browserHistory } from 'react-router'
 import { UPDATE_CABLE } from './actionTypes'
 import { getCable, getCurrentUser } from '../reducers/index'
 import { addMessageSuccess } from './messagesActions'
 import { addSuggestionSuccess } from './suggestionsActions'
+import { addFlashMessage } from './flashMessages'
 import { addUserToChatroomSuccess, removeUserFromChatroomSuccess } from './userChatroomsActions'
 import isEmpty from 'lodash/isEmpty'
 
@@ -55,6 +57,7 @@ export const unsubscribeFromChatroomSuggestions = () => (dispatch, getState) => 
   let subscriptionSuggestions = cable.subscriptions.subscriptions.find(s =>
     JSON.parse(s.identifier).channel === "ChatroomSuggestionsChannel"
   )
+
   if(subscriptionSuggestions) {
     cable.subscriptions.remove(subscriptionSuggestions)
     dispatch({
@@ -124,7 +127,17 @@ export const subscribeToChatroomUsers = (chatroom_id) => (dispatch, getState) =>
           break
         case 'destroy':
           console.log("----------->ACTIONCABLE DELETE USER")
+          let subscriptionUsers = cable.subscriptions.subscriptions.find(s =>
+            JSON.parse(s.identifier).channel === "ChatroomUsersChannel"
+          )
+          if(subscriptionUsers && getCurrentUser(getState()).id === data.user_chatroom.user.id) {
+              dispatch(addFlashMessage({ type: "danger", text: `You were excluded from the chatroom: ${data.user_chatroom.chatroom.title}` }))
+              browserHistory.push('/')
+            }
+
           dispatch(removeUserFromChatroomSuccess(data.user_chatroom.user, data.user_chatroom.chatroom))
+          break
+        default:
           break
       }
     },
