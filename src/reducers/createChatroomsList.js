@@ -1,4 +1,5 @@
-import { FETCH_CHATROOMS_REQUEST, FETCH_CHATROOMS_SUCCESS, FETCH_CHATROOMS_FAILURE, ADD_CHATROOM_SUCCESS } from '../actions/actionTypes'
+import { FETCH_CHATROOMS_REQUEST, FETCH_CHATROOMS_SUCCESS, FETCH_CHATROOMS_FAILURE, ADD_CHATROOM_SUCCESS,
+  DELETE_CHATROOM_SUCCESS} from '../actions/actionTypes'
 
 const createChatroomsList = (title) => {
   return (state = {
@@ -10,6 +11,12 @@ const createChatroomsList = (title) => {
     if(action.type === ADD_CHATROOM_SUCCESS && title === 'own') {
       return Object.assign({}, state, {
         ids: [...state.ids, action.chatroom.id]
+      })
+    }
+
+    if(action.type === DELETE_CHATROOM_SUCCESS && title === 'own') {
+      return Object.assign({}, state, {
+        ids: state.ids.slice().filter(id => id !== action.chatroom.id)
       })
     }
 

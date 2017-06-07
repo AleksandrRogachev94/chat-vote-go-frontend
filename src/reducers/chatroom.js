@@ -1,5 +1,6 @@
-import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE,
-  ADD_CHATROOM_SUCCESS, ADD_MESSAGE_SUCCESS, ADD_SUGGESTION_SUCCESS, REMOVE_SUGGESTION_SUCCESS, REMOVE_USER_FROM_CHATROOM_SUCCESS,
+import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, DELETE_CHATROOM_REQUEST,
+  DELETE_CHATROOM_FAILURE, ADD_CHATROOM_SUCCESS, ADD_MESSAGE_SUCCESS,
+  ADD_SUGGESTION_SUCCESS, REMOVE_SUGGESTION_SUCCESS, REMOVE_USER_FROM_CHATROOM_SUCCESS,
   ADD_USER_TO_CHATROOM_SUCCESS } from '../actions/actionTypes'
 
 const parseResponseChatroom = (response) => {
@@ -24,6 +25,7 @@ const chatroom = (state = {
   switch(action.type) {
 
     case FETCH_CHATROOM_REQUEST:
+    case DELETE_CHATROOM_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
         errors: {}
@@ -38,6 +40,7 @@ const chatroom = (state = {
       })
 
     case FETCH_CHATROOM_FAILURE:
+    case DELETE_CHATROOM_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
         errors: action.errors

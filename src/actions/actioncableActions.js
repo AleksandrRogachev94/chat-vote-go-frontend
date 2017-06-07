@@ -2,7 +2,7 @@ import { browserHistory } from 'react-router'
 import { UPDATE_CABLE } from './actionTypes'
 import { getCable, getCurrentUser } from '../reducers/index'
 import { addMessageSuccess } from './messagesActions'
-import { addSuggestionSuccess } from './suggestionsActions'
+import { addSuggestionSuccess, removeSuggestionSuccess } from './suggestionsActions'
 import { addFlashMessage } from './flashMessages'
 import { addUserToChatroomSuccess, removeUserFromChatroomSuccess } from './userChatroomsActions'
 import isEmpty from 'lodash/isEmpty'
@@ -33,7 +33,7 @@ export const subscribeToChatroomMessages = (chatroom_id) => (dispatch, getState)
     channel: 'ChatroomMessagesChannel', chatroom_id
   }, {
     received: (data) => {
-      console.log("----------->ACTIONCABLE GET MESSAGE")
+      console.log("----------->ACTIONCABLE ADD MESSAGE")
       dispatch(addMessageSuccess(data.message))
     },
     connected: function(data) {
@@ -77,8 +77,18 @@ export const subscribeToChatroomSuggestions = (chatroom_id) => (dispatch, getSta
     channel: 'ChatroomSuggestionsChannel', chatroom_id
   }, {
     received: (data) => {
-      console.log("----------->ACTIONCABLE GET SUGGESTION")
-      dispatch(addSuggestionSuccess(data.suggestion))
+      switch(data.type) {
+        case 'create':
+          console.log("----------->ACTIONCABLE ADD SUGGESTION")
+          dispatch(addSuggestionSuccess(data.suggestion))
+          break
+        case 'destroy':
+          console.log("----------->ACTIONCABLE DELETE SUGGESTION")
+          dispatch(removeSuggestionSuccess(data.suggestion))
+          break
+        default:
+          break
+      }
     },
     connected: function(data) {
       console.log('----------->ACTIONCABLE CHATROOM SUGGESTIONS SUBSCRIBED')

@@ -1,5 +1,6 @@
-import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, FETCH_CHATROOMS_SUCCESS,
-  ADD_MESSAGE_SUCCESS, ADD_CHATROOM_SUCCESS, ADD_SUGGESTION_SUCCESS, REMOVE_SUGGESTION_SUCCESS, REMOVE_USER_FROM_CHATROOM_SUCCESS,
+import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, DELETE_CHATROOM_REQUEST,
+  DELETE_CHATROOM_SUCCESS, DELETE_CHATROOM_FAILURE, FETCH_CHATROOMS_SUCCESS, ADD_MESSAGE_SUCCESS,
+  ADD_CHATROOM_SUCCESS, ADD_SUGGESTION_SUCCESS, REMOVE_SUGGESTION_SUCCESS, REMOVE_USER_FROM_CHATROOM_SUCCESS,
   ADD_USER_TO_CHATROOM_SUCCESS } from '../actions/actionTypes'
 import { fetchChatroomSuccess } from '../actions/chatroomActions'
 import chatroom, * as fromChatroom from './chatroom'
@@ -15,6 +16,8 @@ const chatroomsById = (state = {}, action) => {
 
     case FETCH_CHATROOM_REQUEST:
     case FETCH_CHATROOM_FAILURE:
+    case DELETE_CHATROOM_REQUEST:
+    case DELETE_CHATROOM_FAILURE:
       return Object.assign({}, state, {
         [action.id]: chatroom(state[action.id], action)
       })
@@ -24,6 +27,11 @@ const chatroomsById = (state = {}, action) => {
       return Object.assign({}, state, {
         [action.chatroom.id]: chatroom(state[action.chatroom.id], action)
       })
+
+    case DELETE_CHATROOM_SUCCESS:
+      let newState = Object.assign({}, state)
+      delete newState[action.chatroom.id]
+      return newState
 
     case ADD_MESSAGE_SUCCESS:
       return Object.assign({}, state, {

@@ -1,4 +1,3 @@
-import 'isomorphic-fetch'
 import { RECEIVE_MESSAGES, ADD_MESSAGE_SUCCESS } from './actionTypes'
 import { getSubscriptionMessages } from '../reducers/index'
 

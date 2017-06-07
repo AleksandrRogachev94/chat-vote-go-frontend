@@ -1,4 +1,3 @@
-import 'isomorphic-fetch'
 import { getSubscriptionUsers } from '../reducers/index'
 import { ADD_USER_TO_CHATROOM_SUCCESS, REMOVE_USER_FROM_CHATROOM_SUCCESS } from './actionTypes'
 

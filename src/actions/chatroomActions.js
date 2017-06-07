@@ -1,7 +1,8 @@
 import 'isomorphic-fetch'
 import { fetchWrapper, dataFromReject } from '../lib/shared'
 import { getIsFetchingChatroom } from '../reducers/index'
-import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, ADD_CHATROOM_SUCCESS, ADD_CHATROOM_FAILURE } from './actionTypes'
+import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, ADD_CHATROOM_SUCCESS,
+  ADD_CHATROOM_FAILURE, DELETE_CHATROOM_REQUEST, DELETE_CHATROOM_SUCCESS, DELETE_CHATROOM_FAILURE } from './actionTypes'
 import { receiveMessages } from './messagesActions'
 import { receiveSuggestions } from './suggestionsActions'
 import { addUsers } from './usersActions'
@@ -20,6 +21,31 @@ const fetchChatroomFailure = (id, errors) => ({
 export const fetchChatroomSuccess = (chatroom) => ({
   type: FETCH_CHATROOM_SUCCESS,
   chatroom
+})
+
+export const addChatroomSuccess = (chatroom) => ({
+  type: ADD_CHATROOM_SUCCESS,
+  chatroom
+})
+
+export const addChatroomFailure = () => ({
+  type: ADD_CHATROOM_FAILURE,
+})
+
+const deleteChatroomRequest = (id) => ({
+  type: DELETE_CHATROOM_REQUEST,
+  id
+})
+
+export const deleteChatroomSuccess = (chatroom) => ({
+  type: DELETE_CHATROOM_SUCCESS,
+  chatroom
+})
+
+export const deleteChatroomFailure = (id, errors) => ({
+  type: DELETE_CHATROOM_FAILURE,
+  id,
+  errors
 })
 
 export const fetchChatroom = (id) => (dispatch, getState) => {
@@ -47,19 +73,7 @@ export const fetchChatroom = (id) => (dispatch, getState) => {
     .catch((err) => dispatch(fetchChatroomFailure(id, dataFromReject(err).errors)))
 }
 
-
-export const addChatroomSuccess = (chatroom) => ({
-  type: ADD_CHATROOM_SUCCESS,
-  chatroom
-})
-
-export const addChatroomFailure = () => ({
-  type: ADD_CHATROOM_FAILURE,
-})
-
 export const addChatroom = (chatroomData) => (dispatch) => {
-  // dispatch(fetchUserRequest(id))
-
   const request = new Request(`${process.env.REACT_APP_SERVER_URL_BASE}/api/v1/chatrooms`, {
     method: 'POST',
     headers: new Headers({
@@ -75,4 +89,25 @@ export const addChatroom = (chatroomData) => (dispatch) => {
     .then(data => dispatch(addChatroomSuccess(data.chatroom)))
     // Error.
     .catch((err) => dispatch(addChatroomFailure(dataFromReject(err).errors)));
+}
+
+export const deleteChatroom = (chatroom_id) => (dispatch) => {
+  dispatch(deleteChatroomRequest(chatroom_id))
+
+  const request = new Request(`${process.env.REACT_APP_SERVER_URL_BASE}/api/v1/chatrooms/${chatroom_id}`, {
+    method: 'DELETE',
+    headers: new Headers({
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+      'Accepts': 'application/json'
+    })
+  })
+
+  return fetchWrapper(request)
+    // All OK.
+    .then(data => dispatch(deleteChatroomSuccess(data.chatroom)))
+    // Error.
+    .catch((err) => {
+      dispatch(deleteChatroomFailure(chatroom_id, dataFromReject(err).errors))
+      throw err
+    })
 }

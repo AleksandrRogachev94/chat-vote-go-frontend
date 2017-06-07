@@ -128,6 +128,11 @@ table.table {
   margin-bottom: 1em;
 }
 
+.delete-chatroom {
+  margin: 0 auto;
+  text-align: center;
+}
+
 /*--------------------Modals------------------------*/
 
 #modal-info {
