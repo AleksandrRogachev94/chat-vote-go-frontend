@@ -4,7 +4,7 @@ import { SUBSCRIBE_TO_CHATROOM_MESSAGES, UNSUBSCRIBE_FROM_CHATROOM_MESSAGES,
 import { getSubscriptionMessages, getSubscriptionSuggestions, getSubscriptionUsers, getCable } from '../reducers/index'
 import { addMessageSuccess } from './messagesActions'
 import { addSuggestionSuccess } from './suggestionsActions'
-import { addGuestToChatroomSuccess } from './userChatroomsActions'
+import { addUserToChatroomSuccess, removeUserFromChatroomSuccess } from './userChatroomsActions'
 import isEmpty from 'lodash/isEmpty'
 
 export const unsubscribeFromChatroomMessages = () => (dispatch, getState) => {
@@ -38,9 +38,6 @@ export const subscribeToChatroomMessages = (chatroom_id) => (dispatch, getState)
     disconnected: function(data) {
       console.log('----------->ACTIONCABLE DISCONNECTED')
     },
-    rejected: function(data) {
-      alert("Can't establish web socket connection")
-    }
   })
 
   dispatch({
@@ -80,9 +77,6 @@ export const subscribeToChatroomSuggestions = (chatroom_id) => (dispatch, getSta
     disconnected: function(data) {
       console.log('----------->ACTIONCABLE DISCONNECTED')
     },
-    rejected: function(data) {
-      alert("Can't establish web socket connection")
-    }
   })
 
   dispatch({
@@ -113,8 +107,16 @@ export const subscribeToChatroomUsers = (chatroom_id) => (dispatch, getState) =>
     channel: 'ChatroomUsersChannel', chatroom_id
   }, {
     received: (data) => {
-      console.log("----------->ACTIONCABLE GET/DELETE USER")
-      dispatch(addGuestToChatroomSuccess(data.user_chatroom.user, data.user_chatroom.chatroom))
+      switch(data.type) {
+        case 'create':
+          console.log("----------->ACTIONCABLE ADD USER")
+          dispatch(addUserToChatroomSuccess(data.user_chatroom.user, data.user_chatroom.chatroom))
+          break
+        case 'destroy':
+          console.log("----------->ACTIONCABLE DELETE USER")
+          dispatch(removeUserFromChatroomSuccess(data.user_chatroom.user, data.user_chatroom.chatroom))
+          break
+      }
     },
     connected: function(data) {
       console.log('----------->ACTIONCABLE CHATROOM USERS SUBSCRIBED')
@@ -122,9 +124,6 @@ export const subscribeToChatroomUsers = (chatroom_id) => (dispatch, getState) =>
     disconnected: function(data) {
       console.log('----------->ACTIONCABLE DISCONNECTED')
     },
-    rejected: function(data) {
-      alert("Can't establish web socket connection")
-    }
   })
 
   dispatch({
