@@ -20,12 +20,16 @@ const ToggleViewMode = ({ viewMode, handleChangeMode }) => {
          onClick={handleChangeMode}>
         New
       </a>
+      <a className="btn btn-default" data-mode="settings" disabled={viewMode === 'settings'}
+         onClick={handleChangeMode}>
+        Settings
+      </a>
     </div>
   )
 }
 
 ToggleViewMode.propTypes = {
-  viewMode: PropTypes.oneOf(['chat', 'stats', 'review', 'form']).isRequired,
+  viewMode: PropTypes.oneOf(['chat', 'stats', 'review', 'form', 'settings']).isRequired,
   handleChangeMode: PropTypes.func.isRequired
 }
 

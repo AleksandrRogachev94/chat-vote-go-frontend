@@ -1,16 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ChatroomBoard from './ChatroomBoard'
-import ChatroomUsers from './ChatroomUsers'
-import AddUserToChatroom from './AddUserToChatroom'
 
-const Chatroom = ({ messages, owner, guests, id, currentUser, handleRemoveUser }) => {
+const Chatroom = ({ messages, id, currentUser }) => {
   console.log("Chatroom render")
 
   return (
     <div>
-      <ChatroomUsers owner={owner} guests={guests} currentUser={currentUser} handleRemove={handleRemoveUser} />
-      <AddUserToChatroom />
       <ChatroomBoard messages={messages} chatroom_id={id} currentUser={currentUser} />
     </div>
   )
@@ -18,11 +14,8 @@ const Chatroom = ({ messages, owner, guests, id, currentUser, handleRemoveUser }
 
 Chatroom.PropTypes = {
   messages: PropTypes.array.isRequired,
-  owner: PropTypes.object.isRequired,
-  guests: PropTypes.array.isRequired,
   id: PropTypes.string.isRequired,
   currentUser: PropTypes.object.isRequired,
-  handleRemoveUser: PropTypes.func.isRequired
 }
 
 export default Chatroom

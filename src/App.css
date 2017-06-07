@@ -180,7 +180,8 @@ a.inline-user {
 
 #messages {
   overflow-y: auto;
-  height: 60vh;
+  height: 65vh;
+  margin-top: 1.5em;
   border-radius: 10px;
   margin-bottom: 0.5em;
 }

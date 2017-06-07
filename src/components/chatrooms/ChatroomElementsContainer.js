@@ -10,6 +10,7 @@ import isEmpty from 'lodash/isEmpty'
 import ToggleViewMode from './ToggleViewMode'
 import ChatroomContainer from './chatroomBoard/ChatroomContainer'
 import SuggestionsContainer from './suggestions/SuggestionsContainer'
+import ChatroomSettingsContainer from './chatroomSettings/ChatroomSettingsContainer'
 import Error from '../common/Error'
 
 class ChatroomElementsContainer extends React.Component {
@@ -26,7 +27,7 @@ class ChatroomElementsContainer extends React.Component {
 
   componentDidMount() {
     const { subscribeToChatroom, fetchChatroom, fetchUsers, chatroom_id } = this.props
-    
+
     fetchUsers('all')
     if(chatroom_id) {
       fetchChatroom(chatroom_id)
@@ -62,6 +63,9 @@ class ChatroomElementsContainer extends React.Component {
     switch(viewMode) {
       case 'chat':
         chosen = (<ChatroomContainer /> )
+        break
+      case 'settings':
+        chosen = (<ChatroomSettingsContainer />)
         break
       case 'review':
       case 'stats':
