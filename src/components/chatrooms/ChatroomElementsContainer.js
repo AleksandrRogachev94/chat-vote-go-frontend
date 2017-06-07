@@ -26,9 +26,10 @@ class ChatroomElementsContainer extends React.Component {
 
   componentDidMount() {
     const { subscribeToChatroom, fetchChatroom, fetchUsers, chatroom_id } = this.props
+    
+    fetchUsers('all')
     if(chatroom_id) {
       fetchChatroom(chatroom_id)
-      fetchUsers('all')
       subscribeToChatroom(chatroom_id)
     }
   }

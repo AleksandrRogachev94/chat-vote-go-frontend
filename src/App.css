@@ -123,6 +123,11 @@ table.table {
   opacity: 0.95;
 }
 
+.add-guest .form-inline .form-group {
+  width: 70%;
+  margin-bottom: 1em;
+}
+
 /*--------------------Modals------------------------*/
 
 #modal-info {

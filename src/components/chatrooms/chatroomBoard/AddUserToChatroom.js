@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { getUsersByTitle } from '../../../reducers/index'
+import { getUsersByTitle, getChatroomGuests, getCurrentUser } from '../../../reducers/index'
 import { addUserToChatroom } from '../../../actions/userChatroomsActions'
 
 class AddUserToChatroom extends React.Component {
@@ -17,6 +17,14 @@ class AddUserToChatroom extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentDidMount() {
+    window.jQuery('.selectpicker').selectpicker();
+  }
+
+  componentDidUpdate() {
+    window.jQuery('.selectpicker').selectpicker('refresh');
+  }
+
   handleChange(ev) {
     this.setState({ user_id: ev.target.value })
   }
@@ -28,35 +36,47 @@ class AddUserToChatroom extends React.Component {
   }
 
   render() {
-    const options = this.props.allUsers.map(user => (
+    const { currentUser, guests, allUsers } = this.props
+
+    const options = allUsers.filter((user) =>
+      user.id !== currentUser.id && !guests.map(user => user.id).includes(user.id))
+      .map(user => (
       <option key={user.id} value={user.id}>{user.nickname}</option>
     ))
 
     return (
-      <div className="content">
-        <h4>Add User to Chatroom</h4>
+      <form onSubmit={this.handleSubmit}>
+        <div className="row" style={{margin: '1em'}}>
+          <div className="col-xs-12">
+            <div className="input-group input-group-md">
+              <select name="user_id" value={this.state.user_id} onChange={this.handleChange} className="form-control selectpicker"
+                data-live-search="true">
+                <option value="" disabled>Choose User</option>
+                {options}
+              </select>
 
-        <form onSubmit={this.handleSubmit} className="form-inline">
-          <div className="form-group">
-            <select name="user_id" value={this.state.user_id} onChange={this.handleChange} className="form-control">
-              <option value="" disabled>Choose User</option>
-              {options}
-            </select>
+              <div className="input-group-btn">
+                <button type="submit" disabled={!this.state.user_id} className="btn btn-primary">Add</button>
+              </div>
+            </div>
           </div>
-          <button type="submit" disabled={!this.state.user_id} className="btn btn-primary">Add</button>
-        </form>
-      </div>
+        </div>
+      </form>
     )
   }
 }
 
 AddUserToChatroom.propTypes = {
   allUsers: PropTypes.array.isRequired,
-  addUserToChatroom: PropTypes.func.isRequired
+  addUserToChatroom: PropTypes.func.isRequired,
+  guests: PropTypes.array,
+  currentUser: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state) => ({
-  allUsers: getUsersByTitle(state, 'all')
+const mapStateToProps = (state, {params}) => ({
+  allUsers: getUsersByTitle(state, 'all'),
+  guests: getChatroomGuests(state, params.id),
+  currentUser: getCurrentUser(state)
 })
 
 export default withRouter(connect(mapStateToProps, { addUserToChatroom })(AddUserToChatroom))
