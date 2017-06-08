@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { subscribeToChatroom, unsubscribeFromChatroom } from '../../actions/actioncableActions'
 import { fetchChatroom } from '../../actions/chatroomActions'
 import { fetchUsers } from '../../actions/usersActions'
-import { getIsFetchingChatroom, getChatroomErrors } from '../../reducers/index'
+import { getIsFetchingChatroom, getChatroomErrors, getNewMessagesCount } from '../../reducers/index'
 import isEmpty from 'lodash/isEmpty'
 import ToggleViewMode from './ToggleViewMode'
 import ChatroomContainer from './chatroomBoard/ChatroomContainer'
@@ -48,6 +48,7 @@ class ChatroomElementsContainer extends React.Component {
   }
 
   handleChangeMode(ev) {
+    console.log("CHANGING!!!", ev.target.dataset.mode)
     ev.preventDefault()
     this.setState({
       viewMode: ev.target.dataset.mode
@@ -57,7 +58,7 @@ class ChatroomElementsContainer extends React.Component {
   render() {
     console.log("ChatroomElements render")
     const viewMode = this.state.viewMode
-    const { chatroom_id, errors, isFetching } = this.props
+    const { chatroom_id, errors, isFetching, newMessagesCount } = this.props
 
     let chosen = null
     switch(viewMode) {
@@ -91,7 +92,7 @@ class ChatroomElementsContainer extends React.Component {
       return (
         <div>
           {chatroom_id && (
-            <ToggleViewMode viewMode={viewMode} handleChangeMode={this.handleChangeMode} />
+            <ToggleViewMode viewMode={viewMode} handleChangeMode={this.handleChangeMode} newMessagesCount={newMessagesCount} />
           )}
           {chosen}
         </div>
@@ -102,6 +103,7 @@ class ChatroomElementsContainer extends React.Component {
 
 ChatroomElementsContainer.propTypes = {
   chatroom_id: PropTypes.string,
+  newMessagesCount: PropTypes.number,
   fetchChatroom: PropTypes.func.isRequired,
   fetchUsers: PropTypes.func.isRequired,
   subscribeToChatroom: PropTypes.func.isRequired,
@@ -115,7 +117,8 @@ ChatroomElementsContainer.defaultProps = {
 const mapStateToProps = (state, { params }) => ({
   chatroom_id: params.id,
   isFetching: getIsFetchingChatroom(state, params.id),
-  errors: getChatroomErrors(state, params.id)
+  errors: getChatroomErrors(state, params.id),
+  newMessagesCount: getNewMessagesCount(state, params.id)
 })
 
 export default withRouter(

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import deepEqual from 'deep-equal'
+import { clearNewMessagesCount } from '../../../actions/messagesActions'
 import { getChatroomMessages, getCurrentUser } from '../../../reducers/index'
 import Chatroom from './Chatroom'
 
@@ -14,6 +15,13 @@ class ChatroomContainer extends React.Component {
       (this.props.id !== nextProps.id) ||
       !deepEqual(this.props.messages, nextProps.messages)
     )
+  }
+
+  componentDidMount() {
+    this.props.clearNewMessagesCount(this.props.id)
+  }
+  componentDidUpdate(prevProps) {
+    this.props.clearNewMessagesCount(this.props.id)
   }
 
   render() {
@@ -32,7 +40,8 @@ class ChatroomContainer extends React.Component {
 ChatroomContainer.propTypes = {
   id: PropTypes.string,
   messages: PropTypes.array,
-  currentUser: PropTypes.object.isRequired
+  currentUser: PropTypes.object.isRequired,
+  clearNewMessagesCount: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, { params }) => ({
@@ -41,4 +50,4 @@ const mapStateToProps = (state, { params }) => ({
   currentUser: getCurrentUser(state)
 })
 
-export default withRouter(connect(mapStateToProps)(ChatroomContainer))
+export default withRouter(connect(mapStateToProps, { clearNewMessagesCount })(ChatroomContainer))

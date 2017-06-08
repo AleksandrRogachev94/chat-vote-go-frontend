@@ -1,6 +1,6 @@
 import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, DELETE_CHATROOM_REQUEST,
   DELETE_CHATROOM_FAILURE, ADD_CHATROOM_SUCCESS, ADD_MESSAGE_SUCCESS,
-  ADD_SUGGESTION_SUCCESS, REMOVE_SUGGESTION_SUCCESS, REMOVE_USER_FROM_CHATROOM_SUCCESS,
+  ADD_SUGGESTION_SUCCESS, REMOVE_SUGGESTION_SUCCESS, REMOVE_USER_FROM_CHATROOM_SUCCESS, CLEAR_NEW_MESSAGES_COUNT,
   ADD_USER_TO_CHATROOM_SUCCESS } from '../actions/actionTypes'
 
 const parseResponseChatroom = (response) => {
@@ -19,7 +19,8 @@ const parseResponseChatroom = (response) => {
 const chatroom = (state = {
   isFetching: false,
   errors: {},
-  chatroom: {}
+  chatroom: {},
+  newMessagesCount: 0
 }, action) => {
 
   switch(action.type) {
@@ -49,6 +50,7 @@ const chatroom = (state = {
     case ADD_MESSAGE_SUCCESS:
       if(action.message.chatroom_id !== state.chatroom.id) return state
       return Object.assign({}, state, {
+        newMessagesCount: state.newMessagesCount + 1,
         chatroom: Object.assign({}, state.chatroom, {
           messagesIds: [...state.chatroom.messagesIds, action.message.id]
         })
@@ -89,6 +91,13 @@ const chatroom = (state = {
           guestsIds: state.chatroom.guestsIds.filter(id => id !== action.user.id)
         })
       })
+
+    case CLEAR_NEW_MESSAGES_COUNT:
+      if(parseInt(action.chatroom_id, 10) !== state.chatroom.id) return state
+      return Object.assign({}, state, {
+        newMessagesCount: 0
+      })
+
     default:
       return state
   }
@@ -112,4 +121,8 @@ export const getIsFetchingChatroom = (state) => (
 
 export const getChatroomErrors = (state) => (
   state.errors
+)
+
+export const getNewMessagesCount = (state) => (
+  state.newMessagesCount
 )

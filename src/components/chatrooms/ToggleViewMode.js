@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ToggleViewMode = ({ viewMode, handleChangeMode }) => {
+const ToggleViewMode = ({ viewMode, newMessagesCount, handleChangeMode }) => {
+
   return (
     <div className="btn-group">
       <a className="btn btn-default" data-mode="chat" disabled={viewMode === 'chat'}
          onClick={handleChangeMode}>
-        Chat
+        Chat {newMessagesCount > 0 && <b data-mode="chat">({newMessagesCount})</b>}
       </a>
       <a className="btn btn-default" data-mode="stats" disabled={viewMode === 'stats'}
          onClick={handleChangeMode}>
@@ -30,6 +31,7 @@ const ToggleViewMode = ({ viewMode, handleChangeMode }) => {
 
 ToggleViewMode.propTypes = {
   viewMode: PropTypes.oneOf(['chat', 'stats', 'review', 'form', 'settings']).isRequired,
+  newMessagesCount: PropTypes.number,
   handleChangeMode: PropTypes.func.isRequired
 }
 

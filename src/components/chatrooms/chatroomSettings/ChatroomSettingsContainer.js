@@ -6,7 +6,7 @@ import deepEqual from 'deep-equal'
 import { removeUserFromChatroom } from '../../../actions/userChatroomsActions'
 import { deleteChatroom } from '../../../actions/chatroomActions'
 import { addFlashMessage } from '../../../actions/flashMessages'
-import { getChatroomOwner, getChatroomGuests, getCurrentUser, getChatroomErrors } from '../../../reducers/index'
+import { getChatroomOwner, getChatroomGuests, getCurrentUser, getChatroomErrors, getIsFetchingChatroom } from '../../../reducers/index'
 import ChatroomUsers from './ChatroomUsers'
 import AddUserToChatroom from './AddUserToChatroom'
 import Error from '../../common/Error'
@@ -47,7 +47,7 @@ class ChatroomSettingsContainer extends React.Component {
 
   render() {
     console.log("ChatroomSettingsContainer render")
-    const { owner, guests, currentUser, errors } = this.props
+    const { owner, guests, currentUser, errors, isFetching } = this.props
 
     return (
       <div>
@@ -57,7 +57,9 @@ class ChatroomSettingsContainer extends React.Component {
         <h3>Add User to Chatroom</h3>
         <AddUserToChatroom />
         {owner && currentUser.id === owner.id && (
-          <div className="delete-chatroom"><button onClick={this.handleDelete} className="btn btn-danger">Delete Chatroom</button></div>
+          <div className="delete-chatroom">
+            <button disabled={isFetching} onClick={this.handleDelete} className="btn btn-danger">Delete Chatroom</button>
+          </div>
         )}
         {errors && errors.auth && <Error msg={errors.auth.join(", ")} />}
         {errors && errors.other && <Error msg={errors.other.join(", ")} />}
@@ -71,7 +73,8 @@ ChatroomSettingsContainer.propTypes = {
   owner: PropTypes.object,
   guests: PropTypes.array,
   currentUser: PropTypes.object.isRequired,
-  chatroomErrors: PropTypes.object
+  errors: PropTypes.object,
+  isFetching: PropTypes.bool
 }
 
 const mapStateToProps = (state, { params }) => ({
@@ -79,7 +82,8 @@ const mapStateToProps = (state, { params }) => ({
   owner: getChatroomOwner(state, params.id),
   guests: getChatroomGuests(state, params.id),
   currentUser: getCurrentUser(state),
-  errors: getChatroomErrors(state)
+  errors: getChatroomErrors(state),
+  isFetching: getIsFetchingChatroom(state, params.id)
 })
 
 export default withRouter(
