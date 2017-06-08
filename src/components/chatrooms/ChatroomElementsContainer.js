@@ -41,6 +41,7 @@ class ChatroomElementsContainer extends React.Component {
       fetchChatroom(chatroom_id)
       subscribeToChatroom(chatroom_id)
     }
+    if(!chatroom_id) this.props.unsubscribeFromChatroom()
   }
 
   componentWillUnmount() {

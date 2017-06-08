@@ -34,6 +34,12 @@ export const subscribeToChatroomMessages = (chatroom_id) => (dispatch, getState)
   }, {
     received: (data) => {
       console.log("----------->ACTIONCABLE ADD MESSAGE")
+      const audioObj = document.getElementById("new-msg")
+      if(audioObj) {
+        audioObj.pause()
+        audioObj.currentTime=0;
+        audioObj.play();
+      }
       dispatch(addMessageSuccess(data.message))
     },
     connected: function(data) {
@@ -80,6 +86,12 @@ export const subscribeToChatroomSuggestions = (chatroom_id) => (dispatch, getSta
       switch(data.type) {
         case 'create':
           console.log("----------->ACTIONCABLE ADD SUGGESTION")
+          const audioObj = document.getElementById("new-sug")
+          if(audioObj) {
+            audioObj.pause()
+            audioObj.currentTime=0;
+            audioObj.play();
+          }
           dispatch(addSuggestionSuccess(data.suggestion))
           break
         case 'destroy':
