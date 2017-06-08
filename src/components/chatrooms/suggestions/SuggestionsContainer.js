@@ -4,6 +4,7 @@ import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import deepEqual from 'deep-equal'
 import { getSuggestionsFromChatroom, getCurrentUser, getChatroomOwner } from '../../../reducers/index'
+import { clearNewSuggestionsCount } from '../../../actions/chatroomActions'
 import { addSuggestion, removeSuggestion, vote } from '../../../actions/suggestionsActions'
 import SuggestionsReview from './SuggestionsReview'
 import SuggestionForm from './SuggestionForm'
@@ -18,6 +19,13 @@ class SuggestionsContainer  extends React.Component {
       (this.props.current_user_id !== nextProps.current_user_id) ||
       !deepEqual(this.props.suggestions, nextProps.suggestions)
     )
+  }
+
+  componentDidMount() {
+    this.props.clearNewSuggestionsCount(this.props.chatroom_id)
+  }
+  componentDidUpdate(prevProps) {
+    this.props.clearNewSuggestionsCount(this.props.chatroom_id)
   }
 
   render() {
@@ -55,7 +63,8 @@ SuggestionsContainer.propTypes = {
   current_user_id: PropTypes.number.isRequired,
   addSuggestion: PropTypes.func.isRequired,
   removeSuggestion: PropTypes.func.isRequired,
-  vote: PropTypes.func.isRequired
+  vote: PropTypes.func.isRequired,
+  clearNewSuggestionsCount: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, { params, viewMode }) => ({
@@ -67,5 +76,5 @@ const mapStateToProps = (state, { params, viewMode }) => ({
 })
 
 export default withRouter(
-  connect(mapStateToProps, { addSuggestion, removeSuggestion, vote })(SuggestionsContainer)
+  connect(mapStateToProps, { addSuggestion, removeSuggestion, vote, clearNewSuggestionsCount })(SuggestionsContainer)
 )

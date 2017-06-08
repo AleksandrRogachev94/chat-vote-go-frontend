@@ -1,7 +1,7 @@
 import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, DELETE_CHATROOM_REQUEST,
   DELETE_CHATROOM_FAILURE, ADD_CHATROOM_SUCCESS, ADD_MESSAGE_SUCCESS,
   ADD_SUGGESTION_SUCCESS, REMOVE_SUGGESTION_SUCCESS, REMOVE_USER_FROM_CHATROOM_SUCCESS, CLEAR_NEW_MESSAGES_COUNT,
-  ADD_USER_TO_CHATROOM_SUCCESS } from '../actions/actionTypes'
+  CLEAR_NEW_SUGGESTIONS_COUNT, ADD_USER_TO_CHATROOM_SUCCESS } from '../actions/actionTypes'
 
 const parseResponseChatroom = (response) => {
   let result = {
@@ -20,7 +20,8 @@ const chatroom = (state = {
   isFetching: false,
   errors: {},
   chatroom: {},
-  newMessagesCount: 0
+  newMessagesCount: 0,
+  newSuggestionsCount: 0
 }, action) => {
 
   switch(action.type) {
@@ -57,10 +58,12 @@ const chatroom = (state = {
       })
 
     case ADD_SUGGESTION_SUCCESS:
-      if(action.suggestion.chatroom_id !== state.chatroom.id ||
-        state.chatroom.suggestionsIds.includes(action.suggestion.id))
-        return state
+      if(action.suggestion.chatroom_id !== state.chatroom.id) return
+      if(state.chatroom.suggestionsIds.includes(action.suggestion.id)) // Voting
+        return Object.assign({}, state, { newSuggestionsCount: state.newSuggestionsCount + 1 })
+
       return Object.assign({}, state, {
+        newSuggestionsCount: state.newSuggestionsCount + 1,
         chatroom: Object.assign({}, state.chatroom, {
           suggestionsIds: [...state.chatroom.suggestionsIds, action.suggestion.id]
         })
@@ -98,6 +101,12 @@ const chatroom = (state = {
         newMessagesCount: 0
       })
 
+    case CLEAR_NEW_SUGGESTIONS_COUNT:
+      if(parseInt(action.chatroom_id, 10) !== state.chatroom.id) return state
+      return Object.assign({}, state, {
+        newSuggestionsCount: 0
+      })
+
     default:
       return state
   }
@@ -125,4 +134,8 @@ export const getChatroomErrors = (state) => (
 
 export const getNewMessagesCount = (state) => (
   state.newMessagesCount
+)
+
+export const getNewSuggestionsCount = (state) => (
+  state.newSuggestionsCount
 )

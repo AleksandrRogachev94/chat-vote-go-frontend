@@ -2,7 +2,8 @@ import 'isomorphic-fetch'
 import { fetchWrapper, dataFromReject } from '../lib/shared'
 import { getIsFetchingChatroom } from '../reducers/index'
 import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, ADD_CHATROOM_SUCCESS,
-  ADD_CHATROOM_FAILURE, DELETE_CHATROOM_REQUEST, DELETE_CHATROOM_SUCCESS, DELETE_CHATROOM_FAILURE } from './actionTypes'
+  ADD_CHATROOM_FAILURE, DELETE_CHATROOM_REQUEST, DELETE_CHATROOM_SUCCESS, DELETE_CHATROOM_FAILURE,
+  CLEAR_NEW_SUGGESTIONS_COUNT, CLEAR_NEW_MESSAGES_COUNT } from './actionTypes'
 import { receiveMessages } from './messagesActions'
 import { receiveSuggestions } from './suggestionsActions'
 import { addUsers } from './usersActions'
@@ -46,6 +47,16 @@ export const deleteChatroomFailure = (id, errors) => ({
   type: DELETE_CHATROOM_FAILURE,
   id,
   errors
+})
+
+export const clearNewSuggestionsCount = (chatroom_id) => ({
+  type: CLEAR_NEW_SUGGESTIONS_COUNT,
+  chatroom_id
+})
+
+export const clearNewMessagesCount = (chatroom_id) => ({
+  type: CLEAR_NEW_MESSAGES_COUNT,
+  chatroom_id
 })
 
 export const fetchChatroom = (id) => (dispatch, getState) => {

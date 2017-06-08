@@ -44,3 +44,6 @@ export const getChatroomErrors = (state, id) => (
 export const getNewMessagesCount = (state, id) => (
   fromById.getNewMessagesCount(state.chatroomsById, id)
 )
+export const getNewSuggestionsCount = (state, id) => (
+  fromById.getNewSuggestionsCount(state.chatroomsById, id)
+)

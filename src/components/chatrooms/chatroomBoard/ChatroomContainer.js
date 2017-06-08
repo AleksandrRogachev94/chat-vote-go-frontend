@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import deepEqual from 'deep-equal'
-import { clearNewMessagesCount } from '../../../actions/messagesActions'
+import { clearNewMessagesCount } from '../../../actions/chatroomActions'
 import { getChatroomMessages, getCurrentUser } from '../../../reducers/index'
 import Chatroom from './Chatroom'
 

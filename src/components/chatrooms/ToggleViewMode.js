@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ToggleViewMode = ({ viewMode, newMessagesCount, handleChangeMode }) => {
+const ToggleViewMode = ({ viewMode, newMessagesCount, newSuggestionsCount, handleChangeMode }) => {
 
   return (
     <div className="btn-group">
@@ -11,11 +11,11 @@ const ToggleViewMode = ({ viewMode, newMessagesCount, handleChangeMode }) => {
       </a>
       <a className="btn btn-default" data-mode="stats" disabled={viewMode === 'stats'}
          onClick={handleChangeMode}>
-        Statistics
+        Statistics {newSuggestionsCount > 0 && <b data-mode="chat">({newSuggestionsCount})</b>}
       </a>
       <a className="btn btn-default" data-mode="review" disabled={viewMode === 'review'}
          onClick={handleChangeMode}>
-        Review
+        Review {newSuggestionsCount > 0 && <b data-mode="chat">({newSuggestionsCount})</b>}
       </a>
       <a className="btn btn-default" data-mode="form" disabled={viewMode === 'form'}
          onClick={handleChangeMode}>

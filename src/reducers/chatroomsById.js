@@ -1,7 +1,7 @@
 import { FETCH_CHATROOM_REQUEST, FETCH_CHATROOM_SUCCESS, FETCH_CHATROOM_FAILURE, DELETE_CHATROOM_REQUEST,
   DELETE_CHATROOM_SUCCESS, DELETE_CHATROOM_FAILURE, FETCH_CHATROOMS_SUCCESS, ADD_MESSAGE_SUCCESS,
   ADD_CHATROOM_SUCCESS, ADD_SUGGESTION_SUCCESS, REMOVE_SUGGESTION_SUCCESS, REMOVE_USER_FROM_CHATROOM_SUCCESS,
-  ADD_USER_TO_CHATROOM_SUCCESS, CLEAR_NEW_MESSAGES_COUNT } from '../actions/actionTypes'
+  ADD_USER_TO_CHATROOM_SUCCESS, CLEAR_NEW_MESSAGES_COUNT, CLEAR_NEW_SUGGESTIONS_COUNT } from '../actions/actionTypes'
 import { fetchChatroomSuccess } from '../actions/chatroomActions'
 import chatroom, * as fromChatroom from './chatroom'
 
@@ -59,6 +59,7 @@ const chatroomsById = (state = {}, action) => {
       })
 
     case CLEAR_NEW_MESSAGES_COUNT:
+    case CLEAR_NEW_SUGGESTIONS_COUNT:
       return Object.assign({}, state, {
         [action.chatroom_id]: chatroom(state[action.chatroom_id], action)
       })
@@ -86,4 +87,8 @@ export const getChatroomErrors = (state, id) => (
 
 export const getNewMessagesCount = (state, id) => (
   state[id] && fromChatroom.getNewMessagesCount(state[id])
+)
+
+export const getNewSuggestionsCount = (state, id) => (
+  state[id] && fromChatroom.getNewSuggestionsCount(state[id])
 )

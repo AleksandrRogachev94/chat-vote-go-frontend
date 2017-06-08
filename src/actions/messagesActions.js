@@ -1,4 +1,4 @@
-import { RECEIVE_MESSAGES, ADD_MESSAGE_SUCCESS, CLEAR_NEW_MESSAGES_COUNT } from './actionTypes'
+import { RECEIVE_MESSAGES, ADD_MESSAGE_SUCCESS } from './actionTypes'
 import { getSubscriptionMessages } from '../reducers/index'
 
 export const receiveMessages = (messages) => ({
@@ -15,8 +15,3 @@ export const addMessage = (messageData) => (dispatch, getState) => {
   const subscriptionMessages = getSubscriptionMessages(getState())
   subscriptionMessages.send({ message: messageData })
 }
-
-export const clearNewMessagesCount = (chatroom_id) => ({
-  type: CLEAR_NEW_MESSAGES_COUNT,
-  chatroom_id
-})
