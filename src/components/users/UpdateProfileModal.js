@@ -27,6 +27,16 @@ class UpdateProfileModal extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentDidMount(prevProps) {
+    if(this.props.profile.email) // We have full info
+      this.setState({
+        email: this.props.profile.email,
+        nickname: this.props.profile.nickname,
+        first_name: this.props.profile.first_name,
+        last_name: this.props.profile.last_name
+      })
+  }
+
   componentDidUpdate(prevProps) {
     if(!deepEqual(prevProps.profile, this.props.profile)) {
       this.setState({
@@ -102,7 +112,6 @@ class UpdateProfileModal extends React.Component {
   render() {
     const { onClose } = this.props
     const { errors, isLoading, email, nickname, avatarPreviewUrl, first_name, last_name } = this.state
-
     let avatarPreview
     if (avatarPreviewUrl) {
       avatarPreview = (<img id="avatar" src={avatarPreviewUrl} alt="avatar" />);

@@ -25,8 +25,6 @@ class ChatroomContainer extends React.Component {
   }
 
   render() {
-    console.log("ChatroomContainer render")
-
     const { id, messages, currentUser } = this.props
 
     return (

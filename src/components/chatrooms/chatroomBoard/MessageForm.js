@@ -29,7 +29,6 @@ class MessageForm extends React.Component {
   }
 
   render() {
-
     return (
       <div className="message-form">
         <form onSubmit={this.handleSubmit} className="form-inline">

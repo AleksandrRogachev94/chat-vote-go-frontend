@@ -33,7 +33,6 @@ export const subscribeToChatroomMessages = (chatroom_id) => (dispatch, getState)
     channel: 'ChatroomMessagesChannel', chatroom_id
   }, {
     received: (data) => {
-      console.log("----------->ACTIONCABLE ADD MESSAGE")
       const audioObj = document.getElementById("new-msg")
       if(audioObj) {
         audioObj.pause()
@@ -41,13 +40,7 @@ export const subscribeToChatroomMessages = (chatroom_id) => (dispatch, getState)
         audioObj.play();
       }
       dispatch(addMessageSuccess(data.message))
-    },
-    connected: function(data) {
-      console.log('----------->ACTIONCABLE CHATROOM MESSAGES SUBSCRIBED')
-    },
-    disconnected: function(data) {
-      console.log('----------->ACTIONCABLE DISCONNECTED')
-    },
+    }
   })
 
   dispatch({
@@ -85,7 +78,6 @@ export const subscribeToChatroomSuggestions = (chatroom_id) => (dispatch, getSta
     received: (data) => {
       switch(data.type) {
         case 'create':
-          console.log("----------->ACTIONCABLE ADD SUGGESTION")
           const audioObj = document.getElementById("new-sug")
           if(audioObj) {
             audioObj.pause()
@@ -95,19 +87,12 @@ export const subscribeToChatroomSuggestions = (chatroom_id) => (dispatch, getSta
           dispatch(addSuggestionSuccess(data.suggestion))
           break
         case 'destroy':
-          console.log("----------->ACTIONCABLE DELETE SUGGESTION")
           dispatch(removeSuggestionSuccess(data.suggestion))
           break
         default:
           break
       }
-    },
-    connected: function(data) {
-      console.log('----------->ACTIONCABLE CHATROOM SUGGESTIONS SUBSCRIBED')
-    },
-    disconnected: function(data) {
-      console.log('----------->ACTIONCABLE DISCONNECTED')
-    },
+    }
   })
 
   dispatch({
@@ -144,11 +129,9 @@ export const subscribeToChatroomUsers = (chatroom_id) => (dispatch, getState) =>
     received: (data) => {
       switch(data.type) {
         case 'create':
-          console.log("----------->ACTIONCABLE ADD USER")
           dispatch(addUserToChatroomSuccess(data.user_chatroom.user, data.user_chatroom.chatroom))
           break
         case 'destroy':
-          console.log("----------->ACTIONCABLE DELETE USER")
           let subscriptionUsers = cable.subscriptions.subscriptions.find(s =>
             JSON.parse(s.identifier).channel === "ChatroomUsersChannel"
           )
@@ -162,13 +145,7 @@ export const subscribeToChatroomUsers = (chatroom_id) => (dispatch, getState) =>
         default:
           break
       }
-    },
-    connected: function(data) {
-      console.log('----------->ACTIONCABLE CHATROOM USERS SUBSCRIBED')
-    },
-    disconnected: function(data) {
-      console.log('----------->ACTIONCABLE DISCONNECTED')
-    },
+    }
   })
 
   dispatch({

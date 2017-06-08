@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import User from './User'
 
 const UsersList = ({ users }) => {
-  console.log("UsersList render")
-
   const usersJSX = users.map(user => <User key={user.id} nickname={user.nickname} id={user.id} avatar_url={user.avatar_thumb_url} />)
 
   return (

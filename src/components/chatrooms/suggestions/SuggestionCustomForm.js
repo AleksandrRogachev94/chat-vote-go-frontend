@@ -4,7 +4,6 @@ import PrimaryButton from '../../common/PrimaryButton'
 import InputField from '../../common/InputField'
 
 const SuggestionCustomForm = ({ handleChange, handleSubmit, title, description }) => {
-
   return (
     <form onSubmit={handleSubmit}>
       <InputField name="title" label="Title*" placeholder="Title" type="text" value={title}

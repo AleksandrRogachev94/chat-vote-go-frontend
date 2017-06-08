@@ -4,7 +4,6 @@ import chat from '../../public/chat.png'
 import vote from '../../public/vote.png'
 
 const Home = () => {
-  console.log("Home render")
   return (
     <div className="home">
       <div className="home-logo">

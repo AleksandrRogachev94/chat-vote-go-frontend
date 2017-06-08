@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const SuggestionInfoModal = ({ suggestion, isOpen, onClose }) => {
-
   return(
     <div className="modal fade" id="modal-info" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div className="modal-dialog" role="document">

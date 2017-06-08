@@ -35,8 +35,6 @@ class ProfileContainer extends React.Component {
   }
 
   render() {
-    console.log("ProfileContainer render")
-
     const { profile, errors, isFetching, id, currentUser, profileUpdateRequest, addFlashMessage } = this.props
     return (
       <div>

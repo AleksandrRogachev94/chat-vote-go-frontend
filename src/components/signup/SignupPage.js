@@ -6,7 +6,6 @@ import { userSignupRequest } from '../../actions/signupActions'
 import { addFlashMessage } from '../../actions/flashMessages'
 
 const SignupPage = ({ userSignupRequest, addFlashMessage }) => {
-  console.log("SingupPage render")
   return (
       <div className="row">
         <div className="col-sm-6 col-sm-offset-3 signup">

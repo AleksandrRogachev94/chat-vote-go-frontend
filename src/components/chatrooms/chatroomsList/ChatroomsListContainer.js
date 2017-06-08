@@ -39,8 +39,6 @@ class ChatroomsListContainer extends React.Component {
   }
 
   render() {
-    console.log("ChatroomsListContainer render")
-
     const { own_chatrooms, guest_chatrooms, isFetching, errors } = this.props
 
     return (

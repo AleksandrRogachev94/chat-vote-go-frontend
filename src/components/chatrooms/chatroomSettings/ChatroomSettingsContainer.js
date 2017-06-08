@@ -46,7 +46,6 @@ class ChatroomSettingsContainer extends React.Component {
   }
 
   render() {
-    console.log("ChatroomSettingsContainer render")
     const { owner, guests, currentUser, errors, isFetching } = this.props
 
     return (

@@ -43,7 +43,6 @@ class SuggestionsReview extends React.Component {
   }
 
   render() {
-    console.log("SuggestionsReview render")
     const { suggestions, current_user_id, chatroomOwner } = this.props
     const { selectedSug } = this.state
 

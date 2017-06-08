@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import ChatroomBoard from './ChatroomBoard'
 
 const Chatroom = ({ messages, id, currentUser }) => {
-  console.log("Chatroom render")
-
   return (
     <div>
       <ChatroomBoard messages={messages} chatroom_id={id} currentUser={currentUser} />

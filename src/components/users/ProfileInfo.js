@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { formatDate } from '../../lib/shared'
 
 const ProfileInfo = ({ email, avatar_url, nickname, first_name, last_name, created_at }) => {
-  console.log("ProfileInfo render")
-
   return (
     <div className="content has-text-centered">
       <img src={avatar_url} alt="avatar" id="avatar" />

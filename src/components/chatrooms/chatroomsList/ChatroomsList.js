@@ -5,7 +5,6 @@ import Error from '../../common/Error'
 import ChatroomForm from './ChatroomForm'
 
 const ChatroomsList = ({ own_chatrooms, guest_chatrooms, isFetching, errors }) => {
-  console.log("ChatroomsList render")
 
   const ownJSX = own_chatrooms.map(chatroom =>
     <ChatroomLi key={chatroom.id} title={chatroom.title} id={chatroom.id} />)

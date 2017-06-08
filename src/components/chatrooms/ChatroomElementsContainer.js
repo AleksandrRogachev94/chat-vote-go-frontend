@@ -56,7 +56,6 @@ class ChatroomElementsContainer extends React.Component {
   }
 
   render() {
-    console.log("ChatroomElements render")
     const viewMode = this.state.viewMode
     const { chatroom_id, errors, isFetching, newMessagesCount, newSuggestionsCount } = this.props
 

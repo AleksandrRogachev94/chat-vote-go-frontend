@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const ToggleViewMode = ({ viewMode, newMessagesCount, newSuggestionsCount, handleChangeMode }) => {
-
   return (
     <div className="btn-group">
       <a className="btn btn-default" data-mode="chat" disabled={viewMode === 'chat'}

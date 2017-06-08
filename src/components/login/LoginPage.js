@@ -6,8 +6,6 @@ import { addFlashMessage } from '../../actions/flashMessages'
 import LoginForm from './LoginForm'
 
 const LoginPage = ({ login, addFlashMessage }) => {
-  console.log("LoginPage render")
-
   return (
     <div className="row">
       <div className="col-sm-6 col-sm-offset-3">

@@ -17,8 +17,6 @@ class Profile extends React.Component {
   }
 
   render() {
-    console.log("Profile render")
-
     let email, avatar_original_url, nickname, first_name, last_name, created_at
     if(this.props.profile) ({ email, avatar_original_url, nickname, first_name, last_name, created_at } = this.props.profile)
     const { currentUser, id, errors, isFetching, onRefresh, profile, profileUpdateRequest, addFlashMessage } = this.props
@@ -32,8 +30,10 @@ class Profile extends React.Component {
           <ProfileInfo email={email} avatar_url={avatar_original_url} nickname={nickname} created_at={created_at} first_name={first_name} last_name={last_name} />
           {(currentUser.id === parseInt(id, 10)) && (<a href="#" onClick={this.openModal}>Update Profile</a>)}
           <PrimaryButton value="Refresh" onClick={onRefresh} isLoading={isFetching} />
-          {profile && <UpdateProfileModal onClose={this.closeModal} profileUpdateRequest={profileUpdateRequest}
-            addFlashMessage={addFlashMessage} profile={profile} onRefresh={onRefresh} />}
+          {profile && (currentUser.id === parseInt(id, 10)) && (
+            <UpdateProfileModal onClose={this.closeModal} profileUpdateRequest={profileUpdateRequest}
+            addFlashMessage={addFlashMessage} profile={profile} onRefresh={onRefresh} />
+          )}
         </div>
       )
     } else {

@@ -32,8 +32,6 @@ class UsersListContainer extends React.Component {
   }
 
   render() {
-    console.log("UsersListContainer render")
-
     const { users, isFetching, errors } = this.props
 
     return (

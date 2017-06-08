@@ -29,7 +29,6 @@ class ChatroomForm extends React.Component {
   }
 
   render() {
-
     return (
       <div>
         <h4 style={{textAlign: 'center'}}>Create New Chatroom</h4>

@@ -90,7 +90,6 @@ class SignupForm extends React.Component {
   }
 
   render() {
-    console.log("SignupForm render")
     const { errors, isLoading, email, nickname, avatarPreviewUrl, first_name, last_name, password, password_confirmation } = this.state
 
     let avatarPreview

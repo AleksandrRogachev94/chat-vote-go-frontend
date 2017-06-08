@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { ResponsiveContainer, PieChart, Pie, Tooltip } from 'recharts';
 
 const SuggestionsStats = (props) => {
-  console.log('Stats render')
   const { suggestions } = props
 
   const data = suggestions.filter(sug => sug.voters.length)

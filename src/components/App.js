@@ -5,7 +5,6 @@ import FlashMessagesList from './flash/FlashMessagesList'
 class App extends React.Component {
 
   render() {
-    console.log("App Render")
     return (
       <div className="App">
 
