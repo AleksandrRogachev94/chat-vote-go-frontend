@@ -16,7 +16,7 @@ class App extends React.Component {
         </div>
 
         <footer id="footer">
-          2017 Aleksandr Rogachev
+          &copy; 2017 Aleksandr Rogachev
         </footer>
       </div>
     );

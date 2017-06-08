@@ -4,7 +4,7 @@ html {
 
 body {
  /*font-family: 'Roboto', sans-serif;*/
- /*font-size: 1.1em;*/
+ font-size: 0.9em;
  color: white;
  padding-top: 50px; /* For fixed navbar */
  position: relative;
@@ -20,7 +20,7 @@ body {
 }
 
 footer {
- position: absolute;
+ position: fixed;
  right: 0;
  bottom: 0;
  left: 0;
@@ -52,6 +52,7 @@ img#avatar {
   overflow-y: auto;
   overflow-x: hidden;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .right-side {
@@ -78,11 +79,6 @@ table.table {
 
 .form-inline {
   text-align: center;
-  margin: 0 auto;
-}
-
-.form-inline textarea.form-control {
-  width: 400px;
   margin: 0 auto;
 }
 
@@ -158,7 +154,7 @@ a.inline-user {
   margin: 0;
   padding: 0;
   height: 93vh;
-  background: url('../public/city.jpg') no-repeat center center fixed;
+  background: url('../public/main2.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -168,24 +164,43 @@ a.inline-user {
 
 .home-logo {
   position: absolute;
-  top: 45%;
-  left: 40%;
-  right: 40%;
+  top: 40%;
+  left: 35%;
+  right: 35%;
   text-align: center;
 }
 
 .home-logo h1 {
-  color: #222;
+  color: #f79b04;
   margin-bottom: 0.5em;
-  font-size: 3em;
+  font-size: 4em;
   font-weight: 700;
+}
+
+/*------------------------------ Navigation --------------------------------*/
+
+.nav.navbar-nav li a {
+  color: #DADADA;
+}
+
+.nav.navbar-nav .dropdown-menu li a {
+  color: black;
+}
+
+.navbar-header a.navbar-brand {
+  color: #f79b04;
+  font-weight: 700;
+}
+
+.navbar-header a.navbar-brand:hover, .navbar-header a.navbar-brand:focus {
+  color: #fcba4f;
 }
 
 /*-------------------Messages------------------*/
 
 #messages {
   overflow-y: auto;
-  height: 65vh;
+  height: 50vh;
   margin-top: 1.5em;
   border-radius: 10px;
   margin-bottom: 0.5em;
@@ -222,10 +237,6 @@ a.inline-user {
   margin-bottom: 0.3em;
 }
 
-.message-form {
-  margin: 0 auto;
-}
-
 #messages .msg-user {
   padding: 0;
   padding-top: 0.2em;
@@ -249,10 +260,9 @@ aside.list-menu {
 
 .list-menu-label {
   border-bottom: 2px solid #222222;
-  background-color: #494E6B;
+  background-color: #fcb036;
+  color: black;
   border-radius: 10px 10px 0 0;
-
-
   font-size: 150%;
   text-align: center;
   margin: 0;
@@ -281,9 +291,23 @@ ul.list-menu-list li a {
 }
 
 ul.list-menu-list li a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(57, 103, 147, 0.4);
 }
 
 ul.list-menu-list li a.active-item {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(57, 103, 147, 0.6);
+}
+
+/*---------------------Media---------------------------*/
+
+/* Small */
+@media only screen and (min-width: 576px) {
+  body { font-size: 1.2em; }
+}
+
+/* Medium */
+@media only screen and (min-width: 768px) {
+  body { font-size: 1.4em; }
+  #messages { height: 67vh; }
+  .message-form .form-inline textarea.form-control { width: 400px; }
 }

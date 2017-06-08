@@ -46,17 +46,19 @@ class AddUserToChatroom extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="row" style={{margin: '1em'}}>
-          <div className="col-xs-12">
-            <div className="input-group input-group-md">
-              <select name="user_id" value={this.state.user_id} onChange={this.handleChange} className="form-control selectpicker"
-                data-live-search="true">
-                <option value="" disabled>Choose User</option>
-                {options}
-              </select>
+      <div className="container-fluid">
+          <div className="row" style={{margin: '1em'}}>
+            <div className="col-xs-12">
+              <div className="input-group input-group-md">
+                <select name="user_id" value={this.state.user_id} onChange={this.handleChange} className="form-control selectpicker"
+                  data-live-search="true">
+                  <option value="" disabled>Choose User</option>
+                  {options}
+                </select>
 
-              <div className="input-group-btn">
-                <button type="submit" disabled={!this.state.user_id} className="btn btn-primary">Add</button>
+                <div className="input-group-btn">
+                  <button type="submit" disabled={!this.state.user_id} className="btn btn-primary">Add</button>
+                </div>
               </div>
             </div>
           </div>

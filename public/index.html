@@ -43,5 +43,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=%REACT_APP_GOOGLE_API_KEY%&libraries=places"></script>
+
+    <script>
+      $(document).ready(function () {
+        $(".navbar-nav li a").click(function(event) {
+          $(".navbar-collapse").collapse('hide');
+        });
+      });
+    </script>
   </body>
 </html>

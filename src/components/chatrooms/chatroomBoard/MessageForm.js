@@ -30,7 +30,7 @@ class MessageForm extends React.Component {
 
   render() {
     return (
-      <div className="message-form">
+      <div className="message-form container-fluid">
         <form onSubmit={this.handleSubmit} className="form-inline">
           <div className="form-group">
             <textarea className="form-control" placeholder="Add Message" value={this.state.content}

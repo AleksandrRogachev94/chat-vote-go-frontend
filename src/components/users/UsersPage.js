@@ -4,12 +4,14 @@ import ProfileContainer from './ProfileContainer'
 
 const UsersPage = (props) => {
   return (
-    <div className="row">
-      <div className="col-sm-9 col-sm-push-3 right-side">
-        <ProfileContainer />
-      </div>
-      <div className="col-sm-3 col-sm-pull-9 sidebar">
-        <UsersListContainer />
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-sm-3 sidebar">
+          <UsersListContainer />
+        </div>
+        <div className="col-sm-9 right-side">
+          <ProfileContainer />
+        </div>
       </div>
     </div>
   )
