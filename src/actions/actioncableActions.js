@@ -34,7 +34,7 @@ export const subscribeToChatroomMessages = (chatroom_id) => (dispatch, getState)
   }, {
     received: (data) => {
       const audioObj = document.getElementById("new-msg")
-      if(audioObj) {
+      if(audioObj && getCurrentUser(getState()).id !== data.message.user_id) {
         audioObj.pause()
         audioObj.currentTime=0;
         audioObj.play();
