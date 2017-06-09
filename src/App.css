@@ -119,6 +119,10 @@ table.table {
   opacity: 0.95;
 }
 
+.alert.error {
+  position: relative;
+}
+
 .add-guest .form-inline .form-group {
   width: 70%;
   margin-bottom: 1em;
