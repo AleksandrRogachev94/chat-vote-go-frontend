@@ -12,7 +12,8 @@ export const fetchWrapper = (request) =>
 
 export function dataFromReject(fail, isUsingLoading) {
   let result = {}
-  if(Math.floor(fail.status / 100) === 4) {
+
+  if(Math.floor(fail.status / 100) === 4 && fail.data) {
     result.errors = fail.data.errors
   } else {
     result.errors = { other: [`Error occured. Try again later (status code ${fail.status})`] }
