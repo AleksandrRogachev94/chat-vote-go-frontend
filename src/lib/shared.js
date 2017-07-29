@@ -5,7 +5,15 @@ export const fetchWrapper = (request) =>
   fetch(request)
     .then(response => response.json()
       .then(
-        data => (response.ok ? data : Promise.reject({status: response.status, data})),
+        data => {
+          if(response.ok) {
+            return data
+          } else if(response.status === 401) {
+            document.getElementById("logout") && document.getElementById("logout").click()
+          } else {
+            return Promise.reject({status: response.status, data})
+          }
+        },
         err => Promise.reject(response)
       )
   )

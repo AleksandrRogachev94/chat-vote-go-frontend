@@ -31,7 +31,7 @@ class Navbar extends React.Component {
           <li><Link to='/chatrooms'>Chatrooms</Link></li>
         </ul>
         <ul className="nav navbar-nav navbar-right">
-          <li><a href="#" onClick={this.logout}>Logout</a></li>
+          <li><a href="#" id="logout" onClick={this.logout}>Logout</a></li>
         </ul>
       </div>
     )
