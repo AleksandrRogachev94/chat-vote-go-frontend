@@ -1,6 +1,7 @@
 # Chat Vote Go Front End App
 
 [Website](https://chatvotego.herokuapp.com)
+
 [Blog Post about this application](http://aleksandr-rogachev-blog.com/2017/05/26/chat_vote_go/)
 
 Web-based chat application for users  to connect in private chat rooms, create suggestions for where to go, and vote for the best ideas. Uses ActionCable and Google Places API.
